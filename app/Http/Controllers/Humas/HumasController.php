@@ -62,7 +62,7 @@ class HumasController extends Controller
     //fungsi melihat data alumni
     public function alumni()
     {
-        $alumni = Alumni::all();
+        $alumni = Alumni::with('tahun_lulus', 'jurusan')->get();
         return view('humas.alumni.view', [
             'title' => 'Data Alumni',
             'alumni' => $alumni
