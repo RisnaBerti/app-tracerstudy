@@ -20,7 +20,7 @@
 </head>
 
 <body>
-    @include('layouts.layout')
+    @include('layouts.layout-humas')
     @include('sweetalert::alert')
     
 
@@ -55,6 +55,8 @@
 
     <!-- App js -->
     <script src="{{ url('') }}/assets/js/theme.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
 

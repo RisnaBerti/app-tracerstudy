@@ -1,4 +1,4 @@
-@extends('layouts.index-bkk')
+@extends('layouts.index-humas')
 @section('content')
     <div class="container-fluid">
         <!-- start page title -->
@@ -134,7 +134,7 @@
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
-                        
+
                         <h4 class="card-title d-inline-block">Grafik Total Alumni Per Tahun</h4>
                         <div id="grafik-alumni">
                             <div id="responsive-chart"></div>
@@ -311,7 +311,20 @@
             }],
             xaxis: {
                 categories: @json(array_keys($alumni_per_tahun->toArray())) // Mengambil tahun lulus
-            }
+            },
+            responsive: [{
+                breakpoint: 1000,
+                options: {
+                    plotOptions: {
+                        bar: {
+                            horizontal: false
+                        }
+                    },
+                    legend: {
+                        position: "bottom"
+                    }
+                }
+            }]
         }
 
         var chart = new ApexCharts(document.querySelector("#responsive-chart"), options);
@@ -319,4 +332,3 @@
         chart.render();
     </script>
 @endsection
-

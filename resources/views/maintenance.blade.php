@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title> {{ $title }}</title>
+    <title> TRACER STUDY</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="MyraStudio" name="author" />
@@ -21,7 +21,7 @@
 
 <body>
 
-    <div>
+    <div class="bg-primary">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -33,28 +33,24 @@
                                     <div class="p-5">
                                         <div class="text-center mb-5">
                                             <a href="index.html" class="text-dark font-size-22 font-family-secondary">
-                                                <i class="mdi mdi-alpha-x-circle"></i> <b>XELORO</b>
+                                                <i class="mdi mdi-alpha-x-circle"></i> <b>TRACER STUDY</b>
                                             </a>
                                         </div>
-                                        <h1 class="h5 mb-1">Selamat Datang!</h1>
-                                        <p class="text-muted mb-4">Sistem Tracer Study SMK N 02 Cilacap.</p>
-                                        <form action="{{ route('action-login') }}" method="POST" class="user" >
-                                            @csrf
-                                            <div class="form-group">
-                                                <input type="text" class="form-control form-control-user"
-                                                    id="username" name="username" placeholder="Username">
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="password" class="form-control form-control-user"
-                                                    id="password" name="password" placeholder="Password">
-                                            </div>
-                                            <button class="btn btn-primary waves-effect waves-light" type="submit">Log In</button>
-                                            {{-- <div class="text-center mt-4">
-                                                <a href="forgot-password.html" class="text-muted
-                                                    font-size-13">Lupa Password?</a>
-                                            </div> --}}
-                                        </form>
 
+                                        <div class="text-center">
+                                            <img src="{{ url('') }}/assets/images/maintenance.svg" alt="error" height="180">
+                                            <h1 class="h4 mb-3 mt-4">Site is Under Maintenance</h1>
+                                            <p class="text-muted mb-4 w-75 m-auto">We're making the system more awesome.
+                                                We'll be back shortly.</p>
+                                        </div>
+
+                                        {{-- <div class="row mt-4">
+                                            <div class="col-12 text-center">
+                                                <a href="" class="btn btn-success"><i
+                                                        class="mdi mdi-email mr-2"></i>Contact Us</a>
+                                            </div> <!-- end col -->
+                                        </div> --}}
+                                        <!-- end row -->
                                     </div> <!-- end .padding-5 -->
                                 </div> <!-- end col -->
                             </div> <!-- end row -->

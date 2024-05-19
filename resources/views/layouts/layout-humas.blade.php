@@ -2,7 +2,7 @@
     {{-- header --}}
     @include('layouts.header')
     {{-- aside --}}
-    @include('layouts.partials.aside')
+    @include('layouts.partials.aside-humas')
     <div class="main-content">
         <div class="page-content">
             {{-- content main --}}

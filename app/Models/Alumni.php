@@ -38,7 +38,7 @@ class Alumni extends Model
     }
 
     //relasi dengan tahun lulus
-    public function tahunLulus()
+    public function tahun_lulus()
     {
         return $this->belongsTo(TahunLulus::class, 'id_tahun_lulus', 'id_tahun_lulus');
     }

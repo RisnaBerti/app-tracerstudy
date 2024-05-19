@@ -4,7 +4,7 @@
     <div data-simplebar class="h-100">
 
         <div class="navbar-brand-box">
-            <a href="{{ url('admin') }}" class="logo">
+            <a href="{{ url('humas') }}" class="logo">
                 <i class="mdi mdi-album"></i>
                 <span>
                     TRACER STUDY
@@ -19,38 +19,18 @@
                 <li class="menu-title">Menu</li>
 
                 <li>
-                    <a href="{{ url('bkk') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
+                    <a href="{{ url('humas') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
                         <span>Dashboard</span></a>
                 </li>
                 <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect"><i
-                            class="mdi mdi-diamond-stone"></i><span>Data Master</span></a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li>
-                            <a href="{{ url('jurusan') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
-                                <span>Data Jurusan</span></a>
-                        </li>
-                    </ul>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li>
-                            <a href="{{ url('tahun-lulus') }}" class="waves-effect"><i
-                                    class="mdi mdi-home-analytics"></i>
-                                <span>Tahun Lulus</span></a>
-                        </li>
-                    </ul>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li>
-                            <a href="{{ url('kategori') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
-                                <span>Data Kategori</span></a>
-                        </li>
-                    </ul>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li>
-                            <a href="{{ url('alumni') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
-                                <span>Data Alumni</span></a>
-                        </li>
-                    </ul>
+                    <a href="{{ url('alumni-humas') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
+                        <span>Data Alumni</span></a>
                 </li>
+                <li>
+                    <a href="{{ url('jurusan-humas') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
+                        <span>Data Jurusan</span></a>
+                </li>
+
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect"><i
                             class="mdi mdi-diamond-stone"></i><span>Data Kuesioner</span></a>
@@ -90,10 +70,11 @@
                     </ul>
                 </li>
 
-                <li>
-                    <a href="{{ url('logout') }}" class=" waves-effect"><i
-                            class="mdi mdi-calendar-range-outline"></i><span>Keluar</span></a>
-                </li>
+                <li><a href="{{ url('logout') }}" class=" waves-effect"><i
+                            class="mdi mdi-calendar-range-outline"></i><span>Keluar</span></a></li>
+
+
+
             </ul>
         </div>
         <!-- Sidebar -->

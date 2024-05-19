@@ -11,7 +11,11 @@ class AuthController extends Controller
     //fungsi index
     public function index()
     {
-        return view('auth.login');
+        return view('auth.login',
+            [
+                'title' => 'Login'
+            ]
+    );
     }
 
     public function actionLogin(Request $request)
@@ -33,11 +37,11 @@ class AuthController extends Controller
             if ($user->is_aktif == 1) {
 
                 // Cek role user 1, 2, 3, 4,
-                if ($user->role == 1) {
+                if ($user->id_role == 1) {
                     return redirect()->route('bkk');
-                } elseif ($user->role == 2) {
-                    return redirect()->route('waka-humas');
-                } elseif ($user->role == 3) {
+                } elseif ($user->id_role == 2) {
+                    return redirect()->route('humas');
+                } elseif ($user->id_role == 3) {
                     return redirect()->route('pegawai');
                 } else {
                     // Jika bukan admin maka di-redirect ke route default
@@ -105,4 +109,6 @@ class AuthController extends Controller
         //mengirimkan pesan sukses
         return redirect('/')->with('success', 'Password berhasil diubah');
     }
+
+    
 }

@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Bkk\JurusanController;
 use App\Http\Controllers\Bkk\KategoriController;
 use App\Http\Controllers\Bkk\TahunLulusController;
+use App\Http\Controllers\Humas\HumasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,11 +26,13 @@ use App\Http\Controllers\Bkk\TahunLulusController;
 |
 */
 
-Route::get('/', [AuthController::class, 'index']);
+Route::get('/maintenance', function () {return view('maintenance'); })->name('maintenance');
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
+Route::get('/', [AuthController::class, 'index'])->name('login');
 Route::post('/action-login', [AuthController::class, 'actionLogin'])->name('action-login');
 
 
@@ -143,3 +146,18 @@ Route::controller(AlumniController::class)->group(function () {
     Route::post('/alumni-update', 'update')->name('alumni-update');
     Route::get('/alumni-delete/{id}', 'destroy')->name('alumni-delete');
 });
+
+
+// =====================================================
+// ROUTE UNTUK WAKA HUMAS
+// =====================================================
+
+// Route Dashboard
+Route::controller(HumasController::class)->group(function () {
+    Route::get('/humas', 'index')->name('humas');
+    Route::get('/jurusan-humas', 'jurusan')->name('jurusan-humas');
+    Route::get('/alumni-humas', 'alumni')->name('alumni-humas');
+});
+
+
+

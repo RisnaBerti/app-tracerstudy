@@ -16,24 +16,24 @@ class Jurusan extends Model
     //relasi dengan alumni
     public function alumni()
     {
-        return $this->hasMany(Alumni::class, 'id_jurusan', 'id');
+        return $this->hasMany(Alumni::class, 'id_jurusan', 'id_jurusan');
     }
 
     //relasi dengan pegawai
     public function pegawai()
     {
-        return $this->hasMany(Pegawai::class, 'id_jurusan', 'id');
+        return $this->hasMany(Pegawai::class, 'id_jurusan', 'id_jurusan');
     }
 
     //relasi dengan tahun lulus
-    public function tahunLulus()
+    public function tahun_lulus()
     {
-        return $this->hasMany(TahunLulus::class, 'id_jurusan', 'id');
+        return $this->hasMany(TahunLulus::class, 'id_jurusan', 'id_jurusan');
     }
 
     //relasi dengan kategori
     public function kategori()
     {
-        return $this->hasMany(Kategori::class, 'id_jurusan', 'id');
+        return $this->hasMany(Kategori::class, 'id_jurusan', 'id_jurusan');
     }
 }

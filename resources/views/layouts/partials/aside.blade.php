@@ -43,20 +43,20 @@
                             class="mdi mdi-diamond-stone"></i><span>Data Kuesioner</span></a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="{{ url('kuesioner') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
+                            <a href="{{ url('maintenance') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
                                 <span>Kuesioner</span></a>
                         </li>
                     </ul>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="{{ url('pertanyaan') }}" class="waves-effect"><i
+                            <a href="{{ url('maintenance') }}" class="waves-effect"><i
                                     class="mdi mdi-home-analytics"></i>
                                 <span>Pertanyaan</span></a>
                         </li>
                     </ul>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="{{ url('opsi') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
+                            <a href="{{ url('maintenance') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
                                 <span>Jawaban Opsi</span></a>
                         </li>
                     </ul>
