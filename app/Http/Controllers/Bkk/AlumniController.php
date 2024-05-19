@@ -15,7 +15,7 @@ class AlumniController extends Controller
 {
     public function index()
     {
-        $alumni = Alumni::with('tahunLulus', 'jurusan')->get();
+        $alumni = Alumni::with('tahun_lulus', 'jurusan')->get();
 
         $title = 'Hapus Data!';
         $text = "Apakah Anda yakin ingin menghapus nya?";
