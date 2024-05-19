@@ -1,4 +1,4 @@
-@extends('layouts.index-disnaker')
+@extends('layouts.index-humas')
 @section('content')
     <div class="container-fluid">
         <!-- start page title -->
