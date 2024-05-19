@@ -36,7 +36,7 @@ class BkkController extends Controller
            ->get()
            ->pluck('total', 'tahun_lulus');
 
-       return view('humas.dashboard', [
+       return view('bkk.dashboard', [
            'title' => 'Dashboard',
            'alumni' => $total_alumni,
            'alumni_bekerja' => $alumni_bekerja,
