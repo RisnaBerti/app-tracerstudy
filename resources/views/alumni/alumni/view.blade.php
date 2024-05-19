@@ -1,4 +1,4 @@
-@extends('layouts.index-bkk')
+@extends('layouts.index-alumni')
 @section('content')
     <div class="container-fluid">
         <!-- start page title -->
@@ -36,9 +36,9 @@
                         <h4 class="card-title">Data Alumni</h4>
 
                         {{-- tombol tambah  --}}
-                        <a href="{{ route('alumni-create') }}" class="btn btn-primary mb-2">
+                        {{-- <a href="{{ route('alumni-create') }}" class="btn btn-primary mb-2">
                             <i class="mdi mdi-plus mr-2"></i> Tambah Data
-                        </a>
+                        </a> --}}
 
                         <table id="basic-datatable" class="table dt-responsive nowrap">
                             <thead>
@@ -52,16 +52,16 @@
                                     <th>No HP</th>
                                     <th>Email</th>
                                     <th>Foto</th>
-                                    <th>Aksi</th>
+                                    {{-- <th>Aksi</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($alumni as $index => $item)
+                                @foreach ($alumni as $item)
                                     <tr>
                                         <td>{{ $item->nama_alumni }}</td>
                                         <td>{{ $item->nisn }}</td>
-                                        <td>{{ $item->jurusan->nama_jurusan ?? '-' }}</td>
-                                        <td>{{ $item->tahun_lulus->tahun_lulus ?? '-' }}</td>
+                                        <td>{{ $item->id_jurusan }}</td>
+                                        <td>{{ $item->id_tahun_lulus }}</td>
                                         <td>{{ $item->jenis_kelamin }}</td>
                                         <td>{{ $item->alamat_alumni }}</td>
                                         <td>{{ $item->no_hp_alumni }}</td>
@@ -70,7 +70,7 @@
                                             <img src="{{ asset('uploads/alumni/' . $item->foto_alumni) }}" alt="foto"
                                                 width="60">
                                         </td>
-                                        <td>
+                                        {{-- <td>
                                             <a href="{{ route('alumni-edit', $item->nisn) }}" class="btn btn-warning">
                                                 <i class="mdi mdi-pencil"></i>
                                             </a>
@@ -78,7 +78,7 @@
                                                 class="btn btn-danger">
                                                 <i class="mdi mdi-delete"></i>
                                             </a>
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                 @endforeach
                             </tbody>

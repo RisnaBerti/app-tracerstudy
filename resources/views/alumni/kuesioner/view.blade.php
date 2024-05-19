@@ -1,4 +1,4 @@
-@extends('layouts.index-humas')
+@extends('layouts.index-bkk')
 @section('content')
     <div class="container-fluid">
         <!-- start page title -->
@@ -34,26 +34,41 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">{{ $title }}</h4>
+                        {{-- tombol tambah  --}}
+                        <div class="d-flex justify-content-end mb-2">
+                            <a href="{{ route('kuesioner-create') }}" class="btn btn-primary">
+                                <i class="mdi mdi-plus mr-2"></i> Tambah Data
+                            </a>
+                        </div>
 
                         <table id="basic-datatable" class="table dt-responsive nowrap">
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Jurusan</th>
-                                    <th>Tahun Lulus</th>
-                                    <th>Total Alumni</th>
-                                    {{-- <th>Aksi</th> --}}
+                                    <th>Tanggal Kuesioner</th>
+                                    <th>Judul Kuesioner</th>
+                                    <th>Deskripsi Kuesioner</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($data as $index => $item)
+                                @foreach ($kuesioner as $index => $item)
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
-                                        <td>{{ $item->jurusan->nama_jurusan }}</td>
-                                        <td>{{ $item->tahun_lulus->tahun_lulus ?? '-' }}</td>
-                                        <!-- Gunakan ?? untuk menangani null -->
-                                        <td>{{ $item->alumni ? $item->alumni->count() : 0 }}</td>
-                                        <!-- Gunakan null coalescing untuk mengembalikan 0 jika count() null -->
+                                        <td>{{ $item->tgl_kuesioner }}</td>
+                                        <td>{{ $item->judul_kuesioner }}</td>
+                                        <td>{{ $item->deskripsi_kuesioner }}</td>
+                                        <td>
+                                            <a href="{{ route('kuesioner-show', $item->id_kuesioner) }}"
+                                                class="btn btn-warning">
+                                                <i class="mdi mdi-pencil"></i>
+                                            </a>
+                                            <a href="{{ route('kuesioner-delete', $item->id_kuesioner) }}"
+                                                data-confirm-delete="true" class="btn btn-danger">
+                                                <i class="mdi mdi-delete"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>

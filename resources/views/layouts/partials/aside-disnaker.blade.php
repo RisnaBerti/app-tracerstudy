@@ -1,8 +1,6 @@
 <!-- ========== Left Sidebar Start ========== -->
 <div class="vertical-menu">
-
     <div data-simplebar class="h-100">
-
         <div class="navbar-brand-box">
             <a href="{{ url('disnaker') }}" class="logo">
                 <i class="mdi mdi-album"></i>
@@ -11,29 +9,22 @@
                 </span>
             </a>
         </div>
-
         <!--- Sidemenu -->
         <div id="sidebar-menu">
             <!-- Left Menu Start -->
             <ul class="metismenu list-unstyled" id="side-menu">
                 <li class="menu-title">Menu</li>
-
                 <li>
                     <a href="{{ url('disnaker') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
                         <span>Dashboard</span></a>
                 </li>
-{{-- 
-                <li>
-                    <a href="{{ url('admin') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
-                        <span>Kuesioner</span></a>
-                </li> --}}
-
                 <li>
                     <a href="{{ url('alumni-disnaker') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
                         <span>Data Alumni</span></a>
                 </li>
                 <li>
-                    <a href="{{ url('statistik-disnaker') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
+                    <a href="{{ url('statistik-disnaker') }}" class="waves-effect"><i
+                            class="mdi mdi-home-analytics"></i>
                         <span>Statistik</span></a>
                 </li>
 

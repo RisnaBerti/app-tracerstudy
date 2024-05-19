@@ -20,7 +20,7 @@
 </head>
 
 <body>
-    @include('layouts.layout')
+    @include('layouts.layout-disnaker')
     @include('sweetalert::alert')
     
 

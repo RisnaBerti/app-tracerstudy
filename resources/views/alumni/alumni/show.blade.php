@@ -1,4 +1,4 @@
-@extends('layouts.index-bkk')
+@extends('layouts.index-alumni')
 @section('content')
     <div class="container-fluid">
         <!-- start page title -->
@@ -56,12 +56,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($alumni as $index => $item)
+                                @foreach ($alumni as $item)
                                     <tr>
                                         <td>{{ $item->nama_alumni }}</td>
                                         <td>{{ $item->nisn }}</td>
-                                        <td>{{ $item->jurusan->nama_jurusan ?? '-' }}</td>
-                                        <td>{{ $item->tahun_lulus->tahun_lulus ?? '-' }}</td>
+                                        <td>{{ $item->id_jurusan }}</td>
+                                        <td>{{ $item->id_tahun_lulus }}</td>
                                         <td>{{ $item->jenis_kelamin }}</td>
                                         <td>{{ $item->alamat_alumni }}</td>
                                         <td>{{ $item->no_hp_alumni }}</td>
