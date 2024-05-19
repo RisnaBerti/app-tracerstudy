@@ -34,7 +34,7 @@ class TahunLulusController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'tahun_lulus' => 'required',
+            'tahun_lulus' => 'required|unique:tahun_lulus,tahun_lulus',
         ]);
 
         TahunLulus::create([
@@ -64,7 +64,7 @@ class TahunLulusController extends Controller
         $id = $request->id_tahun_lulus;
 
         $request->validate([
-            'tahun_lulus' => 'required',
+            'tahun_lulus' => 'required|unique:tahun_lulus,tahun_lulus',
         ]);
 
         $tahunLulus = TahunLulus::findOrFail($id);

@@ -36,7 +36,7 @@ class JurusanController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nama_jurusan' => 'required',
+            'nama_jurusan' => 'required|unique:jurusan,nama_jurusan',
         ]);
 
         if ($validator->fails()) {
@@ -70,7 +70,7 @@ class JurusanController extends Controller
         $id = $request->id_jurusan;
 
         $validator = Validator::make($request->all(), [
-            'nama_jurusan' => 'required',
+            'nama_jurusan' => 'required|unique:jurusan,nama_jurusan',
         ]);
 
         if ($validator->fails()) {
