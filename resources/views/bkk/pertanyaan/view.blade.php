@@ -80,4 +80,9 @@
         <!-- end row-->
 
     </div> <!-- container-fluid -->
+    <script>
+        $(document).ready(function() {
+            $('#basic-datatable').DataTable();
+        });
+    </script>
 @endsection

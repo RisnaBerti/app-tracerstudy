@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Bkk\JurusanController;
 use App\Http\Controllers\Bkk\KategoriController;
 use App\Http\Controllers\Bkk\TahunLulusController;
+use App\Http\Controllers\Disnaker\DisnakerController;
 use App\Http\Controllers\Humas\HumasController;
 
 /*
@@ -26,7 +27,9 @@ use App\Http\Controllers\Humas\HumasController;
 |
 */
 
-Route::get('/maintenance', function () {return view('maintenance'); })->name('maintenance');
+Route::get('/maintenance', function () {
+    return view('maintenance');
+})->name('maintenance');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -157,7 +160,27 @@ Route::controller(HumasController::class)->group(function () {
     Route::get('/humas', 'index')->name('humas');
     Route::get('/jurusan-humas', 'jurusan')->name('jurusan-humas');
     Route::get('/alumni-humas', 'alumni')->name('alumni-humas');
+    Route::get('/profil-humas/{id}', 'edit')->name('profil-humas');
+    Route::post('/update-profile-humas', 'update')->name('update-profile-humas');
+    Route::post('/update-password-humas', 'gantiPassword')->name('update-password-humas');
 });
 
 
+// =====================================================
+// ROUTE UNTUK DISNAKER
+// =====================================================
+Route::controller(DisnakerController::class)->group(function () {
+    Route::get('/disnaker', 'index')->name('disnaker');
+    Route::get('/jurusan-disnaker', 'jurusan')->name('jurusan-disnaker');
+    Route::get('/alumni-disnaker', 'alumni')->name('alumni-disnaker');
+});
 
+
+// =====================================================
+// ROUTE UNTUK ALUMNI
+// =====================================================
+Route::controller(AlumniController::class)->group(function () {
+    Route::get('/alumni', 'index')->name('alumni');
+    Route::get('/jurusan-alumni', 'jurusan')->name('jurusan-alumni');
+    Route::get('/alumni-alumni', 'alumni')->name('alumni-alumni');
+});

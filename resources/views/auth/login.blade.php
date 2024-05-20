@@ -20,6 +20,8 @@
 </head>
 
 <body>
+    
+    @include('sweetalert::alert')
 
     <div>
         <div class="container">
@@ -47,6 +49,10 @@
                                             <div class="form-group">
                                                 <input type="password" class="form-control form-control-user"
                                                     id="password" name="password" placeholder="Password">
+                                            </div>
+                                            <div class="form-group form-check">
+                                                <input type="checkbox" class="form-check-input" id="showPassword">
+                                                <label class="form-check-label" for="showPassword">Tampilkan Password</label>
                                             </div>
                                             <button class="btn btn-primary waves-effect waves-light" type="submit">Log In</button>
                                             {{-- <div class="text-center mt-4">
@@ -76,6 +82,18 @@
 
     <!-- App js -->
     <script src="{{ url('') }}/assets/js/theme.js"></script>
+    @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
+
+    <script>
+        document.getElementById('showPassword').addEventListener('change', function () {
+            const passwordInput = document.getElementById('password');
+            if (this.checked) {
+                passwordInput.setAttribute('type', 'text');
+            } else {
+                passwordInput.setAttribute('type', 'password');
+            }
+        });
+    </script>
 
 </body>
 

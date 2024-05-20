@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -21,10 +22,14 @@ class AuthController extends Controller
     public function actionLogin(Request $request)
     {
         // untuk menambahkan validasi pada form login
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'username' => 'required',
             'password' => 'required'
         ]);
+
+        if ($validator->fails()) {
+            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+        }
 
         // mendapatkan data dr request form input
         $credentials = $request->only('username', 'password');
@@ -38,14 +43,14 @@ class AuthController extends Controller
 
                 // Cek role user 1, 2, 3, 4,
                 if ($user->id_role == 1) {
-                    return redirect()->route('bkk');
+                    return redirect()->route('bkk')->with('success', 'Anda berhasil login!');
                 } elseif ($user->id_role == 2) {
-                    return redirect()->route('humas');
+                    return redirect()->route('humas')->with('success', 'Anda berhasil login!');
                 } elseif ($user->id_role == 3) {
-                    return redirect()->route('pegawai');
+                    return redirect()->route('pegawai')->with('success', 'Anda berhasil login!');
                 } else {
                     // Jika bukan admin maka di-redirect ke route default
-                    return redirect()->route('alumni'); // Assuming a default dashboard route named 'dashboard'
+                    return redirect()->route('alumni')->with('success', 'Anda berhasil login!'); // Assuming a default dashboard route named 'dashboard'
                 }
                 
             } else {
@@ -62,7 +67,7 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect('/');
+        return redirect('/')->with('success', 'Anda berhasil logout!');;
     }
 
     //fungsi reset password

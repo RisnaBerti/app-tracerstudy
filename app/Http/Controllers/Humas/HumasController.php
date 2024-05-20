@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers\Humas;
 
+use App\Models\User;
 use App\Models\Alumni;
-use Illuminate\Support\Facades\DB;
 use App\Models\Jurusan;
+use App\Models\Pegawai;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class HumasController extends Controller
 {
@@ -67,5 +73,112 @@ class HumasController extends Controller
             'title' => 'Data Alumni',
             'alumni' => $alumni
         ]);
+    }
+
+
+    public function gantiPassword(Request $request)
+    {
+        // Validasi input
+        $rules = [
+            'passwordLama' => 'required',
+            'passwordBaru' => 'required|between:8,16',
+            'konfirmasiPasswordBaru' => 'required|same:passwordBaru'
+        ];
+
+        $customMessages = [
+            'passwordLama.required' => 'Password lama wajib diisi!',
+            'passwordBaru.required' => 'Password baru wajib diisi!',
+            'passwordBaru.between' => 'Password harus terdiri dari 8 sampai dengan 16 karakter!',
+            'konfirmasiPasswordBaru.required' => 'Konfirmasi password harus diisi!',
+            'konfirmasiPasswordBaru.same' => 'Konfirmasi password tidak cocok dengan password baru!',
+        ];
+
+        $this->validate($request, $rules, $customMessages);
+
+        // Cek apakah password lama sesuai
+        if (!Hash::check($request->passwordLama, Auth::user()->password)) {
+            return back()->with("error", "Password lama yang dimasukkan salah!");
+        } else {
+            // Update password baru
+            User::where('id_user', Auth::user()->id_user)->update([
+                'password' => bcrypt($request->passwordBaru)
+            ]);
+
+            return redirect()->back()->with("success", "Password berhasil diganti");
+        }
+    }
+
+    //fungsii ganti profile
+    public function edit($id)
+    {
+        $pegawai = Pegawai::findOrFail($id);
+
+        return view('humas.profil.edit', [
+            'title' => 'Data Profil',
+            // 'action' => route('profil-update-humas', $id),
+            // 'isCreated' => false,
+            'pegawai' => $pegawai,
+        ]);
+    }
+
+    //fungsi update profile
+    public function update(Request $request)
+    {
+        $id = $request->nip;
+        $pegawai = Pegawai::findOrFail($id);
+        $validator = Validator::make($request->all(), [
+            'nip' => [
+                'required',
+                'numeric',
+                Rule::unique('users', 'username')->ignore($pegawai->id_user, 'id_user')
+            ],
+            'nama_pegawai' => 'required',
+            'jenis_kelamin' => 'required',
+            'no_hp_pegawai' => 'required|numeric',
+            'alamat_pegawai' => 'required',
+            'email_pegawai' => 'required|email'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        //edit foto_pegawai
+        // if ($request->hasFile('foto_pegawai')) {
+        //     $file = $request->file('foto_pegawai');
+        //     $filename = $request->nip . '.' . $file->getClientOriginalExtension();
+        //     $file->move('uploads/pegawai/', $filename);
+        //     $pegawai->foto_pegawai = $filename;
+        // }
+
+        $data = $request->only(['nip', 'nama_pegawai', 'jenis_kelamin', 'no_hp_pegawai', 'alamat_pegawai', 'email_pegawai']);
+
+        if ($request->hasFile('foto_pegawai')) {
+            // Hapus foto lama jika ada
+            if ($pegawai->foto_pegawai && file_exists(public_path('uploads/pegawai/' . $pegawai->foto_pegawai))) {
+                unlink(public_path('uploads/pegawai/' . $pegawai->foto_pegawai));
+            }
+
+            // Simpan foto baru
+            $file = $request->file('foto_pegawai');
+            $filename = $request->nip . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads/pegawai'), $filename);
+
+            $data['foto_pegawai'] = $filename;
+        }
+
+        $pegawai->update($data);
+
+
+        // $pegawai->update([
+        //     'nisn' => $request->nisn,
+        //     'nama_pegawai' => $request->nama_pegawai,
+        //     'jenis_kelamin' => $request->jenis_kelamin,
+        //     'no_hp_pegawai' => $request->no_hp_pegawai,
+        //     'alamat_pegawai' => $request->alamat_pegawai,
+        //     'email_pegawai' => $request->email_pegawai
+        // ]);
+
+        return redirect()->route('profil-humas', $id)->with('success', 'Data Profil Berhasil Diubah');
     }
 }

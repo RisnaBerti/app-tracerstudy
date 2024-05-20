@@ -20,7 +20,7 @@ class Kategori extends Model
     //relasi dengan alumni
     public function alumni()
     {
-        return $this->hasMany(Alumni::class, 'id_kategori', 'id');
+        return $this->hasMany(Alumni::class, 'id_kategori', 'id_kategori');
     }
 
     //relasi dengan jurusan

@@ -22,7 +22,7 @@
 <body>
     @include('layouts.layout-bkk')
     @include('sweetalert::alert')
-    
+
 
     <!-- Overlay-->
     <div class="menu-overlay"></div>
@@ -56,7 +56,18 @@
     <!-- App js -->
     <script src="{{ url('') }}/assets/js/theme.js"></script>
 
-    @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+
+
+    @include('sweetalert::alert', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
