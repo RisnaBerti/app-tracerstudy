@@ -73,6 +73,15 @@
                                 </div>
                             </div>
                             <div class="form-row">
+                                <div class="col-md-6 mb-6 ">
+                                    <label for="id_role">Jabatan</label>
+                                    <select class="form-control" id="id_role" name="id_role" required>
+                                        <option value="1" {{ $pegawai->id_role == 'BKK' ? 'selected' : '' }}>BKK</option>
+                                        <option value="3" {{ $pegawai->id_role == 'Disnaker' ? 'selected' : '' }}>Disnaker</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
                                 <div class="col-md-6 mb-6">
                                     <label for="foto_pegawai">Foto</label>
                                     <input type="file" class="form-control" id="foto_pegawai" name="foto_pegawai" accept="image/jpeg, image/png">

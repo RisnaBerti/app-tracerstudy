@@ -18,26 +18,26 @@
                     <a href="{{ url('disnaker') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
                         <span>Dashboard</span></a>
                 </li>
-                <li>
+                {{-- <li>
                     <a href="{{ url('alumni-disnaker') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
                         <span>Data Alumni</span></a>
-                </li>
+                </li> --}}
                 <li>
                     <a href="{{ url('statistik-disnaker') }}" class="waves-effect"><i
                             class="mdi mdi-home-analytics"></i>
-                        <span>Statistik</span></a>
+                        <span>Hasil Kuesioner</span></a>
                 </li>
 
                 <li class="menu-title">Lainnya</li>
 
-                <li>
+                {{-- <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect"><i
                             class="mdi mdi-diamond-stone"></i><span>Pengaturan</span></a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="ui-buttons.html">Profil</a></li>
-                        {{-- <li><a href="ui-cards.html">Cards</a></li> --}}
+                        <li><a href="ui-cards.html">Cards</a></li>
                     </ul>
-                </li>
+                </li> --}}
 
                 <li><a href="calendar.html" class=" waves-effect"><i
                             class="mdi mdi-calendar-range-outline"></i><span>Keluar</span></a></li>

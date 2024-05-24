@@ -18,7 +18,7 @@ class PegawaiController extends Controller
         $text = "Apakah Anda yakin ingin menghapus nya?";
         confirmDelete($title, $text);
 
-        return view('admin.pegawai.view', [
+        return view('humas.pegawai.view', [
             'title' => 'Data Pegawai',
             'pegawai' => $pegawai
         ]);
@@ -27,7 +27,7 @@ class PegawaiController extends Controller
     //fungsi create
     public function create()
     {
-        return view('admin.pegawai.create', [
+        return view('humas.pegawai.create', [
             'title' => 'Data Pegawai',
             'action' => route('pegawai-store'),
             'isCreated' => true,
@@ -51,7 +51,7 @@ class PegawaiController extends Controller
         $user = User::create([
             'username' => $request->nip,
             'password' => bcrypt('123'), // Gunakan bcrypt untuk mengenkripsi password
-            'id_role' => '2',
+            'id_role' => $request->id_role,
             'is_aktif' => '1'
         ]);
 
@@ -83,7 +83,7 @@ class PegawaiController extends Controller
     {
         $pegawai = Pegawai::findOrFail($id);
 
-        return view('admin.pegawai.edit', [
+        return view('humas.pegawai.edit', [
             'title' => 'Data Pegawai',
             'action' => route('pegawai-update', $id),
             'isCreated' => false,

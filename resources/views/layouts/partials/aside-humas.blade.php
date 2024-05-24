@@ -24,6 +24,19 @@
                 </li>
 
                 <li>
+                    <a href="{{ url('alumni-humas') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
+                        <span>Data Alumni</span></a>
+                </li>
+                <li>
+                    <a href="{{ url('jurusan-humas') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
+                        <span>Data Lulusan</span></a>
+                </li>
+                <li>
+                    <a href="{{ url('pegawai') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
+                        <span>Data Pegawai</span></a>
+                </li>
+
+                {{-- <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect"><i
                             class="mdi mdi-diamond-stone"></i><span>Data Alumni</span></a>
                     <ul class="sub-menu" aria-expanded="false">
@@ -39,9 +52,8 @@
                                     class="mdi mdi-home-analytics"></i>
                                 <span>Total Lulusan</span></a>
                         </li>
-                    </ul>
-                    
-                </li>
+                    </ul>                    
+                </li> --}}
 
 
                 {{-- <li>
@@ -53,7 +65,7 @@
                         <span>Data Jurusan</span></a>
                 </li> --}}
 
-                <li>
+                {{-- <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect"><i
                             class="mdi mdi-diamond-stone"></i><span>Data Kuesioner</span></a>
                     <ul class="sub-menu" aria-expanded="false">
@@ -77,9 +89,13 @@
                                 <span>Jawaban Opsi</span></a>
                         </li>
                     </ul>
+                </li> --}}
+                <li>
+                    <a href="{{ url('hasil-kuesioner-humas') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
+                        <span>Hasil Kuesioner</span></a>
                 </li>
                 <li>
-                    <a href="{{ url('maintenance') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
+                    <a href="{{ url('statistik-humas') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
                         <span>Statistik</span></a>
                 </li>
 
@@ -95,8 +111,6 @@
 
                 <li><a href="{{ url('logout') }}" class=" waves-effect"><i
                             class="mdi mdi-calendar-range-outline"></i><span>Keluar</span></a></li>
-
-
 
             </ul>
         </div>

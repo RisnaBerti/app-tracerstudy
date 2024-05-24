@@ -4,7 +4,7 @@
     <div data-simplebar class="h-100">
 
         <div class="navbar-brand-box">
-            <a href="{{ url('admin') }}" class="logo">
+            <a href="{{ url('bkk') }}" class="logo">
                 <i class="mdi mdi-album"></i>
                 <span>
                     TRACER STUDY
@@ -56,26 +56,30 @@
                             class="mdi mdi-diamond-stone"></i><span>Data Kuesioner</span></a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="{{ url('maintenance') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
+                            <a href="{{ url('kuesioner') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
                                 <span>Kuesioner</span></a>
                         </li>
                     </ul>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="{{ url('maintenance') }}" class="waves-effect"><i
+                            <a href="{{ url('pertanyaan') }}" class="waves-effect"><i
                                     class="mdi mdi-home-analytics"></i>
                                 <span>Pertanyaan</span></a>
                         </li>
                     </ul>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="{{ url('maintenance') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
+                            <a href="{{ url('opsi') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
                                 <span>Jawaban Opsi</span></a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="{{ url('maintenance') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
+                    <a href="{{ url('hasil-kuesioner-bkk') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
+                        <span>Hasil Kuesioner</span></a>
+                </li>
+                <li>
+                    <a href="{{ url('statistik-bkk') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
                         <span>Statistik</span></a>
                 </li>
 
@@ -85,8 +89,7 @@
                     <a href="javascript: void(0);" class="has-arrow waves-effect"><i
                             class="mdi mdi-diamond-stone"></i><span>Pengaturan</span></a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ url('maintenance') }}">Profil</a></li>
-                        {{-- <li><a href="ui-cards.html">Cards</a></li> --}}
+                        <li><a href="{{ url('profil-bkk/'. Auth::user()->username) }}">Profil</a></li>
                     </ul>
                 </li>
 

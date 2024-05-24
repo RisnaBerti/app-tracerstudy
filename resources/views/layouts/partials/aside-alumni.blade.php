@@ -26,14 +26,17 @@
                     <a href="{{ url('kuesioner-alumni') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
                         <span>Kuesioner</span></a>
                 </li>
+                <li>
+                    <a href="{{ url('riwayat-kuesioner-alumni') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
+                        <span>Riwayat Pengisian Kuesioner</span></a>
+                </li>
                 <li class="menu-title">Lainnya</li>
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect"><i
                             class="mdi mdi-diamond-stone"></i><span>Pengaturan</span></a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ url('profil') }}">Profil</a></li>
-                        {{-- <li><a href="ui-cards.html">Cards</a></li> --}}
+                        <li><a href="{{ url('profil-alumni/'. Auth::user()->username) }}">Profil</a></li>
                     </ul>
                 </li>
 

@@ -1,4 +1,4 @@
-@extends('layouts.index-humas')
+@extends('layouts.index-alumni')
 @section('content')
     <div class="container-fluid">
         <!-- start page title -->
@@ -24,70 +24,57 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-
                         <h4 class="card-title">Edit Data Profil</h4>
-                        <form method="POST" action="{{ route('update-profile-humas') }}" class="needs-validation" novalidate>
+                        <form method="POST" action="{{ route('update-profile-alumni') }}" class="needs-validation" novalidate  enctype="multipart/form-data">
+                            @csrf
                             <div class="row">
-                                <div class="col-sm-12 col-lg-4">
-                                    <img src="" class="img-thumbnail" alt="foto alumni">
-                                    <label for="foto_alumni">Foto</label>
-                                    <input type="file" class="form-control" id="foto_alumni" name="foto_alumni">
+                                <div class="col-sm-12 col-lg-4 text-center">
+                                    <label for="foto_pegawai">Foto</label>
+                                    <img src="{{ asset('uploads/pegawai/' . $pegawai->foto_pegawai) }}" class="img-thumbnail" width="50%" alt="foto pegawai">                                    
+                                    <input type="file" class="form-control" id="foto_pegawai" name="foto_pegawai">
                                 </div>
                                 <div class="col-sm-12 col-lg-8">
                                     <div class="form-group">
                                         <label class="title">NIP</label>
-                                        <input type="text" class="form-control " name="nisn" id="nisn"
+                                        <input type="text" class="form-control " name="nip" id="nip"
                                             value="{{ $pegawai->nip }}">
                                     </div>
                                     <div class="form-group">
                                         <label class="title">Nama Lengkap</label>
-                                        <input type="text" class="form-control " name="nama_alumni" id="nama_alumni"
+                                        <input type="text" class="form-control " name="nama_pegawai" id="nama_pegawai"
                                             value="{{ $pegawai->nama_pegawai }}">
                                     </div>
                                     <div class="form-group">
-                                        <label class="title">Jurusan</label>
-                                        <input type="text" class="form-control " name="id_jurusan" id="id_jurusan"
-                                            value="{{ $pegawai-> }}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="title">Tahun Lulus</label>
-                                        <input type="text" class="form-control " name="id_tahun_lulus"
-                                            id="id_tahun_lulus" value="{{ $pegawai-> }}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="title">Jenis Kelamin</label>
-                                        <input type="text" class="form-control " name="jenis_kelamin" id="jenis_kelamin"
-                                            value="{{ $pegawai-> }}">
+                                        <label for="jenis_kelamin">Jenis Kelamin</label>
+                                        <select class="form-control" id="jenis_kelamin" name="jenis_kelamin" required>
+                                            <option value="">Pilih Jenis Kelamin</option>
+                                            <option value="Laki-Laki" {{ $pegawai->jenis_kelamin == 'Laki-Laki' ? 'selected' : '' }}>Laki-Laki</option>
+                                            <option value="Perempuan" {{ $pegawai->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label class="title">No HP</label>
-                                        <input type="text" class="form-control " name="no_hp_alumni" id="no_hp_alumni"
-                                            value="{{ $pegawai-> }}">
+                                        <input type="text" class="form-control " name="no_hp_pegawai" id="no_hp_pegawai"
+                                            value="{{ $pegawai->no_hp_pegawai }}">
                                     </div>
                                     <div class="form-group">
                                         <label class="title">Email</label>
-                                        <input type="text" class="form-control " name="email_alumni" id="email_alumni"
-                                            value="{{ $pegawai-> }}">
+                                        <input type="text" class="form-control " name="email_pegawai" id="email_pegawai"
+                                            value="{{ $pegawai->email_pegawai }}">
                                     </div>
                                     <div class="form-group">
                                         <label class="title">Alamat</label>
-                                        <input type="text" class="form-control " name="alamat_alumni" id="alamat_alumni"
-                                            value="{{ $pegawai-> }}">
+                                        <input type="text" class="form-control " name="alamat_pegawai" id="alamat_pegawai"
+                                            value="{{ $pegawai->alamat_pegawai }}">
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <label for="validationCustom01">First name</label>
-                                <input type="text" class="form-control" id="validationCustom01" placeholder="First name"
-                                    value="Mark" required>
-                                <div class="valid-feedback">
-                                    Looks good!
+                            <div class="form-group mb-0 justify-content-end row">
+                                <div class="col-8">
+                                    <button type="submit" class="btn btn-info waves-effect waves-light">Simpan</button>
                                 </div>
                             </div>
-                            <button class="btn btn-primary waves-effect waves-light" type="submit">Simpan</button>
                         </form>
-
                     </div> <!-- end card-body-->
                 </div> <!-- end card-->
             </div> <!-- end col -->
@@ -101,7 +88,8 @@
 
                         <h4 class="card-title">Ganti Password</h4>
 
-                        <form method="POST" action="{{ route('update-password-humas') }}"  class="form-horizontal">
+                        <form method="POST" action="{{ route('update-password-alumni') }}"  class="form-horizontal">
+                            @csrf
                             <div class="form-group row mb-3">
                                 <label for="passwordLama" class="col-3 col-form-label">Password Lama</label>
                                 <div class="col-9">
@@ -117,12 +105,10 @@
                                 </div>
                             </div>
                             <div class="form-group row mb-3">
-                                <label for="konfirmasiPasswordBaru" class="col-3 col-form-label">Konfirmasi Password
-                                    Baru</label>
+                                <label for="konfirmasiPasswordBaru" class="col-3 col-form-label">Konfirmasi Password Baru</label>
                                 <div class="col-9">
                                     <input type="password" class="form-control" id="konfirmasiPasswordBaru" name="konfirmasiPasswordBaru"
-                                        placeholder="Konfirmasi Password
-                                        Baru">
+                                        placeholder="Konfirmasi Password Baru">
                                 </div>
                             </div>
                             <div class="form-group mb-0 justify-content-end row">
