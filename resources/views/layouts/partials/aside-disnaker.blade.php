@@ -24,7 +24,7 @@
                 </li> --}}
                 <li>
                     <a href="{{ url('statistik-disnaker') }}" class="waves-effect"><i
-                            class="mdi mdi-home-analytics"></i>
+                            class="mdi mdi-checkbox-multiple-marked-outline"></i>
                         <span>Hasil Kuesioner</span></a>
                 </li>
 
@@ -39,8 +39,10 @@
                     </ul>
                 </li> --}}
 
-                <li><a href="calendar.html" class=" waves-effect"><i
-                            class="mdi mdi-calendar-range-outline"></i><span>Keluar</span></a></li>
+                <li>
+                    <a href="{{ url('logout') }}" class=" waves-effect"><i
+                            class="mdi mdi-logout"></i><span>Keluar</span></a>
+                </li>
 
 
 

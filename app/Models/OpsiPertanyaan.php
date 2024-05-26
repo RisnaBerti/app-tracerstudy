@@ -9,12 +9,14 @@ class OpsiPertanyaan extends Model
 {
     use HasFactory;
 
-    protected $table = 'opsi_pertanyaan';
-    protected $primaryKey = 'id_pertanyaan';
-    protected $fillable = ['id_pertanyaan', 'opsi'];
+    protected $table = 'opsi_jawaban';
+    protected $primaryKey = 'id_opsi';
+    protected $fillable = ['id_opsi', 'id_pertanyaan', 'opsi'];
 
     public function pertanyaan()
     {
         return $this->belongsTo(Pertanyaan::class, 'id_pertanyaan');
     }
+    
+    
 }

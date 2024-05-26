@@ -24,62 +24,60 @@
                 </li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect"><i
-                            class="mdi mdi-diamond-stone"></i><span>Data Master</span></a>
+                            class="mdi mdi-folder-text-outline"></i><span>Data Master</span></a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="{{ url('jurusan') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
+                            <a href="{{ url('jurusan') }}" class="waves-effect">
                                 <span>Data Jurusan</span></a>
                         </li>
                     </ul>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="{{ url('tahun-lulus') }}" class="waves-effect"><i
-                                    class="mdi mdi-home-analytics"></i>
+                            <a href="{{ url('tahun-lulus') }}" class="waves-effect">
                                 <span>Tahun Lulus</span></a>
                         </li>
                     </ul>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="{{ url('kategori') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
+                            <a href="{{ url('kategori') }}" class="waves-effect">
                                 <span>Data Kategori</span></a>
                         </li>
                     </ul>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="{{ url('alumni') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
+                            <a href="{{ url('alumni-bkk') }}" class="waves-effect">
                                 <span>Data Alumni</span></a>
                         </li>
                     </ul>
                 </li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect"><i
-                            class="mdi mdi-diamond-stone"></i><span>Data Kuesioner</span></a>
+                            class="mdi mdi-file-document-box-multiple"></i><span>Data Kuesioner</span></a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="{{ url('kuesioner') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
+                            <a href="{{ url('kuesioner') }}" class="waves-effect">
                                 <span>Kuesioner</span></a>
                         </li>
                     </ul>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="{{ url('pertanyaan') }}" class="waves-effect"><i
-                                    class="mdi mdi-home-analytics"></i>
+                            <a href="{{ url('pertanyaan') }}" class="waves-effect">
                                 <span>Pertanyaan</span></a>
                         </li>
                     </ul>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="{{ url('opsi') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
+                            <a href="{{ url('opsi') }}" class="waves-effect">
                                 <span>Jawaban Opsi</span></a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="{{ url('hasil-kuesioner-bkk') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
+                    <a href="{{ url('hasil-kuesioner-bkk') }}" class="waves-effect"><i class="mdi mdi-checkbox-multiple-marked-outline"></i>
                         <span>Hasil Kuesioner</span></a>
                 </li>
                 <li>
-                    <a href="{{ url('statistik-bkk') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
+                    <a href="{{ url('statistik-bkk') }}" class="waves-effect"><i class="mdi mdi-chart-areaspline"></i>
                         <span>Statistik</span></a>
                 </li>
 
@@ -87,7 +85,7 @@
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect"><i
-                            class="mdi mdi-diamond-stone"></i><span>Pengaturan</span></a>
+                            class="mdi mdi-settings-outline"></i><span>Pengaturan</span></a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ url('profil-bkk/'. Auth::user()->username) }}">Profil</a></li>
                     </ul>
@@ -95,7 +93,7 @@
 
                 <li>
                     <a href="{{ url('logout') }}" class=" waves-effect"><i
-                            class="mdi mdi-calendar-range-outline"></i><span>Keluar</span></a>
+                            class="mdi mdi-logout"></i><span>Keluar</span></a>
                 </li>
             </ul>
         </div>

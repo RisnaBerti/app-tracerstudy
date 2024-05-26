@@ -11,7 +11,7 @@ class Jawaban extends Model
 
     protected $table = 'jawaban';
     protected $primaryKey = 'id_jawaban';
-    protected $fillable = ['id_pertanyaan', 'nisn', 'id_tahun_lulus', 'id_kategori', 'jawaban'];
+    protected $fillable = [ 'id_jawaban','id_pertanyaan', 'nisn', 'id_tahun_lulus', 'id_kategori', 'jawaban'];
 
     public function pertanyaan()
     {
@@ -33,5 +33,11 @@ class Jawaban extends Model
     public function tahunLulus()
     {
         return $this->belongsTo(TahunLulus::class, 'id_tahun_lulus');
+    }
+
+    //relasi model kuesioner
+    public function kuesioner()
+    {
+        return $this->belongsTo(Kuesioner::class, 'id_kuesioner');
     }
 }

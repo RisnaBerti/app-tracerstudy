@@ -33,8 +33,12 @@
                             <div class="form-group">
                                 <div class="col-md-4 mb-12">
                                     <label for="id_pertanyaan">Pertanyaan</label>
-                                    <input type="text" class="form-control" id="id_pertanyaan" name="id_pertanyaan"
-                                        placeholder="Pertanyaan" value="" required>
+                                    <select class="form-control" name="id_pertanyaan" id="id_pertanyaan" required>
+                                        <option value="">Pilih Opsi Jawaban</option>
+                                        @foreach ($pertanyaan as $item)
+                                            <option value="{{ $item->id_pertanyaan }}">{{ $item->pertanyaan }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">

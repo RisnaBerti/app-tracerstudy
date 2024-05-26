@@ -25,7 +25,6 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-
                         <h4 class="card-title">Tambah {{ $title }}</h4>
                         {{-- <p class="card-subtitle mb-4">Custom feedback styles apply custom colors, borders, focus styles, and background icons to better communicate feedback. Background icons for <code>&lt;select&gt;</code>s are only available with <code>.custom-select</code>, and not <code>.form-control</code>.</p> --}}
                         <form action="{{ route('pertanyaan-store') }}" method="POST" class="needs-validation" novalidate>
@@ -33,17 +32,32 @@
                             <div class="form-group">
                                 <div class="col-md-4 mb-12">
                                     <label for="id_kuesioner">Judul Kuesioner</label>
-                                    {{-- <input type="date" class="form-control" id="id_kuesioner" name="id_kuesioner"
-                                        placeholder="Judul Kuesioner" value="" required> --}}
                                     <select class="form-control" id="id_kuesioner" name="id_kuesioner" required>
-                                        <option value=""></option>
+                                        <option value="">Pilih Judul Kuesioner</option>
+                                        @foreach($kuesioner as $item)
+                                        <option value="{{ $item->id_kuesioner }}">{{ $item->judul_kuesioner }}</option>
+                                            {{-- <option value="{{ $item->id_kuesioner }}"
+                                                {{ $alumni->id_kuesioner == $item->id_kuesioner ? 'selected' : '' }}>
+                                                {{ $item->nama_jurusan }}</option> --}}
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-4 mb-12">
+                                    <label for="id_kategori">Kategori</label>
+                                    <select class="form-control" id="id_kategori" name="id_kategori" required>
+                                        <option value="">Pilih Kategori</option>
+                                        @foreach($kategori as $item)
+                                        <option value="{{ $item->id_kategori }}">{{ $item->nama_kategori }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-4 mb-12">
                                     <label for="pertanyaan">Pertanyaan</label>
-                                    <input type="date" class="form-control" id="pertanyaan" name="pertanyaan"
+                                    <input type="text" class="form-control" id="pertanyaan" name="pertanyaan"
                                         placeholder="Pertanyaan" value="" required>
                                 </div>
                             </div>
@@ -53,9 +67,9 @@
                                     <label for="tipe_pertanyaan">Tipe Pertanyaan</label>
                                     <select class="form-control" id="tipe_pertanyaan" name="tipe_pertanyaan" required>
                                         <option value="">Tipe Pertanyaan</option>
-                                        <option value="choice">choice</option>
-                                        <option value="checkbox">checkbox</option>
-                                        <option value="input">input</option>
+                                        <option value="Pilihan">Pilihan</option>
+                                        <option value="Textarea">Textarea</option>
+                                        <option value="Text">Text</option>
                                     </select>
                                 </div>
                             </div>
@@ -66,8 +80,5 @@
             </div> <!-- end col -->
         </div>
         <!-- end row-->
-
-
-
     </div> <!-- container-fluid -->
 @endsection

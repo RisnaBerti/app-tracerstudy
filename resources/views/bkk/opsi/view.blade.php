@@ -45,29 +45,37 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>Pertanyaan</th>
                                     <th>Opsi</th>
-                                    <th>No Urut Tampil</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($opsi as $index => $item)
+                                @foreach ($opsi as $index => $items)
                                     <tr>
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>{{ $item->opsi }}</td>
-                                        <td>{{ $item->opsi }}</td>
+                                        <td>{{ $loop->index + 1 }}</td>
+                                        <td>{{ $items->pertanyaan->pertanyaan }}</td>
+                                        <td>{{ $items->opsi }}</td>
                                         <td>
-                                            <a href="{{ route('opsi-edit', $item->id_opsi) }}" class="btn btn-warning">
+                                            <a href="{{ route('opsi-edit', $items->id_opsi) }}" class="btn btn-warning">
                                                 <i class="mdi mdi-pencil"></i>
                                             </a>
-                                            <a href="{{ route('opsi-delete', $item->id_opsi) }}" data-confirm-delete="true"
-                                                class="btn btn-danger">
+                                            <form action="{{ route('opsi-delete', $items->id_opsi) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger" data-confirm-delete="true">
+                                                    <i class="mdi mdi-delete"></i>
+                                                </button>
+                                            </form>
+                                            {{-- <a href="{{ route('opsi-delete', $items->id_opsi) }}" data-confirm-delete="true" class="btn btn-danger">
                                                 <i class="mdi mdi-delete"></i>
-                                            </a>
+                                            </a> --}}
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
+                            
+                            
                         </table>
                     </div> <!-- end card body-->
                 </div> <!-- end card -->

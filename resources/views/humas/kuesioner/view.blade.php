@@ -61,6 +61,10 @@
                                         <td>
                                             <a href="{{ route('kuesioner-show', $item->id_kuesioner) }}"
                                                 class="btn btn-warning">
+                                                <i class="mdi mdi-eye"></i>
+                                            </a>
+                                            <a href="{{ route('kuesioner-edit', $item->id_kuesioner) }}"
+                                                class="btn btn-warning">
                                                 <i class="mdi mdi-pencil"></i>
                                             </a>
                                             <a href="{{ route('kuesioner-delete', $item->id_kuesioner) }}"

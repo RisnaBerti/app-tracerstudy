@@ -25,13 +25,14 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Edit Data Profil</h4>
-                        <form method="POST" action="{{ route('update-profile-humas') }}" class="needs-validation" novalidate  enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('update-profile-bkk') }}" class="needs-validation" novalidate  enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-sm-12 col-lg-4 text-center">
                                     <label for="foto_pegawai">Foto</label>
-                                    <img src="{{ asset('uploads/pegawai/' . $pegawai->foto_pegawai) }}" class="img-thumbnail" width="50%" alt="foto pegawai">                                    
-                                    <input type="file" class="form-control" id="foto_pegawai" name="foto_pegawai">
+                                    <img src="{{ asset('uploads/pegawai/' . $pegawai->foto_pegawai) }}" class="img-thumbnail" width="50%" alt="foto pegawai">   
+                                    <input type="file" class="form-control" id="foto_pegawai" name="foto_pegawai"
+                                        accept="image/jpeg, image/png" required>
                                 </div>
                                 <div class="col-sm-12 col-lg-8">
                                     <div class="form-group">
@@ -88,7 +89,7 @@
 
                         <h4 class="card-title">Ganti Password</h4>
 
-                        <form method="POST" action="{{ route('update-password-humas') }}"  class="form-horizontal">
+                        <form method="POST" action="{{ route('update-password-bkk') }}"  class="form-horizontal">
                             @csrf
                             <div class="form-group row mb-3">
                                 <label for="passwordLama" class="col-3 col-form-label">Password Lama</label>

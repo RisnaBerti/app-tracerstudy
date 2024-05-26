@@ -36,7 +36,7 @@
                         <h4 class="card-title">{{ $title }}</h4>
                         {{-- tombol tambah  --}}
                         <div class="d-flex justify-content-end mb-2">
-                            <a href="{{ route('kuesioner-create') }}" class="btn btn-primary">
+                            <a href="{{ route('pertanyaan-create') }}" class="btn btn-primary">
                                 <i class="mdi mdi-plus mr-2"></i> Tambah Data
                             </a>
                         </div>
@@ -45,25 +45,46 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Tanggal Kuesioner</th>
                                     <th>Judul Kuesioner</th>
-                                    <th>Deskripsi Kuesioner</th>
+                                    <th>Kategori</th>
+                                    <th>Pertanyaan</th>
+                                    <th>Tipe Pertanyaan</th>
+                                    <th>Opsi Jawaban</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($kuesioner as $index => $item)
+                                @foreach ($pertanyaan as $index => $item)
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
-                                        <td>{{ $item->tgl_kuesioner }}</td>
-                                        <td>{{ $item->judul_kuesioner }}</td>
-                                        <td>{{ $item->deskripsi_kuesioner }}</td>
+                                        <td>{{ $item->kuesioner->judul_kuesioner }}</td>
+                                        <td>{{ $item->kategori->nama_kategori }}</td>
+                                        <td>{{ $item->pertanyaan }}</td>
+                                        <td>{{ $item->tipe_pertanyaan }}</td>
+
+                                        {{-- jika tipe_pertanyaan text maka tidak memunculkan tombol tambah opsi --}}
+                                        @if ($item->tipe_pertanyaan == 'Text')
+                                            <td></td>
+                                        @elseif ($item->tipe_pertanyaan == 'Pilihan')
+                                            <td>
+                                                <a href="{{ route('opsi-create', $item->id_pertanyaan) }}" class="btn btn-primary">
+                                                    <i class="mdi mdi-plus mr-2"></i> Tambah Opsi
+                                                </a>
+                                                {{-- <ul>
+                                                    @foreach ($item->jawaban as $data)
+                                                        <li>{{ $data->opsi }}</li>
+                                                    @endforeach
+                                                </ul> --}}
+                                            </td>
+                                        @else
+                                        <td></td>
+                                        @endif
                                         <td>
-                                            <a href="{{ route('kuesioner-show', $item->id_kuesioner) }}"
+                                            <a href="{{ route('pertanyaan-edit', $item->id_pertanyaan) }}"
                                                 class="btn btn-warning">
                                                 <i class="mdi mdi-pencil"></i>
                                             </a>
-                                            <a href="{{ route('kuesioner-delete', $item->id_kuesioner) }}"
+                                            <a href="{{ route('pertanyaan-delete', $item->id_pertanyaan) }}"
                                                 data-confirm-delete="true" class="btn btn-danger">
                                                 <i class="mdi mdi-delete"></i>
                                             </a>

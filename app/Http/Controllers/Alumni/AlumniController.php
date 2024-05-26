@@ -4,12 +4,16 @@ namespace App\Http\Controllers\Alumni;
 
 use App\Models\User;
 use App\Models\Alumni;
+use App\Models\Jawaban;
 use App\Models\Jurusan;
+use App\Models\Kategori;
+use App\Models\Kuesioner;
 use App\Models\TahunLulus;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Pertanyaan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -30,8 +34,8 @@ class AlumniController extends Controller
         // Menghitung jumlah alumni per kategori
         $alumni_per_kategori = $alumni_counts->groupBy('id_kategori');
 
-        $alumni_bekerja = $alumni_per_kategori->get(1) ? $alumni_per_kategori->get(1)->sum('total') : 0;
-        $alumni_belum_bekerja = $alumni_per_kategori->get(2) ? $alumni_per_kategori->get(2)->sum('total') : 0;
+        $alumni_bekerja = $alumni_per_kategori->get(2) ? $alumni_per_kategori->get(2)->sum('total') : 0;
+        $alumni_belum_bekerja = $alumni_per_kategori->get(1) ? $alumni_per_kategori->get(1)->sum('total') : 0;
         $alumni_wirausaha = $alumni_per_kategori->get(3) ? $alumni_per_kategori->get(3)->sum('total') : 0;
         $alumni_kuliah = $alumni_per_kategori->get(4) ? $alumni_per_kategori->get(4)->sum('total') : 0;
 
@@ -54,21 +58,18 @@ class AlumniController extends Controller
     }
 
     //fungsii ganti profile
-    // public function edit($id)
-    // {
-    //     $alumni = Alumni::findOrFail($id);
-    //     $tahunLulus = TahunLulus::all();
-    //     $jurusan = Jurusan::all();
+    public function edit($id)
+    {
+        $alumni = Alumni::findOrFail($id);
 
-    //     return view('alumni.profil.edit', [
-    //         'title' => 'Data Alumni',
-    //         'action' => route('profil-update-alumni', $id),
-    //         'isCreated' => false,
-    //         'alumni' => $alumni,
-    //         'tahunLulus' => $tahunLulus,
-    //         'jurusan' => $jurusan,
-    //     ]);
-    // }
+        $jurusan = Jurusan::all();
+        $tahun = TahunLulus::all();
+        return view(
+            'alumni.profil.edit',
+            compact('alumni', 'jurusan', 'tahun'),
+            ['title' => 'Edit Profil']
+        );
+    }
 
     //fungsi update profile
     public function update(Request $request)
@@ -113,7 +114,7 @@ class AlumniController extends Controller
 
             // Simpan foto baru
             $file = $request->file('foto_alumni');
-            $filename = $request->nip . '.' . $file->getClientOriginalExtension();
+            $filename = $request->nisn . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('uploads/alumni'), $filename);
 
             $data['foto_alumni'] = $filename;
@@ -135,7 +136,6 @@ class AlumniController extends Controller
 
         return redirect()->route('profil-alumni', $id)->with('success', 'Data Alumni Berhasil Diubah');
     }
-
 
     //fungsi update password
     public function gantiPassword(Request $request)
@@ -170,17 +170,129 @@ class AlumniController extends Controller
         }
     }
 
-    //fungsii ganti profile
-    public function edit($id)
+    //fungsi viewKuesioner
+    public function viewKuesioner()
     {
-        $alumni = Alumni::findOrFail($id);
-
-        return view('alumni.profil.edit', [
-            'title' => 'Data Profil',
-            // 'action' => route('profil-update-alumni', $id),
-            // 'isCreated' => false,
-            'alumni' => $alumni,
+        $kuesioner = Kuesioner::all();
+        return view('alumni.kuesioner.view', [
+            'title' => 'Data Kuesioner',
+            'kuesioner' => $kuesioner
         ]);
     }
 
+    //fungsi showKuesioner
+    public function showKuesioner($id)
+    {
+        $kuesioner = Kuesioner::with(['pertanyaan.opsiJawaban'])->findOrFail($id);
+
+        // Get data alumni
+        $alumni = Alumni::with(['jurusan', 'tahun_lulus', 'kategori'])->find(Auth::user()->username);
+
+        
+
+        // Get all categories
+        $categories = Kategori::all();
+
+        // Group questions by category
+        $groupedQuestions = $kuesioner->pertanyaan->groupBy('id_kategori');
+        // var_dump($groupedQuestions);
+        // die();
+
+        return view('alumni.kuesioner.show', compact('kuesioner', 'alumni', 'categories', 'groupedQuestions'), ['title' => 'Data Kuesioner']);
+    }
+
+    //fungsi save kuesioner jawaban
+    // Fungsi untuk menyimpan jawaban kuesioner
+    public function saveKuesioner(Request $request)
+    {
+        // Validasi input
+        $validator = Validator::make($request->all(), [
+            'nisn' => 'numeric',
+            // 'id_tahun_lulus' => 'required',
+            'id_kategori' => 'numeric',
+            'respons' => 'array',
+            'respons.*.id_pertanyaan' => 'numeric',
+            // 'respons.*.jawaban' => 'required' // Menghapus nullable
+        ]);
+
+        // Jika validasi gagal, kembali ke halaman sebelumnya dengan error
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // Loop melalui setiap respons yang diberikan
+        if ($request->has('respons')) {
+            foreach ($request->respons as $response) {
+                // Pastikan 'jawaban' memiliki nilai sebelum menyimpannya ke dalam database
+                if (!empty($response['jawaban'])) {
+                    $data = [
+                        'nisn' => $request->nisn,
+                        'id_pertanyaan' => $response['id_pertanyaan'],
+                        'id_tahun_lulus' => $request->id_tahun_lulus,
+                        'id_kategori' => $request->id_kategori,
+                        'jawaban' => $response['jawaban']
+                    ];
+
+                    // Buat entri baru di tabel Jawaban
+                    Jawaban::create($data);
+                }
+            }
+        }
+
+        // Update kolom id_kategori pada data alumni
+        $alumni = Alumni::find($request->nisn);
+        $alumni->update(['id_kategori' => $request->id_kategori]);
+
+        // Redirect ke route 'kuesioner-alumni' dengan pesan sukses
+        return redirect()->route('kuesioner-alumni')->with('success', 'Data berhasil disimpan');
+    }
+
+
+
+
+    //fungsi history view
+    public function historyKuesioner()
+    {
+        $nisn = Auth::user()->username;
+        $alumni = Alumni::with(['jurusan', 'tahun_lulus', 'kategori'])->find($nisn);
+
+        // Get all the answered kuesioners for the logged-in alumni
+        $jawaban = Jawaban::where('nisn', $nisn)
+            ->with('pertanyaan.kuesioner')
+            ->get();
+
+        // Get unique kuesioners
+        $kuesioner = $jawaban->pluck('pertanyaan.kuesioner')->unique('id_kuesioner');
+
+        return view('alumni.kuesioner.history', compact('kuesioner', 'alumni'), ['title' => 'History Kuesioner']);
+    }
+
+    //fungsi history pengisian kuesioner
+    // public function historyDetailKuesioner()
+    // {
+    //     $alumni = Alumni::with(['jurusan', 'tahun_lulus', 'kategori'])->find(Auth::user()->username);
+    //     $kuesioner = Jawaban::where('nisn', Auth::user()->username)->get();
+
+    //     return view('alumni.kuesioner.history', compact('kuesioner', 'alumni'), ['title' => 'History Kuesioner']);
+    // }
+
+    public function historyDetailKuesioner($id)
+    {
+        $nisn = Auth::user()->username;
+        $alumni = Alumni::with(['jurusan', 'tahun_lulus', 'kategori'])->find($nisn);
+        
+        // var_dump($alumni->id_kategori);
+        // die();
+
+        // Get the specific kuesioner
+        $kuesioner = Kuesioner::with(['pertanyaan' => function ($query) use ($alumni, $nisn) {
+            // Filter pertanyaan berdasarkan kategori yang dipilih oleh alumni
+            $query->where('id_kategori', $alumni->id_kategori)->with(['jawaban' => function ($query) use ($nisn) {
+                // Filter jawaban berdasarkan nisn alumni
+                $query->where('nisn', $nisn);
+            }]);
+        }])->find($id);
+
+        return view('alumni.kuesioner.history-detail', compact('kuesioner', 'alumni'), ['title' => 'Detail Kuesioner']);
+    }
 }

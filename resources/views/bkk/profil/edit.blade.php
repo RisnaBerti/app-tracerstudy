@@ -30,8 +30,9 @@
                             <div class="row">
                                 <div class="col-sm-12 col-lg-4 text-center">
                                     <label for="foto_pegawai">Foto</label>
-                                    <img src="{{ asset('uploads/pegawai/' . $pegawai->foto_pegawai) }}" class="img-thumbnail" width="50%" alt="foto pegawai">                                    
-                                    <input type="file" class="form-control" id="foto_pegawai" name="foto_pegawai">
+                                    <img src="{{ asset('uploads/pegawai/' . $pegawai->foto_pegawai) }}" class="img-thumbnail" width="50%" alt="foto pegawai">   
+                                    <input type="file" class="form-control" id="foto_pegawai" name="foto_pegawai"
+                                        accept="image/jpeg, image/png" required>
                                 </div>
                                 <div class="col-sm-12 col-lg-8">
                                     <div class="form-group">

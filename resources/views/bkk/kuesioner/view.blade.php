@@ -59,7 +59,11 @@
                                         <td>{{ $item->judul_kuesioner }}</td>
                                         <td>{{ $item->deskripsi_kuesioner }}</td>
                                         <td>
-                                            <a href="{{ route('kuesioner-show', $item->id_kuesioner) }}"
+                                            <a href="{{ route('kuesioner-show-bkk', $item->id_kuesioner) }}"
+                                                class="btn btn-success">
+                                                <i class="mdi mdi-eye"></i>
+                                            </a>
+                                            <a href="{{ route('kuesioner-show-bkk', $item->id_kuesioner) }}"
                                                 class="btn btn-warning">
                                                 <i class="mdi mdi-pencil"></i>
                                             </a>

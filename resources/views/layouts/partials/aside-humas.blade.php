@@ -24,15 +24,15 @@
                 </li>
 
                 <li>
-                    <a href="{{ url('alumni-humas') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
+                    <a href="{{ url('alumni-humas') }}" class="waves-effect"><i class="mdi mdi-school"></i>
                         <span>Data Alumni</span></a>
                 </li>
                 <li>
-                    <a href="{{ url('jurusan-humas') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
+                    <a href="{{ url('jurusan-humas') }}" class="waves-effect"><i class="mdi mdi-book-open"></i>
                         <span>Data Lulusan</span></a>
                 </li>
                 <li>
-                    <a href="{{ url('pegawai') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
+                    <a href="{{ url('pegawai') }}" class="waves-effect"><i class="mdi mdi-account-group"></i>
                         <span>Data Pegawai</span></a>
                 </li>
 
@@ -91,11 +91,11 @@
                     </ul>
                 </li> --}}
                 <li>
-                    <a href="{{ url('hasil-kuesioner-humas') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
+                    <a href="{{ url('hasil-kuesioner-humas') }}" class="waves-effect"><i class="mdi mdi-checkbox-multiple-marked-outline"></i>
                         <span>Hasil Kuesioner</span></a>
                 </li>
                 <li>
-                    <a href="{{ url('statistik-humas') }}" class="waves-effect"><i class="mdi mdi-home-analytics"></i>
+                    <a href="{{ url('statistik-humas') }}" class="waves-effect"><i class="mdi mdi-chart-areaspline"></i>
                         <span>Statistik</span></a>
                 </li>
 
@@ -103,14 +103,16 @@
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect"><i
-                            class="mdi mdi-diamond-stone"></i><span>Pengaturan</span></a>
+                            class="mdi mdi-settings-outline"></i><span>Pengaturan</span></a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ url('profil-humas/'. Auth::user()->username) }}">Profil</a></li>
                     </ul>
                 </li>
 
-                <li><a href="{{ url('logout') }}" class=" waves-effect"><i
-                            class="mdi mdi-calendar-range-outline"></i><span>Keluar</span></a></li>
+                <li>
+                    <a href="{{ url('logout') }}" class=" waves-effect"><i
+                            class="mdi mdi-logout"></i><span>Keluar</span></a>
+                </li>
 
             </ul>
         </div>

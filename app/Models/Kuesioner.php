@@ -17,4 +17,14 @@ class Kuesioner extends Model
         'deskripsi_kuesioner', 
         'tgl_kuesioner'
     ];
+
+    public function pertanyaan()
+    {
+        return $this->hasMany(Pertanyaan::class, 'id_kuesioner');
+    }
+
+    public function jawaban()
+    {
+        return $this->hasMany(Jawaban::class, 'id_kuesioner');
+    }
 }

@@ -10,6 +10,7 @@ use App\Http\Controllers\KuesionerController;
 use App\Http\Controllers\Bkk\AlumniController;
 use App\Http\Controllers\PertanyaanController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Alumni\AlumniController as AlumniAlumniController;
 use App\Http\Controllers\Bkk\JurusanController;
 use App\Http\Controllers\Bkk\KategoriController;
 use App\Http\Controllers\Bkk\TahunLulusController;
@@ -39,14 +40,6 @@ Route::get('/', [AuthController::class, 'index'])->name('login');
 Route::post('/action-login', [AuthController::class, 'actionLogin'])->name('action-login');
 
 
-
-
-
-
-
-
-
-
 //Route Admin
 Route::controller(AdminController::class)->group(function () {
     Route::get('/admin', 'index')->name('admin');
@@ -62,6 +55,11 @@ Route::controller(BkkController::class)->group(function () {
     Route::get('/profil-bkk/{id}', 'edit')->name('profil-bkk');
     Route::post('/update-profile-bkk', 'update')->name('update-profile-bkk');
     Route::post('/update-password-bkk', 'gantiPassword')->name('update-password-bkk');
+
+    Route::get('/hasil-kuesioner-bkk', 'hasil')->name('hasil-kuesioner-bkk');
+    Route::get('/notifikasi/{id}', 'kirimNotifikasi')->name('notifikasi');
+    Route::get('/statistik-bkk', 'statistik')->name('statistik-bkk');
+    Route::get('/statistik-bkk-print', 'statistikPrint')->name('statistik-bkk-print');
 });
 
 //Route Jurusan
@@ -96,7 +94,7 @@ Route::controller(TahunLulusController::class)->group(function () {
 
 //Route Alumni
 Route::controller(AlumniController::class)->group(function () {
-    Route::get('/alumni', 'index')->name('alumni');
+    Route::get('/alumni-bkk', 'index')->name('alumni-bkk');
     Route::get('/alumni-create', 'create')->name('alumni-create');
     Route::post('/alumni-store', 'store')->name('alumni-store');
     Route::get('/alumni-edit/{id}', 'edit')->name('alumni-edit');
@@ -110,13 +108,13 @@ Route::controller(KuesionerController::class)->group(function () {
     Route::get('/kuesioner-create', 'create')->name('kuesioner-create');
     Route::post('/kuesioner-store', 'store')->name('kuesioner-store');
 
-    Route::get('/kuesioner-show/{id}', 'show')->name('kuesioner-show');
+    Route::get('/kuesioner-show-bkk/{id}', 'show')->name('kuesioner-show-bkk');
 
     Route::get('/kuesioner-edit/{id}', 'edit')->name('kuesioner-edit');
     Route::post('/kuesioner-update', 'update')->name('kuesioner-update');
     Route::get('/kuesioner-delete/{id}', 'destroy')->name('kuesioner-delete');
-    Route::get('/hasil-kuesioner-bkk', 'hasil')->name('hasil-kuesioner-bkk');
-    Route::get('/statistik-bkk', 'statistik')->name('statistik-bkk');
+    // Route::get('/hasil-kuesioner-bkk', 'hasil')->name('hasil-kuesioner-bkk');
+    // Route::get('/statistik-bkk', 'statistik')->name('statistik-bkk');
 });
 
 //Route Pertanyaan
@@ -124,6 +122,7 @@ Route::controller(PertanyaanController::class)->group(function () {
     Route::get('/pertanyaan', 'index')->name('pertanyaan');
     Route::get('/pertanyaan-create', 'create')->name('pertanyaan-create');
     Route::post('/pertanyaan-store', 'store')->name('pertanyaan-store');
+    Route::get('/pertanyaan-show/{id}', 'show')->name('pertanyaan-show');
     Route::get('/pertanyaan-edit/{id}', 'edit')->name('pertanyaan-edit');
     Route::post('/pertanyaan-update', 'update')->name('pertanyaan-update');
     Route::get('/pertanyaan-delete/{id}', 'destroy')->name('pertanyaan-delete');
@@ -146,7 +145,7 @@ Route::controller(OpsiController::class)->group(function () {
     Route::post('/opsi-store', 'store')->name('opsi-store');
     Route::get('/opsi-edit/{id}', 'edit')->name('opsi-edit');
     Route::post('/opsi-update', 'update')->name('opsi-update');
-    Route::get('/opsi-delete/{id}', 'destroy')->name('opsi-delete');
+    Route::delete('/opsi-delete/{id}', 'destroy')->name('opsi-delete');
 });
 
 // =====================================================
@@ -193,14 +192,22 @@ Route::controller(DisnakerController::class)->group(function () {
 // =====================================================
 // ROUTE UNTUK ALUMNI
 // =====================================================
-Route::controller(AlumniController::class)->group(function () {
+Route::controller(AlumniAlumniController::class)->group(function () {
     Route::get('/alumni', 'index')->name('alumni');
     Route::get('/profil-alumni/{id}', 'edit')->name('profil-alumni');
-    Route::post('/update-profile-alumni', 'update')->name('update-profile-alumni');
+    Route::post('/update-profil-alumni', 'update')->name('update-profil-alumni');
     Route::post('/update-password-alumni', 'gantiPassword')->name('update-password-alumni');
 
+    
+    Route::get('/kuesioner-alumni', 'viewKuesioner')->name('kuesioner-alumni');
+    Route::get('/kuesioner-alumni-show/{id}', 'showKuesioner')->name('kuesioner-alumni-show');
+    Route::post('/kuesioner-alumni-save', 'saveKuesioner')->name('kuesioner-alumni-save');
+    
+    Route::get('/kuesioner-history-alumni', 'historyKuesioner')->name('kuesioner-history-alumni');
+    Route::get('/kuesioner-history-detail-alumni/{id}', 'historyDetailKuesioner')->name('kuesioner-history-detail-alumni');
 
-    Route::get('/kuesioner-alumni', 'index')->name('kuesioner-alumni');
+
+    // Route::get('/kuesioner-alumni', 'index')->name('kuesioner-alumni');
     Route::get('/riwayat-kuesioner-alumni', 'index')->name('riwayat-kuesioner-alumni');
 
     Route::get('/jurusan-alumni', 'jurusan')->name('jurusan-alumni');

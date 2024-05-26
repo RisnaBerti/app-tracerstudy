@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alumni;
+use App\Models\Jawaban;
 use App\Models\Kuesioner;
 use App\Models\Pertanyaan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class KuesionerController extends Controller
 {
@@ -15,11 +19,13 @@ class KuesionerController extends Controller
         $title = 'Hapus Data!';
         $text = "Apakah Anda yakin ingin menghapus nya?";
         confirmDelete($title, $text);
-        
+
         return view(
-            'admin.kuesioner.view',
-            [   'title' => 'Data Kuesioner',
-                'kuesioner' => Kuesioner::all()]
+            'bkk.kuesioner.view',
+            [
+                'title' => 'Data Kuesioner',
+                'kuesioner' => Kuesioner::all()
+            ]
         );
     }
 
@@ -27,7 +33,7 @@ class KuesionerController extends Controller
     public function create()
     {
         return view(
-            'admin.kuesioner.create',
+            'bkk.kuesioner.create',
             ['title' => 'Data Kuesioner']
         );
     }
@@ -49,10 +55,17 @@ class KuesionerController extends Controller
     //fungsi show
     public function show($id)
     {
-        $kuesioner = Kuesioner::find($id);
-        $pertanyaan = Pertanyaan::where('id_kuesioner', $id)->with('opsiJawaban')->get();
+        // $kuesioner = Kuesioner::find($id);
+        // $pertanyaan = Pertanyaan::where('id_kuesioner', $id)->with('jawaban')->get();
+        $kuesioner = Kuesioner::with(['pertanyaan.opsiJawaban'])->findOrFail($id);
+        //get data alumni
+        $alumni = Alumni::find(Auth::user()->username);
 
-        return view('admin.kuesioner.show', compact('kuesioner', 'pertanyaan'));
+        // var_dump($alumni);
+        // die();
+
+        return view('bkk.kuesioner.show', compact('kuesioner', 
+        'alumni'), ['title' => 'Data Kuesioner']);
     }
 
     //fungsi edit
@@ -61,7 +74,7 @@ class KuesionerController extends Controller
         $kuesioner = Kuesioner::find($id);
 
         return view(
-            'admin.kuesioner.edit',
+            'bkk.kuesioner.edit',
             compact('kuesioner'),
             ['title' => 'Data Kuesioner']
 

@@ -31,18 +31,25 @@
                         <form action="{{ route('opsi-update') }}" method="POST" class="needs-validation" novalidate>
                             @csrf
                             <div class="form-group">
+                                <input type="hidden" id="id_opsi" name="id_opsi" value="{{ $opsi->id_opsi }}">
+                                {{-- <input type="hidden" id="id_opsi" name="id_opsi" value=""> --}}
                                 <div class="col-md-4 mb-12">
-                                    <input type="hidden" id="id_pertanyaan" name="id_pertanyaan" value="">
                                     <label for="id_pertanyaan">Pertanyaan</label>
-                                    <input type="text" class="form-control" id="id_pertanyaan" name="id_pertanyaan"
-                                        placeholder="Pertanyaan" value="" required>
+                                    <select class="form-control" name="id_pertanyaan" id="id_pertanyaan" required>
+                                        <option value="">Pilih Pertanyaan</option>
+                                        @foreach ($pertanyaan as $item)
+                                            <option value="{{ $item->id_pertanyaan }}" {{ $opsi->id_pertanyaan == $item->id_pertanyaan ? 'selected' : '' }}>
+                                                {{ $item->pertanyaan }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-4 mb-12">
                                     <label for="opsi">Opsi Jawaban</label>
                                     <input type="text" class="form-control" id="opsi" name="opsi"
-                                        placeholder="Opsi Jawaban" value="" required>
+                                        placeholder="Opsi Jawaban" value="{{ $opsi->opsi }}" required>
                                 </div>
                             </div>
                             <button class="btn btn-primary waves-effect waves-light" type="submit">Simpan</button>

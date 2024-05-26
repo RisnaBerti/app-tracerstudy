@@ -26,18 +26,20 @@
                     <div class="card-body">
 
                         <h4 class="card-title">Edit Data Profil</h4>
-                        <form method="POST" action="{{ route('update-profile-alumni') }}" class="needs-validation" novalidate>
+                        <form method="POST" action="{{ route('update-profil-alumni') }}"  class="needs-validation" novalidate  enctype="multipart/form-data">
+                            @csrf
                             <div class="row">
-                                <div class="col-sm-12 col-lg-4">
-                                    <img src="" class="img-thumbnail" alt="foto alumni">
+                                <div class="col-sm-12 col-lg-4 text-center">
                                     <label for="foto_alumni">Foto</label>
-                                    <input type="file" class="form-control" id="foto_alumni" name="foto_alumni">
+                                    <img src="{{ asset('uploads/alumni/' . $alumni->foto_alumni) }}" class="img-thumbnail" width="50%" alt="foto alumni">                                    
+                                    <input type="file" class="form-control" id="foto_alumni" name="foto_alumni"
+                                    accept="image/jpeg, image/png" required>
                                 </div>
                                 <div class="col-sm-12 col-lg-8">
                                     <div class="form-group">
                                         <label class="title">NISN</label>
                                         <input type="text" class="form-control " name="nisn" id="nisn"
-                                            value="{{ $alumni->nisn }}">
+                                            value="{{ $alumni->nisn }}" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label class="title">Nama Lengkap</label>
@@ -46,18 +48,37 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="title">Jurusan</label>
-                                        <input type="text" class="form-control " name="id_jurusan" id="id_jurusan"
-                                            value="{{ $alumni->id_jurusan }}">
+                                        <select class="form-control" id="id_jurusan" name="id_jurusan" required>
+                                            <option value="">Pilih Jurusan</option>
+                                            @foreach ($jurusan as $item)
+                                                <option value="{{ $item->id_jurusan }}"
+                                                    {{ $alumni->id_jurusan == $item->id_jurusan ? 'selected' : '' }}>
+                                                    {{ $item->nama_jurusan }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label class="title">Tahun Lulus</label>
-                                        <input type="text" class="form-control " name="id_tahun_lulus"
-                                            id="id_tahun_lulus" value="{{ $alumni->id_tahun_lulus }}">
+                                        <select class="form-control" id="id_tahun_lulus" name="id_tahun_lulus" required>
+                                            <option value="">Pilih Tahun Lulus</option>
+                                            @foreach ($tahun as $item)
+                                                <option value="{{ $item->id_tahun_lulus }}"
+                                                    {{ $alumni->id_tahun_lulus == $item->id_tahun_lulus ? 'selected' : '' }}>
+                                                    {{ $item->tahun_lulus }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label class="title">Jenis Kelamin</label>
-                                        <input type="text" class="form-control " name="jenis_kelamin" id="jenis_kelamin"
-                                            value="{{ $alumni->jenis_kelamin }}">
+                                        <select class="form-control" id="jenis_kelamin" name="jenis_kelamin" required>
+                                            <option value="">Pilih Jenis Kelamin</option>
+                                            <option value="Laki-Laki"
+                                                {{ $alumni->jenis_kelamin == 'Laki-Laki' ? 'selected' : '' }}>Laki-Laki
+                                            </option>
+                                            <option value="Perempuan"
+                                                {{ $alumni->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>Perempuan
+                                            </option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label class="title">No HP</label>
@@ -85,7 +106,11 @@
                                     Looks good!
                                 </div>
                             </div> -->
-                            <button class="btn btn-primary waves-effect waves-light" type="submit">Simpan</button>
+                            <div class="form-group mb-0 justify-content-end row">
+                                <div class="col-sm-12 col-lg-8">
+                                    <button type="submit" class="btn btn-info waves-effect waves-light">Simpan</button>
+                                </div>
+                            </div>
                         </form>
 
                     </div> <!-- end card-body-->
@@ -94,7 +119,7 @@
         </div>
         <!-- end row-->
 
-        <div class="row">
+        <div class="row">   
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
@@ -102,6 +127,7 @@
                         <h4 class="card-title">Ganti Password</h4>
 
                         <form method="POST" action="{{ route('update-password-alumni') }}"  class="form-horizontal">
+                            @csrf
                             <div class="form-group row mb-3">
                                 <label for="passwordLama" class="col-3 col-form-label">Password Lama</label>
                                 <div class="col-9">
@@ -117,12 +143,10 @@
                                 </div>
                             </div>
                             <div class="form-group row mb-3">
-                                <label for="konfirmasiPasswordBaru" class="col-3 col-form-label">Konfirmasi Password
-                                    Baru</label>
+                                <label for="konfirmasiPasswordBaru" class="col-3 col-form-label">Konfirmasi Password Baru</label>
                                 <div class="col-9">
                                     <input type="password" class="form-control" id="konfirmasiPasswordBaru" name="konfirmasiPasswordBaru"
-                                        placeholder="Konfirmasi Password
-                                        Baru">
+                                        placeholder="Konfirmasi Password Baru">
                                 </div>
                             </div>
                             <div class="form-group mb-0 justify-content-end row">

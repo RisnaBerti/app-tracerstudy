@@ -50,7 +50,7 @@ class AlumniController extends Controller
             'jenis_kelamin' => 'required',
             'no_hp_alumni' => 'required|numeric',
             'alamat_alumni' => 'required',
-            'email_alumni' => 'required|email',
+            'email_alumni' => 'required|email|unique:alumni,email_alumni',
             'foto_alumni' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'id_tahun_lulus' => 'required|exists:tahun_lulus,id_tahun_lulus',
             'id_jurusan' => 'required|exists:jurusan,id_jurusan',
@@ -64,7 +64,7 @@ class AlumniController extends Controller
         $user = User::create([
             'username' => $request->nisn,
             'password' => bcrypt('123'), // Gunakan bcrypt untuk mengenkripsi password
-            'id_role' => '2',
+            'id_role' => '4',
             'is_aktif' => '1'
         ]);
 
@@ -91,7 +91,7 @@ class AlumniController extends Controller
             'id_kategori' => '1',
         ]);
 
-        return redirect()->route('alumni')->with('success', 'Data Alumni Berhasil Ditambahkan');
+        return redirect()->route('alumni-bkk')->with('success', 'Data Alumni Berhasil Ditambahkan');
     }
 
     //fungsi edit
@@ -155,7 +155,7 @@ class AlumniController extends Controller
 
         $alumni->update($data);
 
-        return redirect()->route('alumni')->with('success', 'Data Alumni Berhasil Diubah');
+        return redirect()->route('alumni-bkk')->with('success', 'Data Alumni Berhasil Diubah');
     }
 
     public function destroy($id)
@@ -178,6 +178,8 @@ class AlumniController extends Controller
         if ($user) {
             $user->delete();
         }
+        
+        return redirect()->route('alumni-bkk');
 
         // Hapus data user yang berelasi
         // Hapus data user yang berelasi
@@ -189,7 +191,6 @@ class AlumniController extends Controller
         // $alumni->delete();
 
        
-        return redirect()->route('alumni');
 
 
         // return view('bkk.alumni.view',
