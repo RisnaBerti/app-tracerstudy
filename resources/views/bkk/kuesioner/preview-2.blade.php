@@ -24,19 +24,22 @@
             <div class="col-12">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a href="" class="nav-link">Hasil 1</a>
+                        <a href="{{ route('hasil-preview-bkk', ['id' => $id]) }}" class="nav-link ">Grafik Pengisian</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">Hasil 2</a>
+                        <a href="{{ route('hasil-preview2', ['id' => $id]) }}" class="nav-link active">Grafik Alumni</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">Hasil 3</a>
+                        <a href="{{ route('hasil-preview3', ['id' => $id]) }}" class="nav-link">Bekerja</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">Hasil 4</a>
+                        <a href="{{ route('hasil-preview4', ['id' => $id]) }}" class="nav-link">Kuliah</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link active">Hasil 5</a>
+                        <a href="{{ route('hasil-preview5', ['id' => $id]) }}" class="nav-link">Wirausaha</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('hasil-preview6', ['id' => $id]) }}" class="nav-link">Belum Bekerja</a>
                     </li>
                 </ul>
             </div>
@@ -44,53 +47,78 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title
-                        ">{{ $title }}</h4>
-                        <p class="card-title-desc">Hasil 5</p>
-                        
+                        ">Grafik Alumni</h4>
+                        {{-- <p class="card-title-desc">Grafik Alumni</p> --}}
+
+                        {{-- grafik alumni per tahun per jurusan --}}
+                        <div id="grafik-alumni">
+                            <div id="responsive-chart"></div>
+                        </div>
+
+
                         <table id="basic-datatable" class="table dt-responsive nowrap">
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama</th>
-                                    <th>Perusahaan</th>
-                                    <th>Posisi</th>
-                                    <th>Hasil</th>
-                                    <th>Detail</th>
+                                    <th>Nama Jurusan</th>
+                                    <th>Tahun Lulus</th>
+                                    <th>Jumlah Alumni</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($hasil as $index => $item)
-                                    <tr>
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>{{ $item->nama }}</td>
-                                        <td>{{ $item->perusahaan }}</td>
-                                        <td>{{ $item->posisi }}</td>
-                                        <td>{{ $item->hasil }}</td>
-                                        <td>
-                                            <a href="{{ route('kuesioner.detail', $item->id_kuesioner) }}"
-                                                class="btn btn-primary btn-sm">Detail</a>
-                                        </td>
-                                    </tr>
-                                @endforeach --}}
+                                @php $no = 1; @endphp
+                                @foreach ($data as $tahun_lulus => $jurusan_data)
+                                    @foreach ($jurusan_data as $nama_jurusan => $jumlah_alumni)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $tahun_lulus }}</td>
+                                            <td>{{ $nama_jurusan }}</td>
+                                            <td>{{ $jumlah_alumni }}</td>
+                                        </tr>
+                                    @endforeach
+                                @endforeach
                             </tbody>
                         </table>
 
                     </div> <!-- end card body-->
                 </div> <!-- end card -->
             </div>
-            {{-- <div class="col-sm-12 col-md-6">
-            <div class="dt-buttons btn-group"> 
-                <button class="btn btn-secondary buttons-copy buttons-html5"
-                    tabindex="0" aria-controls="datatable-buttons" type="button"><span>Copy</span></button> <button
-                    class="btn btn-secondary buttons-print" tabindex="0" aria-controls="datatable-buttons"
-                    type="button"><span>Print</span></button> <button
-                    class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0" aria-controls="datatable-buttons"
-                    type="button"><span>PDF</span></button> 
-            </div>
-        </div> --}}
-          
         </div>
         <!-- end row-->
 
     </div> <!-- container-fluid -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+        var options = {
+            chart: {
+                type: 'bar'
+            },
+            series: {!! json_encode($seriesData) !!},
+            xaxis: {
+                categories: {!! json_encode($categories) !!}
+            },
+            responsive: [{
+                breakpoint: 1000,
+                options: {
+                    chart: {
+                        width: '100%'
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }],
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '55%',
+                    endingShape: 'rounded'
+                },
+            },
+        };
+
+        var chart = new ApexCharts(document.querySelector("#responsive-chart"), options);
+
+        chart.render();
+    </script>
 @endsection

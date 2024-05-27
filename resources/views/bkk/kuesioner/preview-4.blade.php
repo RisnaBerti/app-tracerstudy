@@ -24,19 +24,22 @@
             <div class="col-12">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a href="" class="nav-link">Hasil 1</a>
+                        <a href="{{ route('hasil-preview-bkk', ['id' => $id]) }}" class="nav-link ">Grafik Pengisian</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">Hasil 2</a>
+                        <a href="{{ route('hasil-preview2', ['id' => $id]) }}" class="nav-link ">Grafik Alumni</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">Hasil 3</a>
+                        <a href="{{ route('hasil-preview3', ['id' => $id]) }}" class="nav-link">Bekerja</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">Hasil 4</a>
+                        <a href="{{ route('hasil-preview4', ['id' => $id]) }}" class="nav-link active">Kuliah</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link active">Hasil 5</a>
+                        <a href="{{ route('hasil-preview5', ['id' => $id]) }}" class="nav-link">Wirausaha</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('hasil-preview6', ['id' => $id]) }}" class="nav-link">Belum Bekerja</a>
                     </li>
                 </ul>
             </div>
@@ -44,34 +47,27 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title
-                        ">{{ $title }}</h4>
-                        <p class="card-title-desc">Hasil 5</p>
+                        ">Preview Kuliah</h4>
+                        {{-- <p class="card-title-desc">Preview Kuliah</p> --}}
                         
                         <table id="basic-datatable" class="table dt-responsive nowrap">
                             <thead>
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
-                                    <th>Perusahaan</th>
-                                    <th>Posisi</th>
-                                    <th>Hasil</th>
-                                    <th>Detail</th>
+                                    <th>Perguruan Tinggi</th>
+                                    <th>Jurusan</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($hasil as $index => $item)
+                                @foreach ($data as $nama_alumni => $jawaban)
                                     <tr>
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>{{ $item->nama }}</td>
-                                        <td>{{ $item->perusahaan }}</td>
-                                        <td>{{ $item->posisi }}</td>
-                                        <td>{{ $item->hasil }}</td>
-                                        <td>
-                                            <a href="{{ route('kuesioner.detail', $item->id_kuesioner) }}"
-                                                class="btn btn-primary btn-sm">Detail</a>
-                                        </td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $nama_alumni }}</td>
+                                        <td>{{ $jawaban['Di perguruan tinggi mana anda melanjutkan pendidikan?'] ?? 'N/A' }}</td>
+                                        <td>{{ $jawaban['Jurusan apa yang anda ambil di perguruan tinggi tersebut?'] ?? 'N/A' }}</td>
                                     </tr>
-                                @endforeach --}}
+                                @endforeach
                             </tbody>
                         </table>
 

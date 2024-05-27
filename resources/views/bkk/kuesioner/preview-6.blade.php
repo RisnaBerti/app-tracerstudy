@@ -36,26 +36,26 @@
                         <a href="{{ route('hasil-preview4', ['id' => $id]) }}" class="nav-link">Kuliah</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview5', ['id' => $id]) }}" class="nav-link active">Wirausaha</a>
+                        <a href="{{ route('hasil-preview5', ['id' => $id]) }}" class="nav-link ">Wirausaha</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview6', ['id' => $id]) }}" class="nav-link">Belum Bekerja</a>
+                        <a href="{{ route('hasil-preview6', ['id' => $id]) }}" class="nav-link active">Belum Bekerja</a>
                     </li>
                 </ul>
             </div>
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Preview Wirausaha</h4>
-                        {{-- <p class="card-title-desc">Preview Wirausaha</p> --}}
+                        <h4 class="card-title
+                        ">Preview Belum Bekerja</h4>
+                        <p class="card-title-desc">Preview Belum Bekerja</p>
                         
                         <table id="basic-datatable" class="table dt-responsive nowrap">
                             <thead>
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
-                                    <th>Jenis Usaha</th>
-                                    <th>Nama Usaha</th>
+                                    <th>Kegiatan</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -63,8 +63,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $nama_alumni }}</td>
-                                        <td>{{ $jawaban['Wirausaha bidang apa yang sedang anda jalankan saat ini?'] ?? 'N/A' }}</td>
-                                        <td>{{ $jawaban['Apa nama usaha yang anda jalankan?'] ?? 'N/A' }}</td>
+                                        <td>{{ $jawaban['Dimana anda sekarang bekerja?'] ?? 'N/A' }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -72,7 +71,18 @@
 
                     </div> <!-- end card body-->
                 </div> <!-- end card -->
-            </div>          
+            </div>
+            {{-- <div class="col-sm-12 col-md-6">
+            <div class="dt-buttons btn-group"> 
+                <button class="btn btn-secondary buttons-copy buttons-html5"
+                    tabindex="0" aria-controls="datatable-buttons" type="button"><span>Copy</span></button> <button
+                    class="btn btn-secondary buttons-print" tabindex="0" aria-controls="datatable-buttons"
+                    type="button"><span>Print</span></button> <button
+                    class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0" aria-controls="datatable-buttons"
+                    type="button"><span>PDF</span></button> 
+            </div>
+        </div> --}}
+          
         </div>
         <!-- end row-->
 

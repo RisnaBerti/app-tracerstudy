@@ -19,6 +19,7 @@ class Pegawai extends Model
         'alamat_pegawai',
         'email_pegawai',
         'foto_pegawai',
+        'jabatan',
         'id_user'
     ];
 

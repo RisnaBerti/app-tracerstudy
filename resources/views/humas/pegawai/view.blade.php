@@ -43,27 +43,32 @@
                         <table id="basic-datatable" class="table dt-responsive nowrap">
                             <thead>
                                 <tr>
+                                    <th>No</th>
                                     <th>Nama</th>
                                     <th>NIP</th>
                                     <th>JK</th>
                                     <th>Alamat</th>
                                     <th>No HP</th>
                                     <th>Email</th>
-                                    <th>Jabatan</th>
+                                    {{-- <th>Jabatan</th> --}}
                                     <th>Foto</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                    $no = 1;
+                                @endphp
                                 @foreach ($pegawai as $item)
                                     <tr>
+                                        <td>{{ $no++ }}</td>
                                         <td>{{ $item->nama_pegawai }}</td>
                                         <td>{{ $item->nip }}</td>
                                         <td>{{ $item->jenis_kelamin }}</td>
                                         <td>{{ $item->alamat_pegawai }}</td>
                                         <td>{{ $item->no_hp_pegawai }}</td>
                                         <td>{{ $item->email_pegawai }}</td>
-                                        <td>{{ $item->id_role }}</td>
+                                        {{-- <td>{{ $item->id_role }}</td> --}}
                                         <td>
                                             <img src="{{ asset('uploads/pegawai/' . $item->foto_pegawai) }}" alt="foto"
                                                 width="60">

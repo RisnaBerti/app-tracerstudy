@@ -24,19 +24,22 @@
             <div class="col-12">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a href="" class="nav-link">Hasil 1</a>
+                        <a href="{{ route('hasil-preview-bkk', ['id' => $id]) }}" class="nav-link ">Grafik Pengisian</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">Hasil 2</a>
+                        <a href="{{ route('hasil-preview2', ['id' => $id]) }}" class="nav-link ">Grafik Alumni</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">Hasil 3</a>
+                        <a href="{{ route('hasil-preview3', ['id' => $id]) }}" class="nav-link active">Bekerja</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">Hasil 4</a>
+                        <a href="{{ route('hasil-preview4', ['id' => $id]) }}" class="nav-link">Kuliah</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link active">Hasil 5</a>
+                        <a href="{{ route('hasil-preview5', ['id' => $id]) }}" class="nav-link">Wirausaha</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('hasil-preview6', ['id' => $id]) }}" class="nav-link">Belum Bekerja</a>
                     </li>
                 </ul>
             </div>
@@ -44,8 +47,8 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title
-                        ">{{ $title }}</h4>
-                        <p class="card-title-desc">Hasil 5</p>
+                        ">Preview Bekerja</h4>
+                        {{-- <p class="card-title-desc">Preview Bekerja</p> --}}
                         
                         <table id="basic-datatable" class="table dt-responsive nowrap">
                             <thead>
@@ -54,24 +57,17 @@
                                     <th>Nama</th>
                                     <th>Perusahaan</th>
                                     <th>Posisi</th>
-                                    <th>Hasil</th>
-                                    <th>Detail</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($hasil as $index => $item)
+                                @foreach ($data as $nama_alumni => $jawaban)
                                     <tr>
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>{{ $item->nama }}</td>
-                                        <td>{{ $item->perusahaan }}</td>
-                                        <td>{{ $item->posisi }}</td>
-                                        <td>{{ $item->hasil }}</td>
-                                        <td>
-                                            <a href="{{ route('kuesioner.detail', $item->id_kuesioner) }}"
-                                                class="btn btn-primary btn-sm">Detail</a>
-                                        </td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $nama_alumni }}</td>
+                                        <td>{{ $jawaban['Nama perusahaan/kantor tempat anda bekerja saat ini?'] ?? 'N/A' }}</td>
+                                        <td>{{ $jawaban['Dalam jabatan atau posisi apa anda saat ini bekerja?'] ?? 'N/A' }}</td>
                                     </tr>
-                                @endforeach --}}
+                                @endforeach
                             </tbody>
                         </table>
 

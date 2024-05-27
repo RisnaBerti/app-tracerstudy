@@ -27,13 +27,25 @@ class HumasController extends Controller
         // Menghitung total alumni
         $total_alumni = Alumni::count();
 
-        // Menghitung jumlah alumni per kategori
-        $alumni_per_kategori = $alumni_counts->groupBy('id_kategori');
+        //alumni count id_kategori "Bekerja"
+        $alumni_bekerja = $alumni_counts->where('id_kategori', 1)->sum('total');
 
-        $alumni_bekerja = $alumni_per_kategori->get(1) ? $alumni_per_kategori->get(1)->sum('total') : 0;
-        $alumni_belum_bekerja = $alumni_per_kategori->get(2) ? $alumni_per_kategori->get(2)->sum('total') : 0;
-        $alumni_wirausaha = $alumni_per_kategori->get(3) ? $alumni_per_kategori->get(3)->sum('total') : 0;
-        $alumni_kuliah = $alumni_per_kategori->get(4) ? $alumni_per_kategori->get(4)->sum('total') : 0;
+        //alumni count id_kategori "Belum Bekerja"
+        $alumni_belum_bekerja = $alumni_counts->where('id_kategori', 2)->sum('total');
+
+        //alumni count id_kategori "Wirausaha"
+        $alumni_wirausaha = $alumni_counts->where('id_kategori', 4)->sum('total');
+
+        //alumni count id_kategori "Kuliah"
+        $alumni_kuliah = $alumni_counts->where('id_kategori', 3)->sum('total');
+
+        // Menghitung jumlah alumni per kategori
+        // $alumni_per_kategori = $alumni_counts->groupBy('id_kategori');
+
+        // $alumni_bekerja = $alumni_per_kategori->get(1) ? $alumni_per_kategori->get(1)->sum('total') : 0;
+        // $alumni_belum_bekerja = $alumni_per_kategori->get(2) ? $alumni_per_kategori->get(2)->sum('total') : 0;
+        // $alumni_wirausaha = $alumni_per_kategori->get(3) ? $alumni_per_kategori->get(3)->sum('total') : 0;
+        // $alumni_kuliah = $alumni_per_kategori->get(4) ? $alumni_per_kategori->get(4)->sum('total') : 0;
 
         // Menghitung jumlah alumni per tahun lulus
         $alumni_per_tahun = Alumni::join('tahun_lulus', 'alumni.id_tahun_lulus', '=', 'tahun_lulus.id_tahun_lulus')

@@ -32,21 +32,47 @@
                 </div>
             </div> --}}
             <div class="dropdown d-inline-block ml-2">
-                <button type="button" class="btn header-item waves-effect" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                    <img class="rounded-circle header-profile-user" src="assets/images/users/avatar-2.jpg"
-                        alt="Header Avatar">
-                    <span class="d-none d-sm-inline-block ml-1">Donald M.</span>
-                    <i class="mdi mdi-chevron-down d-none d-sm-inline-block"></i>
+                <button type="button" class="btn header-item waves-effect" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    @php
+                        $user = Auth::user();
+                        $defaultImage = 'uploads/default.png'; // Default image if no profile image is found
+                        $imagePath = $defaultImage;
+                        $nama = $user->username; // Default to username if no specific name is found
+                
+                        if ($user->id_user == 1 || $user->id_user == 2) {
+                            if ($user->pegawai) {
+                                $imagePath = 'uploads/pegawai/' . $user->pegawai->foto_pegawai;
+                                $nama = $user->pegawai->nama_pegawai;
+                            }
+                        } elseif ($user->id_user == 4) {
+                            if ($user->alumni) {
+                                $imagePath = 'uploads/alumni/' . $user->alumni->foto_alumni;
+                                $nama = $user->alumni->nama_alumni;
+                            }
+                        }
+                    @endphp
+                    <img class="rounded-circle header-profile-user" src="{{ asset($imagePath) }}" alt="foto">
+                    <span class="d-none d-sm-inline-block ml-1">
+                        {{ $nama }}
+                    </span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item d-flex align-items-center justify-content-between"
-                        href="javascript:void(0)">
-                        <span>Profile</span>
-                        {{-- <span>
-                            <span class="badge badge-pill badge-warning">1</span>
-                        </span> --}}
-                    </a>
+                    @if (Auth::user()->id_role == 1)
+                        <a class="dropdown-item d-flex align-items-center justify-content-between"
+                            href="{{ url('profil-bkk/' . Auth::user()->username) }}">
+                            <span>Profil</span>
+                        </a>
+                    @elseif (Auth::user()->id_role == 2)
+                        <a class="dropdown-item d-flex align-items-center justify-content-between"
+                            href="{{ url('profil-humas/' . Auth::user()->username) }}">
+                            <span>Profil</span>
+                        </a>
+                    @elseif (Auth::user()->id_role == 4)
+                        <a class="dropdown-item d-flex align-items-center justify-content-between"
+                            href="{{ url('profil-alumni/' . Auth::user()->username) }}">
+                            <span>Profil</span>
+                        </a>
+                    @endif
                     <a class="dropdown-item d-flex align-items-center justify-content-between"
                         href="javascript:void(0)">
                         <span>Log Out</span>

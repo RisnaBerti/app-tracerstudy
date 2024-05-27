@@ -24,19 +24,22 @@
             <div class="col-12">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a href="" class="nav-link active">Grafik Pengisian</a>
+                        <a href="{{ route('hasil-preview-bkk', ['id' => $id]) }}" class="nav-link active">Grafik Pengisian</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">Hasil 2</a>
+                        <a href="{{ route('hasil-preview2', ['id' => $id]) }}" class="nav-link">Grafik Alumni</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">Hasil 3</a>
+                        <a href="{{ route('hasil-preview3', ['id' => $id]) }}" class="nav-link">Bekerja</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">Hasil 4</a>
+                        <a href="{{ route('hasil-preview4', ['id' => $id]) }}" class="nav-link">Kuliah</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">Hasil 5</a>
+                        <a href="{{ route('hasil-preview5', ['id' => $id]) }}" class="nav-link">Wirausaha</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('hasil-preview6', ['id' => $id]) }}" class="nav-link">Belum Bekerja</a>
                     </li>
                 </ul>
             </div>
@@ -46,29 +49,51 @@
                         {{-- tombol print nav Grafik Pengisian --}}
                         <div class="d-print-none mb-2">
                             <div class="text-end">
-                                <button class="btn btn-primary" onclick="window.print()"><i class="uil uil-print me-2"></i>Print</button>
+                                <button class="btn btn-primary" onclick="window.print()"><i
+                                        class="uil uil-print me-2"></i>Print</button>
                             </div>
                         </div>
                         <h4 class="card-title">{{ $title }}</h4>
-                        <p class="card-title-desc">Grafik Pengisian</p>
-                        @foreach($preview1 as $index => $data)
-                        <table class="table table-bordered text-dark text-end">
-                            <tr>
-                                <div class="card shadow mb-4">
-                                    <div class="card-header py-3">
-                                        <h6 class="m-0 font-weight-bold text-dark">
-                                            {{ $data->pertanyaan }}
-                                        </h6>
-                                    </div>
+                        {{-- <p class="card-title-desc">Grafik Pengisian</p> --}}
+                        @foreach ($data as $kategori => $pertanyaan)
+                            <h2>{{ $kategori }}</h2>
+                            @foreach ($pertanyaan as $question => $details)
+                                <div class="card mb-4">
                                     <div class="card-body">
-                                        {{-- grafik menampilkan data loop sesuai jawaban --}}
-                                        <div id="grafik-preview-{{ $index }}">
-                                            <div id="responsive-chart-{{ $index }}"></div>
-                                        </div>
+                                        <h4 class="card-title">{{ $question }}</h4>
+                                        <p class="card-title-desc">Grafik jawaban untuk pertanyaan: "{{ $question }}"
+                                        </p>
+                                        <div id="grafik-{{ Str::slug($question) }}"></div>
                                     </div>
                                 </div>
-                            </tr>
-                        </table>
+
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function() {
+                                        var options = {
+                                            series: @json($details['jumlah_jawaban']), // Banyak jawaban per pilihannya
+                                            chart: {
+                                                width: 380,
+                                                type: 'pie',
+                                            },
+                                            labels: @json($details['jawaban']), // Data jawaban setiap pertanyaan pilihan
+                                            responsive: [{
+                                                breakpoint: 480,
+                                                options: {
+                                                    chart: {
+                                                        width: 200
+                                                    },
+                                                    legend: {
+                                                        position: 'bottom'
+                                                    }
+                                                }
+                                            }]
+                                        };
+
+                                        var chart = new ApexCharts(document.querySelector("#grafik-{{ Str::slug($question) }}"), options);
+                                        chart.render();
+                                    });
+                                </script>
+                            @endforeach
                         @endforeach
                     </div> <!-- end card body-->
                 </div> <!-- end card -->
@@ -76,31 +101,30 @@
         </div>
         <!-- end row-->
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-        <script>
-        @foreach($preview1 as $index => $data)
-            var options = {
-                series: [{{ $data->jumlah_jawaban }}], // banyak jawaban per pilihannya
-                chart: {
-                    width: 380,
-                    type: 'pie',
-                },
-                labels: [{{ $data->jawaban }}], // ganti dengan data jawaban setiap pertanyaan pilihan
-                responsive: [{
-                    breakpoint: 480,
-                    options: {
-                        chart: {
-                            width: 200
-                        },
-                        legend: {
-                            position: 'bottom'
+        {{-- <script>
+            @foreach ($preview1 as $index => $data)
+                var options = {
+                    series: [{{ $data->jumlah_jawaban }}], // banyak jawaban per pilihannya
+                    chart: {
+                        width: 380,
+                        type: 'pie',
+                    },
+                    labels: [{{ $data->jawaban }}], // ganti dengan data jawaban setiap pertanyaan pilihan
+                    responsive: [{
+                        breakpoint: 480,
+                        options: {
+                            chart: {
+                                width: 200
+                            },
+                            legend: {
+                                position: 'bottom'
+                            }
                         }
-                    }
-                }]
-            };
-        
-            var chart = new ApexCharts(document.querySelector("#responsive-chart-{{ $index }}"), options);
-            chart.render();
-        @endforeach
-        </script>
-        
+                    }]
+                };
+
+                var chart = new ApexCharts(document.querySelector("#responsive-chart-{{ $index }}"), options);
+                chart.render();
+            @endforeach
+        </script> --}}
     @endsection

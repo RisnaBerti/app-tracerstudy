@@ -58,6 +58,13 @@ Route::controller(BkkController::class)->group(function () {
 
     Route::get('/hasil-kuesioner-bkk', 'hasil')->name('hasil-kuesioner-bkk');
     Route::get('/hasil-preview-bkk/{id}', 'preview')->name('hasil-preview-bkk');
+    Route::get('/hasil-preview2/{id}', 'preview2')->name('hasil-preview2');
+    Route::get('/hasil-preview3/{id}', 'preview3')->name('hasil-preview3');
+    Route::get('/hasil-preview4/{id}', 'preview4')->name('hasil-preview4');
+    Route::get('/hasil-preview5/{id}', 'preview5')->name('hasil-preview5');
+    Route::get('/hasil-preview6/{id}', 'preview6')->name('hasil-preview6');
+
+
     Route::get('/notifikasi/{id}', 'kirimNotifikasi')->name('notifikasi');
     Route::get('/statistik-bkk', 'statistik')->name('statistik-bkk');
     Route::get('/statistik-bkk-print', 'statistikPrint')->name('statistik-bkk-print');

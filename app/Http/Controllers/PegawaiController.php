@@ -72,6 +72,7 @@ class PegawaiController extends Controller
             'alamat_pegawai' => $request->alamat_pegawai,
             'email_pegawai' => $request->email_pegawai,
             'foto_pegawai' => $filename, // Simpan nama file foto
+            'jabatan' => '-',
             'id_user' =>  $user->id_user, // Ambil user_id dari user yang baru saja dibuat
         ]);
 

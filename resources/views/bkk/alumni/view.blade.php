@@ -43,6 +43,7 @@
                         <table id="basic-datatable" class="table dt-responsive nowrap">
                             <thead>
                                 <tr>
+                                    <th>No</th>
                                     <th>Nama</th>
                                     <th>NISN</th>
                                     <th>Lulusan</th>
@@ -58,6 +59,7 @@
                             <tbody>
                                 @foreach ($alumni as $index => $item)
                                     <tr>
+                                        <td>{{ $index + 1 }}</td>
                                         <td>{{ $item->nama_alumni }}</td>
                                         <td>{{ $item->nisn }}</td>
                                         <td>{{ $item->jurusan->nama_jurusan ?? '-' }}</td>

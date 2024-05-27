@@ -88,7 +88,7 @@ class AlumniController extends Controller
             'user_id' =>  $user->id_user, // Ambil user_id dari user yang baru saja dibuat
             'id_tahun_lulus' =>  $request->id_tahun_lulus,
             'id_jurusan' => $request->id_jurusan,
-            'id_kategori' => '1',
+            'id_kategori' => '5',
         ]);
 
         return redirect()->route('alumni-bkk')->with('success', 'Data Alumni Berhasil Ditambahkan');

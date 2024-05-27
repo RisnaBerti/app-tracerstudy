@@ -60,9 +60,9 @@
                             </div>
                             <div class="form-row">
                                 <div class="col-md-6 mb-6">
-                                    <label for="id_jurusan">Tahun Lulus</label>
+                                    <label for="id_jurusan">Jurusan</label>
                                     <select class="form-control" id="id_jurusan" name="id_jurusan" required>
-                                        <option value="">Pilih Tahun Lulus</option>
+                                        <option value="">Pilih Jurusan</option>
                                         @foreach ($jurusan as $item)
                                             <option value="{{ $item->id_jurusan }}">{{ $item->nama_jurusan }}</option>
                                         @endforeach

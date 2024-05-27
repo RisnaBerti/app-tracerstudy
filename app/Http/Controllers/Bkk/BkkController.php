@@ -29,13 +29,26 @@ class BkkController extends Controller
         // Menghitung total alumni
         $total_alumni = Alumni::count();
 
-        // Menghitung jumlah alumni per kategori
-        $alumni_per_kategori = $alumni_counts->groupBy('id_kategori');
+       //alumni count id_kategori "Bekerja"
+       $alumni_bekerja = $alumni_counts->where('id_kategori', 1)->sum('total');
 
-        $alumni_bekerja = $alumni_per_kategori->get(1) ? $alumni_per_kategori->get(1)->sum('total') : 0;
-        $alumni_belum_bekerja = $alumni_per_kategori->get(2) ? $alumni_per_kategori->get(2)->sum('total') : 0;
-        $alumni_wirausaha = $alumni_per_kategori->get(3) ? $alumni_per_kategori->get(3)->sum('total') : 0;
-        $alumni_kuliah = $alumni_per_kategori->get(4) ? $alumni_per_kategori->get(4)->sum('total') : 0;
+       //alumni count id_kategori "Belum Bekerja"
+       $alumni_belum_bekerja = $alumni_counts->where('id_kategori', 2)->sum('total');
+
+       //alumni count id_kategori "Wirausaha"
+       $alumni_wirausaha = $alumni_counts->where('id_kategori', 4)->sum('total');
+
+       //alumni count id_kategori "Kuliah"
+       $alumni_kuliah = $alumni_counts->where('id_kategori', 3)->sum('total');
+
+
+        // Menghitung jumlah alumni per kategori
+        // $alumni_per_kategori = $alumni_counts->groupBy('id_kategori');
+
+        // $alumni_bekerja = $alumni_per_kategori->get(1) ? $alumni_per_kategori->get(1)->sum('total') : 0;
+        // $alumni_belum_bekerja = $alumni_per_kategori->get(2) ? $alumni_per_kategori->get(2)->sum('total') : 0;
+        // $alumni_wirausaha = $alumni_per_kategori->get(3) ? $alumni_per_kategori->get(3)->sum('total') : 0;
+        // $alumni_kuliah = $alumni_per_kategori->get(4) ? $alumni_per_kategori->get(4)->sum('total') : 0;
 
         // Menghitung jumlah alumni per tahun lulus
         $alumni_per_tahun = Alumni::join('tahun_lulus', 'alumni.id_tahun_lulus', '=', 'tahun_lulus.id_tahun_lulus')
@@ -372,38 +385,256 @@ class BkkController extends Controller
     //fungsi preview hasil
     public function preview($id)
     {
-        // Get data pertanyaan dan jawabannya
-        $query1 = "
+        $query = "
+                SELECT 
+                    kt.nama_kategori,
+                    p.pertanyaan, 
+                    j.jawaban, 
+                    COUNT(j.jawaban) AS jumlah_jawaban
+                FROM
+                    kuesioner k
+                    JOIN pertanyaan p ON k.id_kuesioner = p.id_kuesioner        
+                    JOIN jawaban j ON p.id_pertanyaan = j.id_pertanyaan
+                    JOIN kategori kt ON j.id_kategori = kt.id_kategori
+                WHERE
+                    k.id_kuesioner = $id
+                    AND p.tipe_pertanyaan = 'pilihan'
+                GROUP BY
+                    kt.nama_kategori,
+                    p.pertanyaan,
+                    j.jawaban
+                ORDER BY
+                    kt.nama_kategori,
+                    p.pertanyaan
+                ";
+
+        $results = DB::select($query);
+
+        // Group data by kategori and pertanyaan
+        $data = [];
+        foreach ($results as $row) {
+            $data[$row->nama_kategori][$row->pertanyaan]['jawaban'][] = $row->jawaban;
+            $data[$row->nama_kategori][$row->pertanyaan]['jumlah_jawaban'][] = $row->jumlah_jawaban;
+        }
+
+        return view('bkk.kuesioner.preview', ['title' => 'Preview Hasil Kuesioner', 'id' => $id, 'data' => $data]);
+    }
+
+    //fungsi preview hasil2
+    public function preview2($id)
+    {
+        // Get data jumlah alumni per tahun per jurusan
+        $query = "
         SELECT 
-            k.id_kuesioner, 
-            kt.nama_kategori,
-            j.id_kategori,
-            p.pertanyaan, 
-            j.jawaban, 
-            COUNT(j.jawaban) AS jumlah_jawaban
+            tl.tahun_lulus,
+            j.nama_jurusan,
+            COUNT(a.nisn) AS jumlah_alumni
         FROM
-            kuesioner k
-            JOIN pertanyaan p ON k.id_kuesioner = p.id_kuesioner        
-            JOIN jawaban j ON p.id_pertanyaan = j.id_pertanyaan
-            JOIN kategori kt ON j.id_kategori = kt.id_kategori
-        WHERE
-            k.id_kuesioner = $id
+            alumni a
+            JOIN jurusan j ON a.id_jurusan = j.id_jurusan
+            JOIN tahun_lulus tl ON a.id_tahun_lulus = tl.id_tahun_lulus
         GROUP BY
-            k.id_kuesioner,
-            p.pertanyaan,
-            j.jawaban,
-            j.id_kategori,
-            kt.nama_kategori
+            tl.tahun_lulus,
+            j.nama_jurusan
         ORDER BY
-            k.id_kuesioner ASC
+            tl.tahun_lulus,
+            j.nama_jurusan
         ";
 
-        $preview1 = DB::select($query1);
+        $results = DB::select($query);
+        $data = [];
+        $chartData = [];
+        $categories = [];
 
-        // var_dump($preview1->pertanyaan);
-        // dd($preview1);
-        // die();
+        foreach ($results as $row) {
+            $data[$row->tahun_lulus][$row->nama_jurusan] = $row->jumlah_alumni;
+            $chartData[$row->nama_jurusan][$row->tahun_lulus] = $row->jumlah_alumni;
+            if (!in_array($row->nama_jurusan, $categories)) {
+                $categories[] = $row->nama_jurusan;
+            }
+        }
 
-        return view('bkk.kuesioner.preview', ['title' => 'Preview Hasil Kuesioner'], compact('preview1'));
+        $seriesData = [];
+        foreach ($chartData as $jurusan => $years) {
+            $yearsData = [];
+            foreach (array_keys($data) as $year) {
+                $yearsData[] = $years[$year] ?? 0;
+            }
+            $seriesData[] = [
+                'name' => $jurusan,
+                'data' => $yearsData
+            ];
+        }
+
+        return view('bkk.kuesioner.preview-2', [
+            'title' => 'Preview Hasil Kuesioner',
+            'id' => $id,
+            'data' => $data,
+            'seriesData' => $seriesData,
+            'categories' => array_keys($data)
+        ]);
+    }
+
+
+    //fungsi preview3
+    public function preview3($id)
+    {
+        $query = "
+            SELECT 
+                a.nama_alumni,
+                kt.nama_kategori,
+                p.pertanyaan,
+                j.jawaban
+            FROM
+                kuesioner k
+                JOIN pertanyaan p ON k.id_kuesioner = p.id_kuesioner
+                JOIN jawaban j ON p.id_pertanyaan = j.id_pertanyaan
+                JOIN kategori kt ON j.id_kategori = kt.id_kategori
+                JOIN alumni a ON j.nisn = a.nisn
+            WHERE
+                k.id_kuesioner = :id
+                AND p.pertanyaan IN (
+                    'Dalam jabatan atau posisi apa anda saat ini bekerja?',
+                    'Nama perusahaan/kantor tempat anda bekerja saat ini?'
+                )
+                AND kt.nama_kategori = 'Kuliah'
+            ORDER BY
+                a.nama_alumni,
+                kt.nama_kategori,
+                p.pertanyaan
+            ";
+
+        $results = DB::select($query, ['id' => $id]);
+
+        // Group data by alumni
+        $data = [];
+        foreach ($results as $row) {
+            $data[$row->nama_alumni][$row->pertanyaan] = $row->jawaban;
+        }
+
+        return view('bkk.kuesioner.preview-3', ['title' => 'Preview Hasil Kuesioner', 'id' => $id,  'data' => $data]);
+    }
+
+    //fungsi preview4
+    public function preview4($id)
+    {
+        //get data nama alumni, kategori kuliah, pertanyaan jawaban kuliah dimana
+
+        $query = "
+            SELECT 
+                a.nama_alumni,
+                kt.nama_kategori,
+                p.pertanyaan,
+                j.jawaban
+            FROM
+                kuesioner k
+                JOIN pertanyaan p ON k.id_kuesioner = p.id_kuesioner
+                JOIN jawaban j ON p.id_pertanyaan = j.id_pertanyaan
+                JOIN kategori kt ON j.id_kategori = kt.id_kategori
+                JOIN alumni a ON j.nisn = a.nisn
+            WHERE
+                k.id_kuesioner = :id
+                AND p.pertanyaan IN (
+                    'Di perguruan tinggi mana anda melanjutkan pendidikan?',
+                    'Jurusan apa yang anda ambil di perguruan tinggi tersebut?'
+                )
+                AND kt.nama_kategori = 'Kuliah'
+            ORDER BY
+                a.nama_alumni,
+                kt.nama_kategori,
+                p.pertanyaan
+            ";
+
+        $results = DB::select($query, ['id' => $id]);
+
+        // Group data by alumni
+        $data = [];
+        foreach ($results as $row) {
+            $data[$row->nama_alumni][$row->pertanyaan] = $row->jawaban;
+        }
+
+        return view('bkk.kuesioner.preview-4', ['title' => 'Preview Hasil Kuesioner', 'id' => $id,  'data' => $data]);
+    }
+
+    //fungsi preview6
+    public function preview5($id)
+    {
+        //get data nama alumni, kategori kuliah, pertanyaan jawaban kuliah dimana
+
+        $query = "
+            SELECT 
+                a.nama_alumni,
+                kt.nama_kategori,
+                p.pertanyaan,
+                j.jawaban
+            FROM
+                kuesioner k
+                JOIN pertanyaan p ON k.id_kuesioner = p.id_kuesioner
+                JOIN jawaban j ON p.id_pertanyaan = j.id_pertanyaan
+                JOIN kategori kt ON j.id_kategori = kt.id_kategori
+                JOIN alumni a ON j.nisn = a.nisn
+            WHERE
+                k.id_kuesioner = :id
+                AND p.pertanyaan IN (
+                    'Wirausaha bidang apa yang sedang anda jalankan saat ini?',
+                    'Apa nama usaha yang anda jalankan?'
+                )
+                AND kt.nama_kategori = 'Wirausaha'
+            ORDER BY
+                a.nama_alumni,
+                kt.nama_kategori,
+                p.pertanyaan
+            ";
+
+        $results = DB::select($query, ['id' => $id]);
+
+        // Group data by alumni
+        $data = [];
+        foreach ($results as $row) {
+            $data[$row->nama_alumni][$row->pertanyaan] = $row->jawaban;
+        }
+
+        return view('bkk.kuesioner.preview-5', ['title' => 'Preview Hasil Kuesioner', 'id' => $id,  'data' => $data]);
+    }
+
+    //fungsi preview5
+    public function preview6($id)
+    {
+        //get data nama alumni, kategori kuliah, pertanyaan jawaban kuliah dimana
+
+        $query = "
+            SELECT 
+                a.nama_alumni,
+                kt.nama_kategori,
+                p.pertanyaan,
+                j.jawaban
+            FROM
+                kuesioner k
+                JOIN pertanyaan p ON k.id_kuesioner = p.id_kuesioner
+                JOIN jawaban j ON p.id_pertanyaan = j.id_pertanyaan
+                JOIN kategori kt ON j.id_kategori = kt.id_kategori
+                JOIN alumni a ON j.nisn = a.nisn
+            WHERE
+                k.id_kuesioner = :id
+                AND p.pertanyaan IN (
+                    'Dalam jabatan/posisi apa saat ini anda bekerja?',
+                    'Dimana anda sekarang bekerja?'
+                )
+                AND kt.nama_kategori = 'Belum Bekerja'
+            ORDER BY
+                a.nama_alumni,
+                kt.nama_kategori,
+                p.pertanyaan
+            ";
+
+        $results = DB::select($query, ['id' => $id]);
+
+        // Group data by alumni
+        $data = [];
+        foreach ($results as $row) {
+            $data[$row->nama_alumni][$row->pertanyaan] = $row->jawaban;
+        }
+
+        return view('bkk.kuesioner.preview-6', ['title' => 'Preview Hasil Kuesioner', 'id' => $id,  'data' => $data]);
     }
 }
