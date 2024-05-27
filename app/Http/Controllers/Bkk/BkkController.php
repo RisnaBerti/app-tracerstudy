@@ -368,4 +368,42 @@ class BkkController extends Controller
             'tahun' => $tahun, // Sertakan tahun dalam data yang dikirim ke view
         ]);
     }
+
+    //fungsi preview hasil
+    public function preview($id)
+    {
+        // Get data pertanyaan dan jawabannya
+        $query1 = "
+        SELECT 
+            k.id_kuesioner, 
+            kt.nama_kategori,
+            j.id_kategori,
+            p.pertanyaan, 
+            j.jawaban, 
+            COUNT(j.jawaban) AS jumlah_jawaban
+        FROM
+            kuesioner k
+            JOIN pertanyaan p ON k.id_kuesioner = p.id_kuesioner        
+            JOIN jawaban j ON p.id_pertanyaan = j.id_pertanyaan
+            JOIN kategori kt ON j.id_kategori = kt.id_kategori
+        WHERE
+            k.id_kuesioner = $id
+        GROUP BY
+            k.id_kuesioner,
+            p.pertanyaan,
+            j.jawaban,
+            j.id_kategori,
+            kt.nama_kategori
+        ORDER BY
+            k.id_kuesioner ASC
+        ";
+
+        $preview1 = DB::select($query1);
+
+        // var_dump($preview1->pertanyaan);
+        // dd($preview1);
+        // die();
+
+        return view('bkk.kuesioner.preview', ['title' => 'Preview Hasil Kuesioner'], compact('preview1'));
+    }
 }

@@ -57,6 +57,7 @@ Route::controller(BkkController::class)->group(function () {
     Route::post('/update-password-bkk', 'gantiPassword')->name('update-password-bkk');
 
     Route::get('/hasil-kuesioner-bkk', 'hasil')->name('hasil-kuesioner-bkk');
+    Route::get('/hasil-preview-bkk/{id}', 'preview')->name('hasil-preview-bkk');
     Route::get('/notifikasi/{id}', 'kirimNotifikasi')->name('notifikasi');
     Route::get('/statistik-bkk', 'statistik')->name('statistik-bkk');
     Route::get('/statistik-bkk-print', 'statistikPrint')->name('statistik-bkk-print');

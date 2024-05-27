@@ -55,13 +55,7 @@
                                         <td>{{ $item->judul_kuesioner }}</td>
                                         <td>{{ $item->deskripsi_kuesioner }}</td>
                                         <td>{{ $jumlahMengisi[$item->id_kuesioner] }}</td>
-                                        <td>
-                                            <a href="{{ route('hasil-preview-bkk', $item->id_kuesioner) }}"
-                                                class="btn btn-success">
-                                                <i class="mdi mdi-comment-text-multiple">Preview</i>
-                                            </a>
-                                            </a>
-                                        </td>
+                                        <td></td>
                                         <td>
                                             <a href="{{ route('notifikasi', $item->id_kuesioner) }}"
                                                 class="btn btn-success">

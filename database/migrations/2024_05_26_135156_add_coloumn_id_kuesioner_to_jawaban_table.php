@@ -16,7 +16,7 @@ return new class extends Migration
             // $table->foreign('id_kategori')->references('id_kategori')->on('kategori')->onDelete('set null');
 
             $table->unsignedBigInteger('id_kuesioner')->after('id_jawaban')->nullable();
-            $table->foreign('id_kuesioner')->references('id_kuesioner')->on('kuesioner')->onDelete('cascade');
+            $table->foreign('id_kuesioner')->references('id_kuesioner')->on('kuesioner')->onDelete('set null');
         });
     }
 
