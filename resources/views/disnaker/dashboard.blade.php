@@ -131,7 +131,7 @@
         <!-- end row-->
 
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
 
@@ -160,13 +160,11 @@
                 <!--end card-->
             </div>
             <!--end col-->
-            <div class="col-lg-6">
+            {{-- <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
 
                         <h4 class="card-title">Aktivitas</h4>
-                        {{-- <p class="card-subtitle mb-4 font-size-13">Transaction period from 21 July to 25 Aug
-                        </p> --}}
 
                         <div class="table-responsive">
                             <table class="table table-centered table-striped table-nowrap mb-0">
@@ -291,7 +289,7 @@
 
                 </div>
                 <!--end card-->
-            </div>
+            </div> --}}
             <!--end col-->
 
         </div>

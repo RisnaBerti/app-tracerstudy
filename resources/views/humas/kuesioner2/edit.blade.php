@@ -1,4 +1,4 @@
-@extends('layouts.index-humas')
+@extends('layouts.index-bkk')
 @section('content')
     <div class="container-fluid">
 

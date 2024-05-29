@@ -170,7 +170,20 @@ Route::controller(HumasController::class)->group(function () {
     Route::post('/update-password-humas', 'gantiPassword')->name('update-password-humas');
 
     Route::get('/hasil-kuesioner-humas', 'hasil')->name('hasil-kuesioner-humas');
+    Route::get('/hasil-preview-humas/{id}', 'preview')->name('hasil-preview-humas');
+    Route::get('/hasil-preview2/{id}', 'preview2')->name('hasil-preview2');
+    Route::get('/hasil-preview3/{id}', 'preview3')->name('hasil-preview3');
+    Route::get('/hasil-preview4/{id}', 'preview4')->name('hasil-preview4');
+    Route::get('/hasil-preview5/{id}', 'preview5')->name('hasil-preview5');
+    Route::get('/hasil-preview6/{id}', 'preview6')->name('hasil-preview6');
+
+
+    Route::get('/notifikasi/{id}', 'kirimNotifikasi')->name('notifikasi');
     Route::get('/statistik-humas', 'statistik')->name('statistik-humas');
+    Route::get('/statistik-humas-print', 'statistikPrint')->name('statistik-humas-print');
+
+    // Route::get('/hasil-kuesioner-humas', 'hasil')->name('hasil-kuesioner-humas');
+    // Route::get('/statistik-humas', 'statistik')->name('statistik-humas');
 });
 
 //Route Pegawai

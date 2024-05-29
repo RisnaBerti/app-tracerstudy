@@ -29,17 +29,17 @@ class BkkController extends Controller
         // Menghitung total alumni
         $total_alumni = Alumni::count();
 
-       //alumni count id_kategori "Bekerja"
-       $alumni_bekerja = $alumni_counts->where('id_kategori', 1)->sum('total');
+        //alumni count id_kategori "Bekerja"
+        $alumni_bekerja = $alumni_counts->where('id_kategori', 1)->sum('total');
 
-       //alumni count id_kategori "Belum Bekerja"
-       $alumni_belum_bekerja = $alumni_counts->where('id_kategori', 2)->sum('total');
+        //alumni count id_kategori "Belum Bekerja"
+        $alumni_belum_bekerja = $alumni_counts->where('id_kategori', 2)->sum('total');
 
-       //alumni count id_kategori "Wirausaha"
-       $alumni_wirausaha = $alumni_counts->where('id_kategori', 4)->sum('total');
+        //alumni count id_kategori "Wirausaha"
+        $alumni_wirausaha = $alumni_counts->where('id_kategori', 4)->sum('total');
 
-       //alumni count id_kategori "Kuliah"
-       $alumni_kuliah = $alumni_counts->where('id_kategori', 3)->sum('total');
+        //alumni count id_kategori "Kuliah"
+        $alumni_kuliah = $alumni_counts->where('id_kategori', 3)->sum('total');
 
 
         // Menghitung jumlah alumni per kategori
@@ -386,27 +386,27 @@ class BkkController extends Controller
     public function preview($id)
     {
         $query = "
-                SELECT 
-                    kt.nama_kategori,
-                    p.pertanyaan, 
-                    j.jawaban, 
-                    COUNT(j.jawaban) AS jumlah_jawaban
-                FROM
-                    kuesioner k
-                    JOIN pertanyaan p ON k.id_kuesioner = p.id_kuesioner        
-                    JOIN jawaban j ON p.id_pertanyaan = j.id_pertanyaan
-                    JOIN kategori kt ON j.id_kategori = kt.id_kategori
-                WHERE
-                    k.id_kuesioner = $id
-                    AND p.tipe_pertanyaan = 'pilihan'
-                GROUP BY
-                    kt.nama_kategori,
-                    p.pertanyaan,
-                    j.jawaban
-                ORDER BY
-                    kt.nama_kategori,
-                    p.pertanyaan
-                ";
+            SELECT 
+                kt.nama_kategori,
+                p.pertanyaan, 
+                MAX(p.tipe_pertanyaan) AS tipe_pertanyaan,
+                j.jawaban, 
+                COUNT(j.jawaban) AS jumlah_jawaban
+            FROM
+                kuesioner k
+                JOIN pertanyaan p ON k.id_kuesioner = p.id_kuesioner        
+                JOIN jawaban j ON p.id_pertanyaan = j.id_pertanyaan
+                JOIN kategori kt ON j.id_kategori = kt.id_kategori
+            WHERE
+                k.id_kuesioner = $id
+            GROUP BY
+                kt.nama_kategori,
+                p.pertanyaan,
+                j.jawaban
+            ORDER BY
+                kt.nama_kategori,
+                p.pertanyaan
+            ";
 
         $results = DB::select($query);
 
@@ -415,6 +415,7 @@ class BkkController extends Controller
         foreach ($results as $row) {
             $data[$row->nama_kategori][$row->pertanyaan]['jawaban'][] = $row->jawaban;
             $data[$row->nama_kategori][$row->pertanyaan]['jumlah_jawaban'][] = $row->jumlah_jawaban;
+            $data[$row->nama_kategori][$row->pertanyaan]['tipe'] = $row->tipe_pertanyaan;
         }
 
         return view('bkk.kuesioner.preview', ['title' => 'Preview Hasil Kuesioner', 'id' => $id, 'data' => $data]);

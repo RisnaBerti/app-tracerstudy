@@ -1,4 +1,4 @@
-@extends('layouts.index-bkk')
+@extends('layouts.index-humas')
 @section('content')
     <div class="container-fluid">
         <!-- start page title -->
@@ -24,7 +24,7 @@
             <div class="col-12">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview-bkk', ['id' => $id]) }}" class="nav-link active">Grafik
+                        <a href="{{ route('hasil-preview-humas', ['id' => $id]) }}" class="nav-link active">Grafik
                             Pengisian</a>
                     </li>
                     <li class="nav-item">

@@ -30,16 +30,17 @@
                     <div class="d-flex align-items-center min-vh-100">
                         <div class="w-100 d-block bg-white shadow-lg rounded my-5">
                             <div class="row">
-                                <div class="col-lg-5 d-none d-lg-block bg-login rounded-left"></div>
+                                <div class="col-lg-5 d-none d-lg-block rounded-left">
+                                    <img src="{{ url('/assets/images/logo-sma.png') }}" alt="bg" class="img-fluid" width="634" height="951">
+                                </div>
                                 <div class="col-lg-7">
                                     <div class="p-5">
                                         <div class="text-center mb-5">
-                                            <a href="index.html" class="text-dark font-size-22 font-family-secondary">
-                                                <i class="mdi mdi-alpha-x-circle"></i> <b>XELORO</b>
-                                            </a>
+                                            {{-- gambar logo sekolah --}}
+                                            {{-- <img src="{{ url('') }}/assets/images/logo-sma.png" alt="logo" height="100"> --}}
                                         </div>
                                         <h1 class="h5 mb-1">Selamat Datang!</h1>
-                                        <p class="text-muted mb-4">Sistem Tracer Study SMK N 02 Cilacap.</p>
+                                        <p class="text-muted mb-4">Sistem Tracer Study SMA YPE KROYA.</p>
                                         <form action="{{ route('action-login') }}" method="POST" class="user" >
                                             @csrf
                                             <div class="form-group">

@@ -37,7 +37,7 @@
 
     <center>
         <h2>LAPORAN ALUMNI TAHUN {{ $tahun }}</h2>
-        <h4>SMK YPE KROYA</h4>
+        <h4>SMA YPE KROYA</h4>
     </center>
 
     <br />

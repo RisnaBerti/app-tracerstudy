@@ -1,4 +1,4 @@
-@extends('layouts.index-bkk')
+@extends('layouts.index-humas')
 @section('content')
     <div class="container-fluid">
         <!-- start page title -->
@@ -44,7 +44,7 @@
                                     <th>Deskripsi Kuesioner</th>
                                     {{-- <th>Sudah Mengisi</th> --}}
                                     <th>Preview</th>
-                                    <th>Aksi</th>
+                                    {{-- <th>Aksi</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
@@ -56,19 +56,19 @@
                                         <td>{{ $item->deskripsi_kuesioner }}</td>
                                         {{-- <td>{{ $jumlahMengisi[$item->id_kuesioner] }}</td> --}}
                                         <td>
-                                            <a href="{{ route('hasil-preview-bkk', $item->id_kuesioner) }}"
+                                            <a href="{{ route('hasil-preview-humas', $item->id_kuesioner) }}"
                                                 class="btn btn-primary">
                                                 <i class="mdi mdi-file-document-box-search-outline mdi-18px"> Preview</i>
                                             </a>
                                             </a>
                                         </td>
-                                        <td>
+                                        {{-- <td>
                                             <a href="{{ route('notifikasi', $item->id_kuesioner) }}"
                                                 class="btn btn-success">
                                                 <i class="mdi mdi-comment-text-multiple mdi-18px"> Kirim Pesan</i>
                                             </a>
                                             </a>
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                 @endforeach
                             </tbody>
