@@ -534,7 +534,7 @@ class HumasController extends Controller
     }
 
 
-    //fungsi preview3
+    //fungsi preview3 Bekerja
     public function preview3($id)
     {
         $query = "
@@ -555,7 +555,7 @@ class HumasController extends Controller
                     'Dalam jabatan atau posisi apa anda saat ini bekerja?',
                     'Nama perusahaan/kantor tempat anda bekerja saat ini?'
                 )
-                AND kt.nama_kategori = 'Kuliah'
+                AND kt.nama_kategori = 'Bekerja'
             ORDER BY
                 a.nama_alumni,
                 kt.nama_kategori,
@@ -573,7 +573,7 @@ class HumasController extends Controller
         return view('humas.kuesioner.preview-3', ['title' => 'Preview Hasil Kuesioner', 'id' => $id,  'data' => $data]);
     }
 
-    //fungsi preview4
+    //fungsi preview4 Kuliah
     public function preview4($id)
     {
         //get data nama alumni, kategori kuliah, pertanyaan jawaban kuliah dimana
@@ -614,7 +614,7 @@ class HumasController extends Controller
         return view('humas.kuesioner.preview-4', ['title' => 'Preview Hasil Kuesioner', 'id' => $id,  'data' => $data]);
     }
 
-    //fungsi preview6
+    //fungsi preview6 Wirausaha
     public function preview5($id)
     {
         //get data nama alumni, kategori kuliah, pertanyaan jawaban kuliah dimana
@@ -655,7 +655,7 @@ class HumasController extends Controller
         return view('humas.kuesioner.preview-5', ['title' => 'Preview Hasil Kuesioner', 'id' => $id,  'data' => $data]);
     }
 
-    //fungsi preview5
+    //fungsi preview5 Belum Bekerja
     public function preview6($id)
     {
         //get data nama alumni, kategori kuliah, pertanyaan jawaban kuliah dimana
@@ -674,10 +674,6 @@ class HumasController extends Controller
                 JOIN alumni a ON j.nisn = a.nisn
             WHERE
                 k.id_kuesioner = :id
-                AND p.pertanyaan IN (
-                    'Dalam jabatan/posisi apa saat ini anda bekerja?',
-                    'Dimana anda sekarang bekerja?'
-                )
                 AND kt.nama_kategori = 'Belum Bekerja'
             ORDER BY
                 a.nama_alumni,

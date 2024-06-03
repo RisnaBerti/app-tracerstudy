@@ -50,8 +50,9 @@
                         {{-- tombol print nav Grafik Pengisian --}}
                         <div class="d-print-none mb-2">
                             <div class="text-end">
-                                <button class="btn btn-primary" onclick="window.print()"><i
-                                        class="uil uil-print me-2"></i>Print</button>
+                                <a href="{{ route('preview-print-bkk', ['id' => $id]) }}" class="btn btn-primary" id="printButton" target="_blank">
+                                    <i class="uil uil-print me-2"></i>Print
+                                </a>  
                             </div>
                         </div>
                         <h4 class="card-title">{{ $title }}</h4>

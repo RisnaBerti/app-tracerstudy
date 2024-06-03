@@ -57,7 +57,8 @@ Route::controller(BkkController::class)->group(function () {
     Route::post('/update-password-bkk', 'gantiPassword')->name('update-password-bkk');
 
     Route::get('/hasil-kuesioner-bkk', 'hasil')->name('hasil-kuesioner-bkk');
-    Route::get('/hasil-preview-bkk/{id}', 'preview')->name('hasil-preview-bkk');
+    Route::get('/hasil-preview-bkk/{id}', 'preview')->name('hasil-preview-bkk'); 
+    Route::get('/preview-print-bkk/{id}', 'previewPrint')->name('preview-print-bkk');
     Route::get('/hasil-preview2/{id}', 'preview2')->name('hasil-preview2');
     Route::get('/hasil-preview3/{id}', 'preview3')->name('hasil-preview3');
     Route::get('/hasil-preview4/{id}', 'preview4')->name('hasil-preview4');
@@ -171,7 +172,8 @@ Route::controller(HumasController::class)->group(function () {
     Route::post('/update-password-humas', 'gantiPassword')->name('update-password-humas');
 
     Route::get('/hasil-kuesioner-humas', 'hasil')->name('hasil-kuesioner-humas');
-    Route::get('/hasil-preview-humas/{id}', 'preview')->name('hasil-preview-humas');
+    Route::get('/hasil-preview-humas/{id}', 'preview')->name('hasil-preview-humas');    
+    Route::get('/preview-print-humas', 'previewPrint')->name('preview-print-humas');
     Route::get('/hasil-preview2/{id}', 'preview2')->name('hasil-preview2');
     Route::get('/hasil-preview3/{id}', 'preview3')->name('hasil-preview3');
     Route::get('/hasil-preview4/{id}', 'preview4')->name('hasil-preview4');

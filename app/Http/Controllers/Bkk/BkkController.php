@@ -72,7 +72,6 @@ class BkkController extends Controller
         ]);
     }
 
-
     public function gantiPassword(Request $request)
     {
         // Validasi input
@@ -426,6 +425,46 @@ class BkkController extends Controller
         return view('bkk.kuesioner.preview', ['title' => 'Preview Hasil Kuesioner', 'id' => $id, 'data' => $data]);
     }
 
+    //fungsi print preview hasil
+    public function previewPrint($id)
+    {
+        $query = "
+                    SELECT 
+                        kt.nama_kategori,
+                        p.pertanyaan, 
+                        MAX(p.tipe_pertanyaan) AS tipe_pertanyaan,
+                        j.jawaban, 
+                        COUNT(j.jawaban) AS jumlah_jawaban
+                    FROM
+                        kuesioner k
+                        JOIN pertanyaan p ON k.id_kuesioner = p.id_kuesioner        
+                        JOIN jawaban j ON p.id_pertanyaan = j.id_pertanyaan
+                        JOIN kategori kt ON j.id_kategori = kt.id_kategori
+                    WHERE
+                        k.id_kuesioner = $id
+                    GROUP BY
+                        kt.nama_kategori,
+                        p.pertanyaan,
+                        j.jawaban
+                    ORDER BY
+                        kt.nama_kategori,
+                        p.pertanyaan
+                ";
+
+        $results = DB::select($query);
+
+        // Group data by kategori and pertanyaan
+        $data = [];
+        foreach ($results as $row) {
+            $data[$row->nama_kategori][$row->pertanyaan]['jawaban'][] = $row->jawaban;
+            $data[$row->nama_kategori][$row->pertanyaan]['jumlah_jawaban'][] = $row->jumlah_jawaban;
+            $data[$row->nama_kategori][$row->pertanyaan]['tipe'] = $row->tipe_pertanyaan;
+        }
+
+        return view('bkk.kuesioner.preview-print', ['title' => 'Preview Hasil Kuesioner', 'id' => $id, 'data' => $data]);
+    }
+
+
     //fungsi preview hasil2
     public function preview2($id)
     {
@@ -482,7 +521,7 @@ class BkkController extends Controller
     }
 
 
-    //fungsi preview3
+    //fungsi preview3 Bekerja
     public function preview3($id)
     {
         $query = "
@@ -503,7 +542,7 @@ class BkkController extends Controller
                     'Dalam jabatan atau posisi apa anda saat ini bekerja?',
                     'Nama perusahaan/kantor tempat anda bekerja saat ini?'
                 )
-                AND kt.nama_kategori = 'Kuliah'
+                AND kt.nama_kategori = 'Bekerja'
             ORDER BY
                 a.nama_alumni,
                 kt.nama_kategori,
@@ -521,7 +560,7 @@ class BkkController extends Controller
         return view('bkk.kuesioner.preview-3', ['title' => 'Preview Hasil Kuesioner', 'id' => $id,  'data' => $data]);
     }
 
-    //fungsi preview4
+    //fungsi preview4 Kuliah
     public function preview4($id)
     {
         //get data nama alumni, kategori kuliah, pertanyaan jawaban kuliah dimana
@@ -562,7 +601,7 @@ class BkkController extends Controller
         return view('bkk.kuesioner.preview-4', ['title' => 'Preview Hasil Kuesioner', 'id' => $id,  'data' => $data]);
     }
 
-    //fungsi preview6
+    //fungsi preview6 Wirausaha
     public function preview5($id)
     {
         //get data nama alumni, kategori kuliah, pertanyaan jawaban kuliah dimana
@@ -603,7 +642,7 @@ class BkkController extends Controller
         return view('bkk.kuesioner.preview-5', ['title' => 'Preview Hasil Kuesioner', 'id' => $id,  'data' => $data]);
     }
 
-    //fungsi preview5
+    //fungsi preview5 Belum Bekerja
     public function preview6($id)
     {
         //get data nama alumni, kategori kuliah, pertanyaan jawaban kuliah dimana
@@ -622,10 +661,6 @@ class BkkController extends Controller
                 JOIN alumni a ON j.nisn = a.nisn
             WHERE
                 k.id_kuesioner = :id
-                AND p.pertanyaan IN (
-                    'Dalam jabatan/posisi apa saat ini anda bekerja?',
-                    'Dimana anda sekarang bekerja?'
-                )
                 AND kt.nama_kategori = 'Belum Bekerja'
             ORDER BY
                 a.nama_alumni,
