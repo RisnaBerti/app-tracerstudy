@@ -34,6 +34,7 @@
             <div class="dropdown d-inline-block ml-2">
                 <button type="button" class="btn header-item waves-effect" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     @php
+                        // $user = Auth::user();
                         $user = Auth::user();
                         $defaultImage = 'uploads/default.png'; // Default image if no profile image is found
                         $imagePath = $defaultImage;

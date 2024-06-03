@@ -661,6 +661,10 @@ class BkkController extends Controller
                 JOIN alumni a ON j.nisn = a.nisn
             WHERE
                 k.id_kuesioner = :id
+                AND p.pertanyaan IN (
+                    'Hal apa yang menyebabkan anda belum bekerja hingga saat ini?',
+                    'Dimana anda sekarang bekerja?'
+                )
                 AND kt.nama_kategori = 'Belum Bekerja'
             ORDER BY
                 a.nama_alumni,
