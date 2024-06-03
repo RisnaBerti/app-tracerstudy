@@ -70,8 +70,7 @@
                                             <a href="{{ route('pegawai-edit', $item->nip) }}" class="btn btn-warning">
                                                 <i class="mdi mdi-pencil"></i>
                                             </a>
-                                            <a href="{{ route('pegawai-delete', $item->nip) }}" data-confirm-delete="true"
-                                                class="btn btn-danger">
+                                            <a href="{{ route('pegawai-delete', $item->nip) }}" id="deletebutton" class="btn btn-danger delete-button">
                                                 <i class="mdi mdi-delete"></i>
                                             </a>
                                         </td>
@@ -90,6 +89,45 @@
     <script>
         $(document).ready(function() {
             $('#basic-datatable').DataTable();
+        });
+    </script>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        // Delegasi acara untuk semua tombol dengan kelas delete-button
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.delete-button').forEach(function(button) {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault(); // Mencegah tindakan default dari tautan
+
+                    const url = this.href; // Simpan URL dari tautan
+
+                    Swal.fire({
+                        title: 'Apakah Anda yakin?',
+                        text: "Anda tidak akan dapat mengembalikan ini!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Ya, hapus!',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire(
+                                'Terhapus!',
+                                'Data Anda telah dihapus.',
+                                'success'
+                            ).then(() => {
+                                // Arahkan ke URL penghapusan setelah konfirmasi sukses
+                                window.location.href = url;
+                            });
+                        }
+                    });
+                });
+            });
         });
     </script>
 @endsection

@@ -74,8 +74,8 @@
                                             <a href="{{ route('alumni-edit', $item->nisn) }}" class="btn btn-warning">
                                                 <i class="mdi mdi-pencil"></i>
                                             </a>
-                                            <a href="{{ route('alumni-delete', $item->nisn) }}" data-confirm-delete="true"
-                                                class="btn btn-danger">
+                                            <a href="{{ route('alumni-delete', $item->nisn) }}" id="deletebutton"
+                                                class="btn btn-danger delete-button">
                                                 <i class="mdi mdi-delete"></i>
                                             </a>
                                         </td>

@@ -108,7 +108,8 @@
                                         accept="image/jpeg, image/png" required>
                                 </div>
                             </div>
-                            <button class="btn btn-primary waves-effect waves-light" type="submit">Simpan</button>
+                            <button class="btn btn-primary waves-effect waves-light mr-2" type="submit">Simpan</button>
+                            <button class="btn btn-success waves-effect waves-light" type="submit">Kembali</button>
                         </form>
 
 

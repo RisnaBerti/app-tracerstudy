@@ -60,8 +60,8 @@
                                             <a href="{{ route('opsi-edit', $item->id_opsi) }}" class="btn btn-warning">
                                                 <i class="mdi mdi-pencil"></i>
                                             </a>
-                                            <a href="{{ route('opsi-delete', $item->id_opsi) }}" data-confirm-delete="true"
-                                                class="btn btn-danger">
+                                            <a href="{{ route('opsi-delete', $item->id_opsi) }}" id="deletebutton"
+                                                class="btn btn-danger delete-button">
                                                 <i class="mdi mdi-delete"></i>
                                             </a>
                                         </td>

@@ -40,8 +40,9 @@
                 </li> --}}
 
                 <li>
-                    <a href="{{ url('logout') }}" class=" waves-effect"><i
-                            class="mdi mdi-logout"></i><span>Keluar</span></a>
+                    <a href="{{ url('logout') }}" id="logoutButton" class="waves-effect">
+                        <i class="mdi mdi-logout"></i><span>Keluar</span>
+                    </a>
                 </li>
 
 

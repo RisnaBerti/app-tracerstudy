@@ -91,7 +91,8 @@
                     </ul>
                 </li> --}}
                 <li>
-                    <a href="{{ url('hasil-kuesioner-humas') }}" class="waves-effect"><i class="mdi mdi-checkbox-multiple-marked-outline"></i>
+                    <a href="{{ url('hasil-kuesioner-humas') }}" class="waves-effect"><i
+                            class="mdi mdi-checkbox-multiple-marked-outline"></i>
                         <span>Hasil Kuesioner</span></a>
                 </li>
                 <li>
@@ -105,13 +106,14 @@
                     <a href="javascript: void(0);" class="has-arrow waves-effect"><i
                             class="mdi mdi-settings-outline"></i><span>Pengaturan</span></a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ url('profil-humas/'. Auth::user()->username) }}">Profil</a></li>
+                        <li><a href="{{ url('profil-humas/' . Auth::user()->username) }}">Profil</a></li>
                     </ul>
                 </li>
 
                 <li>
-                    <a href="{{ url('logout') }}" class=" waves-effect"><i
-                            class="mdi mdi-logout"></i><span>Keluar</span></a>
+                    <a href="{{ url('logout') }}" id="logoutButton" class="waves-effect">
+                        <i class="mdi mdi-logout"></i><span>Keluar</span>
+                    </a>
                 </li>
 
             </ul>

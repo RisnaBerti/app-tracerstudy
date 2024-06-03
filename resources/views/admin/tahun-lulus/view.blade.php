@@ -59,7 +59,7 @@
                                                 <i class="mdi mdi-pencil"></i>
                                             </a>
                                             <a href="{{ route('tahun-lulus-delete', $item->id_tahun_lulus) }}"
-                                                data-confirm-delete="true" class="btn btn-danger">
+                                                id="deletebutton" class="btn btn-danger delete-button">
                                                 <i class="mdi mdi-delete"></i>
                                             </a>
                                         </td>

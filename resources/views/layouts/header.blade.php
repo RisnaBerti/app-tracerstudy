@@ -73,10 +73,13 @@
                             <span>Profil</span>
                         </a>
                     @endif
-                    <a class="dropdown-item d-flex align-items-center justify-content-between"
-                        href="javascript:void(0)">
+                    <a href="{{ url('logout') }}" id="logoutButton" class="dropdown-item d-flex align-items-center justify-content-between">
                         <span>Log Out</span>
                     </a>
+
+                    {{-- <a href="{{ url('logout') }}" id="logoutButton" class="waves-effect">
+                        <i class="mdi mdi-logout"></i><span>Keluar</span>
+                    </a> --}}
                 </div>
             </div>
         </div>

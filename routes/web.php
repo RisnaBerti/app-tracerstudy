@@ -102,8 +102,8 @@ Route::controller(TahunLulusController::class)->group(function () {
 
 //Route Alumni
 Route::controller(AlumniController::class)->group(function () {
-    Route::get('/alumni-bkk', 'getDataTables')->name('alumni-bkk');
-    // Route::get('/alumni-bkk', 'index')->name('alumni-bkk');
+    // Route::get('/alumni-bkk', 'getDataTables')->name('alumni-bkk');
+    Route::get('/alumni-bkk', 'index')->name('alumni-bkk');
     Route::get('/alumni-create', 'create')->name('alumni-create');
     Route::post('/alumni-store', 'store')->name('alumni-store');
     Route::get('/alumni-edit/{id}', 'edit')->name('alumni-edit');

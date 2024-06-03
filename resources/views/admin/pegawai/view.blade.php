@@ -70,8 +70,8 @@
                                             <a href="{{ route('pegawai-edit', $item->nip) }}" class="btn btn-warning">
                                                 <i class="mdi mdi-pencil"></i>
                                             </a>
-                                            <a href="{{ route('pegawai-delete', $item->nip) }}" data-confirm-delete="true"
-                                                class="btn btn-danger">
+                                            <a href="{{ route('pegawai-delete', $item->nip) }}" id="deletebutton"
+                                                class="btn btn-danger delete-button">
                                                 <i class="mdi mdi-delete"></i>
                                             </a>
                                         </td>

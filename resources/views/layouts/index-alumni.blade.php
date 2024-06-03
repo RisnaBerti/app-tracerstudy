@@ -23,6 +23,35 @@
     @include('layouts.layout-alumni')
     @include('sweetalert::alert')
 
+    <script>
+        document.getElementById('logoutButton').addEventListener('click', function(event) {
+            event.preventDefault(); // Mencegah tindakan default dari tautan
+
+            const url = this.href; // Simpan URL dari tautan
+
+            Swal.fire({
+                title: 'Apakah Anda yakin ingin logout?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, logout!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Logout!',
+                        'Anda telah logout.',
+                        'success'
+                    ).then(() => {
+                        // Arahkan ke URL logout setelah konfirmasi sukses
+                        window.location.href = url;
+                    });
+                }
+            });
+        });
+    </script>
+
 
     <!-- Overlay-->
     <div class="menu-overlay"></div>
