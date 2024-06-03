@@ -12,6 +12,10 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ url('') }}/assets/images/favicon.ico">
 
+    {{-- {{ $chart->script() }} --}}
+    <link href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
     <!-- App css -->
     <link href="{{ url('') }}/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="{{ url('') }}/assets/css/icons.min.css" rel="stylesheet" type="text/css" />

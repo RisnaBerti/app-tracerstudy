@@ -11,6 +11,7 @@ use App\Models\Kuesioner;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -56,6 +57,10 @@ class HumasController extends Controller
             ->get()
             ->pluck('total', 'tahun_lulus');
 
+        $title = 'Hapus Data!';
+        $text = "Apakah Anda yakin ingin menghapus nya?";
+        confirmDelete($title, $text);
+        
         return view('humas.dashboard', [
             'title' => 'Dashboard',
             'alumni' => $total_alumni,
@@ -76,6 +81,36 @@ class HumasController extends Controller
         return view('humas.jurusan.view', [
             'title' => 'Data Jurusan',
             'data' => $data
+        ]);
+    }
+
+    //fungsi getDataTables
+    public function getDataTablesAlumni(Request $request)
+    {
+        if ($request->ajax()) {
+            $query = "SELECT alumni.nama_alumni, alumni.nisn, jurusan.nama_jurusan, tahun_lulus.tahun_lulus, alumni.jenis_kelamin,
+                         alumni.no_hp_alumni, alumni.alamat_alumni, alumni.email_alumni, alumni.foto_alumni 
+                         FROM alumni
+                         JOIN tahun_lulus ON alumni.id_tahun_lulus = tahun_lulus.id_tahun_lulus
+                         JOIN jurusan ON alumni.id_jurusan = jurusan.id_jurusan";
+
+            $alumni = DB::select($query);
+
+            return datatables()->of($alumni)
+                // ->addColumn('action', function ($data) {
+                //     $button = '<a href="#" class="menu-link px-1 edit-row" data-bs-toggle="modal" data-bs-target="#kt_modal_edit_data" data-id="' . $data->nisn . '"><i class="fas fa-edit text-warning"></i></a>';
+                //     $button .= '<form action="' . URL::route('delete-alumni-admin', ['id' => $data->nisn]) . '" method="POST" style="display:inline;" onsubmit="return confirm(\'Apakah Anda yakin ingin menghapusnya?\');">';
+                //     $button .= '<input type="hidden" name="_token" value="' . csrf_token() . '">';
+                //     $button .= '<button type="submit" class="menu-link px-1" data-kt-users-table-filter="delete_row" style="border:none; background:none; padding:0; cursor:pointer;"><i class="fas fa-trash-alt text-danger"></i></button>';
+                //     $button .= '</form>';
+                //     return $button;
+                // })
+                // ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('humas.alumni.view', [
+            'title' => 'Alumni Humas'
         ]);
     }
 

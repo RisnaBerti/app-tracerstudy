@@ -102,7 +102,8 @@ Route::controller(TahunLulusController::class)->group(function () {
 
 //Route Alumni
 Route::controller(AlumniController::class)->group(function () {
-    Route::get('/alumni-bkk', 'index')->name('alumni-bkk');
+    Route::get('/alumni-bkk', 'getDataTables')->name('alumni-bkk');
+    // Route::get('/alumni-bkk', 'index')->name('alumni-bkk');
     Route::get('/alumni-create', 'create')->name('alumni-create');
     Route::post('/alumni-store', 'store')->name('alumni-store');
     Route::get('/alumni-edit/{id}', 'edit')->name('alumni-edit');
@@ -164,7 +165,7 @@ Route::controller(OpsiController::class)->group(function () {
 Route::controller(HumasController::class)->group(function () {
     Route::get('/humas', 'index')->name('humas');
     Route::get('/jurusan-humas', 'jurusan')->name('jurusan-humas');
-    Route::get('/alumni-humas', 'alumni')->name('alumni-humas');
+    Route::get('/alumni-humas', 'getDataTablesAlumni')->name('alumni-humas');
     Route::get('/profil-humas/{id}', 'edit')->name('profil-humas');
     Route::post('/update-profile-humas', 'update')->name('update-profile-humas');
     Route::post('/update-password-humas', 'gantiPassword')->name('update-password-humas');

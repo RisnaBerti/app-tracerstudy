@@ -40,7 +40,7 @@
                                             {{-- <img src="{{ url('') }}/assets/images/logo-sma.png" alt="logo" height="100"> --}}
                                         </div>
                                         <h1 class="h5 mb-1">Selamat Datang!</h1>
-                                        <p class="text-muted mb-4">Sistem Tracer Study SMA YPE KROYA.</p>
+                                        <p class="text-muted mb-4">Sistem Tracer Study SMK YPE KROYA.</p>
                                         <form action="{{ route('action-login') }}" method="POST" class="user" >
                                             @csrf
                                             <div class="form-group">

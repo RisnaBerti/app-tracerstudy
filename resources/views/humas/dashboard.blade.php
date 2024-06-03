@@ -88,7 +88,7 @@
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-muted">57% <i class="mdi mdi-arrow-up text-success"></i></span>
+                                {{-- <span class="text-muted">57% <i class="mdi mdi-arrow-up text-success"></i></span> --}}
                             </div>
                         </div>
 
@@ -116,7 +116,7 @@
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-muted">17.8% <i class="mdi mdi-arrow-down text-danger"></i></span>
+                                {{-- <span class="text-muted">17.8% <i class="mdi mdi-arrow-down text-danger"></i></span> --}}
                             </div>
                         </div>
 
@@ -291,7 +291,6 @@
                 <!--end card-->
             </div> --}}
             <!--end col-->
-
         </div>
         <!--end row-->
 

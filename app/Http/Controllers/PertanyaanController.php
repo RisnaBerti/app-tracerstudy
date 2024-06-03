@@ -15,12 +15,11 @@ class PertanyaanController extends Controller
     //fungsi index
     public function index()
     {
-
-        
         $pertanyaan = Pertanyaan::with('kuesioner', 'jawaban', 'kategori')->get();
         $title = 'Hapus Data!';
         $text = "Apakah Anda yakin ingin menghapus nya?";
         confirmDelete($title, $text);
+
         return view(
             'bkk.pertanyaan.view',
             [

@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Bkk;
 
 use App\Models\User;
 use App\Models\Alumni;
+use App\Models\Jurusan;
 use App\Models\TahunLulus;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
-use App\Models\Jurusan;
 use Illuminate\Support\Facades\Validator;
 
 class AlumniController extends Controller
@@ -26,6 +28,37 @@ class AlumniController extends Controller
             'alumni' => $alumni
         ]);
     }
+
+    //fungsi getDataTables
+    public function getDataTables(Request $request)
+    {
+        if ($request->ajax()) {
+            $query = "SELECT alumni.nama_alumni, alumni.nisn, jurusan.nama_jurusan, tahun_lulus.tahun_lulus, alumni.jenis_kelamin,
+                         alumni.no_hp_alumni, alumni.alamat_alumni, alumni.email_alumni, alumni.foto_alumni 
+                         FROM alumni
+                         JOIN tahun_lulus ON alumni.id_tahun_lulus = tahun_lulus.id_tahun_lulus
+                         JOIN jurusan ON alumni.id_jurusan = jurusan.id_jurusan";
+
+            $alumni = DB::select($query);
+
+            return datatables()->of($alumni)
+                // ->addColumn('action', function ($data) {
+                //     $button = '<a href="#" class="menu-link px-1 edit-row" data-bs-toggle="modal" data-bs-target="#kt_modal_edit_data" data-id="' . $data->nisn . '"><i class="fas fa-edit text-warning"></i></a>';
+                //     $button .= '<form action="' . URL::route('delete-alumni-admin', ['id' => $data->nisn]) . '" method="POST" style="display:inline;" onsubmit="return confirm(\'Apakah Anda yakin ingin menghapusnya?\');">';
+                //     $button .= '<input type="hidden" name="_token" value="' . csrf_token() . '">';
+                //     $button .= '<button type="submit" class="menu-link px-1" data-kt-users-table-filter="delete_row" style="border:none; background:none; padding:0; cursor:pointer;"><i class="fas fa-trash-alt text-danger"></i></button>';
+                //     $button .= '</form>';
+                //     return $button;
+                // })
+                // ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('bkk.alumni.view', [
+            'title' => 'Alumni BKK'
+        ]);
+    }
+
 
     //fungsi create
     public function create()
@@ -178,7 +211,7 @@ class AlumniController extends Controller
         if ($user) {
             $user->delete();
         }
-        
+
         return redirect()->route('alumni-bkk');
 
         // Hapus data user yang berelasi
@@ -190,7 +223,7 @@ class AlumniController extends Controller
         // Hapus data alumni
         // $alumni->delete();
 
-       
+
 
 
         // return view('bkk.alumni.view',

@@ -40,7 +40,7 @@
                             <i class="mdi mdi-plus mr-2"></i> Tambah Data
                         </a> --}}
 
-                        <table id="basic-datatable" class="table dt-responsive nowrap">
+                        <table id="basic-datatable kt_table_alumni" class="table dt-responsive nowrap">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -57,7 +57,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($alumni as $index => $item)
+                                {{-- @foreach ($alumni as $index => $item)
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
                                         <td>{{ $item->nama_alumni }}</td>
@@ -72,17 +72,8 @@
                                             <img src="{{ asset('uploads/alumni/' . $item->foto_alumni) }}" alt="foto"
                                                 width="60">
                                         </td>
-                                        {{-- <td>
-                                            <a href="{{ route('alumni-edit', $item->nisn) }}" class="btn btn-warning">
-                                                <i class="mdi mdi-pencil"></i>
-                                            </a>
-                                            <a href="{{ route('alumni-delete', $item->nisn) }}" data-confirm-delete="true"
-                                                class="btn btn-danger">
-                                                <i class="mdi mdi-delete"></i>
-                                            </a>
-                                        </td> --}}
                                     </tr>
-                                @endforeach
+                                @endforeach --}}
                             </tbody>
                         </table>
 
@@ -95,7 +86,68 @@
     </div> <!-- container-fluid -->
     <script>
         $(document).ready(function() {
-            $('#basic-datatable').DataTable();
+            $('#kt_table_alumni').DataTable({
+                responsive: true,
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('alumni-humas') }}",
+                    type: 'GET'
+                },
+                columns: [{
+                        data: null,
+                        render: function(data, type, row, meta) {
+                            return meta.row + 1; // Menomori setiap baris
+                        }
+                    },
+                    {
+                        data: 'nama_alumni',
+                        name: 'nama_alumni'
+                    },
+                    {
+                        data: 'nisn',
+                        name: 'nisn'
+                    },
+                    {
+                        data: 'nama_jurusan',
+                        name: 'nama_jurusan'
+                    },
+                    {
+                        data: 'tahun_lulus',
+                        name: 'tahun_lulus'
+                    },
+                    {
+                        data: 'jenis_kelamin',
+                        name: 'jenis_kelamin'
+                    },
+                    {
+                        data: 'alamat_alumni',
+                        name: 'alamat_alumni'
+                    },
+                    {
+                        data: 'no_hp_alumni',
+                        name: 'no_hp_alumni'
+                    },
+                    {
+                        data: 'email_alumni',
+                        name: 'email_alumni'
+                    },
+                    {
+                        data: 'foto_alumni',
+                        name: 'foto_alumni',
+                        render: function(data, type, full, meta) {
+                            return '<img src="{{ asset('uploads/alumni/') }}/' + data +
+                                '" alt="foto" width="60"/>';
+                        }
+                    },
+                    // {
+                    //     data: 'action',
+                    //     name: 'action',
+                    //     orderable: false,
+                    //     searchable: false
+                    // }
+                ]
+            });
         });
     </script>
 @endsection

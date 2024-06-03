@@ -57,6 +57,10 @@ class BkkController extends Controller
             ->get()
             ->pluck('total', 'tahun_lulus');
 
+        $title = 'Hapus Data!';
+        $text = "Apakah Anda yakin ingin menghapus nya?";
+        confirmDelete($title, $text);
+
         return view('bkk.dashboard', [
             'title' => 'Dashboard',
             'alumni' => $total_alumni,
@@ -67,6 +71,7 @@ class BkkController extends Controller
             'alumni_per_tahun' => $alumni_per_tahun, // Data total alumni per tahun
         ]);
     }
+
 
     public function gantiPassword(Request $request)
     {
