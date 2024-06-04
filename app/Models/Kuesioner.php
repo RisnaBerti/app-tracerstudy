@@ -15,7 +15,9 @@ class Kuesioner extends Model
         'id_kuesioner',
         'judul_kuesioner', 
         'deskripsi_kuesioner', 
-        'tgl_kuesioner'
+        'tgl_kuesioner',
+        'tahun_lulus_awal',
+        'tahun_lulus_akhir'
     ];
 
     public function pertanyaan()
