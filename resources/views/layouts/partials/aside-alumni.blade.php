@@ -5,7 +5,7 @@
 
         <div class="navbar-brand-box">
             <a href="{{ url('alumni') }}" class="logo">
-                <i class="mdi mdi-album"></i>
+                {{-- <i class="mdi mdi-album"></i> --}}
                 <span>
                     TRACER STUDY
                 </span>

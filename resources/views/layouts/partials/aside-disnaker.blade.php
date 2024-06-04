@@ -3,7 +3,7 @@
     <div data-simplebar class="h-100">
         <div class="navbar-brand-box">
             <a href="{{ url('disnaker') }}" class="logo">
-                <i class="mdi mdi-album"></i>
+                {{-- <i class="mdi mdi-album"></i> --}}
                 <span>
                     TRACER STUDY
                 </span>

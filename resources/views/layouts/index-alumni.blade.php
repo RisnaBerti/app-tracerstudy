@@ -9,8 +9,9 @@
     <meta content="MyraStudio" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ url('') }}/assets/images/favicon.ico">
+    <!-- App favicon -->ico"> --}}
+    <link rel="shortcut icon" href="{{ url('') }}/assets/images/logo-sma.png">
+    {{-- <link rel="shortcut icon" href="{{ url('') }}/assets/images/favicon.
 
     <!-- App css -->
     <link href="{{ url('') }}/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
