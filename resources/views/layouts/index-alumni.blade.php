@@ -11,7 +11,7 @@
 
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ url('') }}/assets/images/logo-sma.png">
-    {{-- <link rel="shortcut icon" href="{{ url('') }}/assets/images/favicon.
+    {{-- {{-- <link rel="shortcut icon" href="{{ url('') }}/assets/images/favicon. --}}
 
     <!-- App css -->
     <link href="{{ url('') }}/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
