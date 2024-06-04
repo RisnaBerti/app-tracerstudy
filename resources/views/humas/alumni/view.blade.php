@@ -34,49 +34,28 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Data Alumni</h4>
-
-                        {{-- tombol tambah  --}}
-                        {{-- <a href="{{ route('alumni-create') }}" class="btn btn-primary mb-2">
-                            <i class="mdi mdi-plus mr-2"></i> Tambah Data
-                        </a> --}}
-
-                        <table id="basic-datatable kt_table_alumni" class="table dt-responsive nowrap">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama</th>
-                                    <th>NISN</th>
-                                    <th>Lulusan</th>
-                                    <th>Jurusan</th>
-                                    <th>JK</th>
-                                    <th>Alamat</th>
-                                    <th>No HP</th>
-                                    <th>Email</th>
-                                    <th>Foto</th>
-                                    {{-- <th>Aksi</th> --}}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{-- @foreach ($alumni as $index => $item)
+                        <div class="table-responsive">
+                            <table id="kt_table_alumni" class="table table-striped table-bordered dt-responsive nowrap"
+                                style="width:100%">
+                                <thead>
                                     <tr>
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>{{ $item->nama_alumni }}</td>
-                                        <td>{{ $item->nisn }}</td>
-                                        <td>{{ $item->jurusan->nama_jurusan ?? '-' }}</td>
-                                        <td>{{ $item->tahun_lulus->tahun_lulus ?? '-' }}</td>
-                                        <td>{{ $item->jenis_kelamin }}</td>
-                                        <td>{{ $item->alamat_alumni }}</td>
-                                        <td>{{ $item->no_hp_alumni }}</td>
-                                        <td>{{ $item->email_alumni }}</td>
-                                        <td>
-                                            <img src="{{ asset('uploads/alumni/' . $item->foto_alumni) }}" alt="foto"
-                                                width="60">
-                                        </td>
+                                        <th>No</th>
+                                        <th>Nama</th>
+                                        <th>NISN</th>
+                                        <th>Lulusan</th>
+                                        <th>Jurusan</th>
+                                        <th>JK</th>
+                                        <th>Alamat</th>
+                                        <th>No HP</th>
+                                        <th>Email</th>
+                                        <th>Foto</th>
                                     </tr>
-                                @endforeach --}}
-                            </tbody>
-                        </table>
-
+                                </thead>
+                                <tbody>
+                                    {{-- Data will be populated by DataTables --}}
+                                </tbody>
+                            </table>
+                        </div>
                     </div> <!-- end card body-->
                 </div> <!-- end card -->
             </div><!-- end col-->
@@ -92,7 +71,15 @@
                 serverSide: true,
                 ajax: {
                     url: "{{ route('alumni-humas') }}",
-                    type: 'GET'
+                    type: 'GET',
+                    error: function(xhr, error, thrown) {
+                        console.log("Error: ", error);
+                        console.log("Thrown: ", thrown);
+                        console.log("Response: ", xhr.responseText);
+                    },
+                    success: function(data) {
+                        console.log("Data: ", data);
+                    }
                 },
                 columns: [{
                         data: null,
@@ -135,17 +122,11 @@
                     {
                         data: 'foto_alumni',
                         name: 'foto_alumni',
-                        render: function(data, type, full, meta) {
+                        render: function(data) {
                             return '<img src="{{ asset('uploads/alumni/') }}/' + data +
                                 '" alt="foto" width="60"/>';
                         }
-                    },
-                    // {
-                    //     data: 'action',
-                    //     name: 'action',
-                    //     orderable: false,
-                    //     searchable: false
-                    // }
+                    }
                 ]
             });
         });

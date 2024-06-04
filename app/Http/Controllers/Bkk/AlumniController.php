@@ -33,24 +33,24 @@ class AlumniController extends Controller
     public function getDataTables(Request $request)
     {
         if ($request->ajax()) {
-            $query = "SELECT alumni.nama_alumni, alumni.nisn, jurusan.nama_jurusan, tahun_lulus.tahun_lulus, alumni.jenis_kelamin,
-                         alumni.no_hp_alumni, alumni.alamat_alumni, alumni.email_alumni, alumni.foto_alumni 
-                         FROM alumni
-                         JOIN tahun_lulus ON alumni.id_tahun_lulus = tahun_lulus.id_tahun_lulus
-                         JOIN jurusan ON alumni.id_jurusan = jurusan.id_jurusan";
+            $query = "
+            SELECT alumni.nama_alumni, alumni.nisn, jurusan.nama_jurusan, tahun_lulus.tahun_lulus, 
+                   alumni.jenis_kelamin, alumni.no_hp_alumni, alumni.alamat_alumni, 
+                   alumni.email_alumni, alumni.foto_alumni 
+            FROM alumni
+            JOIN tahun_lulus ON alumni.id_tahun_lulus = tahun_lulus.id_tahun_lulus
+            JOIN jurusan ON alumni.id_jurusan = jurusan.id_jurusan
+        ";
 
             $alumni = DB::select($query);
 
             return datatables()->of($alumni)
-                // ->addColumn('action', function ($data) {
-                //     $button = '<a href="#" class="menu-link px-1 edit-row" data-bs-toggle="modal" data-bs-target="#kt_modal_edit_data" data-id="' . $data->nisn . '"><i class="fas fa-edit text-warning"></i></a>';
-                //     $button .= '<form action="' . URL::route('delete-alumni-admin', ['id' => $data->nisn]) . '" method="POST" style="display:inline;" onsubmit="return confirm(\'Apakah Anda yakin ingin menghapusnya?\');">';
-                //     $button .= '<input type="hidden" name="_token" value="' . csrf_token() . '">';
-                //     $button .= '<button type="submit" class="menu-link px-1" data-kt-users-table-filter="delete_row" style="border:none; background:none; padding:0; cursor:pointer;"><i class="fas fa-trash-alt text-danger"></i></button>';
-                //     $button .= '</form>';
-                //     return $button;
-                // })
-                // ->rawColumns(['action'])
+                ->addColumn('action', function ($data) {
+                    $editButton = '<a href="' . URL::route('alumni-edit', $data->nisn) . '" class="btn btn-warning"><i class="mdi mdi-pencil"></i></a>';
+                    $deleteButton = '<a href="' . URL::route('alumni-delete', $data->nisn) . '" class="btn btn-danger delete-button"><i class="mdi mdi-delete"></i></a>';
+                    return $editButton . ' ' . $deleteButton;
+                })
+                ->rawColumns(['action'])
                 ->make(true);
         }
 
@@ -58,6 +58,7 @@ class AlumniController extends Controller
             'title' => 'Alumni BKK'
         ]);
     }
+
 
 
     //fungsi create

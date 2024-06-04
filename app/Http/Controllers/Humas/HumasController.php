@@ -60,7 +60,7 @@ class HumasController extends Controller
         $title = 'Hapus Data!';
         $text = "Apakah Anda yakin ingin menghapus nya?";
         confirmDelete($title, $text);
-        
+
         return view('humas.dashboard', [
             'title' => 'Dashboard',
             'alumni' => $total_alumni,
@@ -115,14 +115,29 @@ class HumasController extends Controller
     }
 
     //fungsi melihat data alumni
-    public function alumni()
+    public function alumni(Request $request)
     {
-        $alumni = Alumni::with('tahun_lulus', 'jurusan')->get();
+        if ($request->ajax()) {
+            $query = "
+                SELECT alumni.nama_alumni, alumni.nisn, jurusan.nama_jurusan, tahun_lulus.tahun_lulus, 
+                       alumni.jenis_kelamin, alumni.no_hp_alumni, alumni.alamat_alumni, 
+                       alumni.email_alumni, alumni.foto_alumni 
+                FROM alumni
+                JOIN tahun_lulus ON alumni.id_tahun_lulus = tahun_lulus.id_tahun_lulus
+                JOIN jurusan ON alumni.id_jurusan = jurusan.id_jurusan
+            ";
+
+            $alumni = DB::select($query);
+
+            return datatables()->of($alumni)
+                ->make(true);
+        }
+
         return view('humas.alumni.view', [
-            'title' => 'Data Alumni',
-            'alumni' => $alumni
+            'title' => 'Data Alumni'
         ]);
     }
+
 
 
     public function gantiPassword(Request $request)
