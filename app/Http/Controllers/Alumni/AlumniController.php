@@ -185,7 +185,15 @@ class AlumniController extends Controller
     //fungsi viewKuesioner
     public function viewKuesioner()
     {
-        $kuesioner = Kuesioner::all();
+        
+        //ambil tahun lulus alumni dari tabel alumni yang berelasi dengan tabel user, dengan kondisi data user sedang login
+        $tahun_lulus = Alumni::where('nisn', Auth::user()->username)->first()->tahun_lulus->tahun_lulus;
+
+        //get data kuesioner berdasarkan tahun lulus rentang 5tahun sekali
+        $kuesioner = Kuesioner::where('tahun_lulus_awal', '<=', $tahun_lulus)
+        ->where('tahun_lulus_akhir', '>=', $tahun_lulus)
+        ->get();
+
         return view('alumni.kuesioner.view', [
             'title' => 'Data Kuesioner',
             'kuesioner' => $kuesioner
@@ -199,8 +207,6 @@ class AlumniController extends Controller
 
         // Get data alumni
         $alumni = Alumni::with(['jurusan', 'tahun_lulus', 'kategori'])->find(Auth::user()->username);
-
-        
 
         // Get all categories
         $categories = Kategori::all();

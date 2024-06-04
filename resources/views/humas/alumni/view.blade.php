@@ -56,13 +56,16 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div> <!-- end card body-->
-                </div> <!-- end card -->
+                    </div>
+                </div>
             </div><!-- end col-->
         </div>
         <!-- end row-->
 
     </div> <!-- container-fluid -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('#kt_table_alumni').DataTable({
@@ -71,15 +74,7 @@
                 serverSide: true,
                 ajax: {
                     url: "{{ route('alumni-humas') }}",
-                    type: 'GET',
-                    error: function(xhr, error, thrown) {
-                        console.log("Error: ", error);
-                        console.log("Thrown: ", thrown);
-                        console.log("Response: ", xhr.responseText);
-                    },
-                    success: function(data) {
-                        console.log("Data: ", data);
-                    }
+                    type: 'GET'
                 },
                 columns: [{
                         data: null,

@@ -20,16 +20,6 @@
         <!-- end page title -->
 
         <div class="row">
-            {{-- <div class="col-sm-12 col-md-6">
-                <div class="dt-buttons btn-group"> 
-                    <button class="btn btn-secondary buttons-copy buttons-html5"
-                        tabindex="0" aria-controls="datatable-buttons" type="button"><span>Copy</span></button> <button
-                        class="btn btn-secondary buttons-print" tabindex="0" aria-controls="datatable-buttons"
-                        type="button"><span>Print</span></button> <button
-                        class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0" aria-controls="datatable-buttons"
-                        type="button"><span>PDF</span></button> 
-                </div>
-            </div> --}}
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
@@ -50,7 +40,6 @@
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
                                         <td>{{ \Carbon\Carbon::parse($item->tgl_kuesioner)->format('d-m-Y') }}</td>
-                                        {{-- <td>{{ $item->tgl_kuesioner }} - {{ $item->tgl_kuesioner }}</td> --}}
                                         <td>{{ $item->judul_kuesioner }}</td>
                                         <td>{{ $item->deskripsi_kuesioner }}</td>
                                         <td>
