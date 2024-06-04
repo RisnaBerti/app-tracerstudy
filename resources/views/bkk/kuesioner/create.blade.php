@@ -35,9 +35,22 @@
                                     <label for="tgl_kuesioner">Tanggal Kuesioner</label>
                                     <input type="date" class="form-control" id="tgl_kuesioner" name="tgl_kuesioner" 
                                         placeholder="Tanggal Kuesioner" value="" required>
-                                    {{-- <div class="valid-feedback">
-                                        Looks good!
-                                    </div> --}}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-4 mb-12">
+                                    <label for="tahun_lulus_awal">Tahun Lulus Awal</label>
+                                    <input type="date" class="form-control" id="tahun_lulus_awal" name="tahun_lulus_awal" 
+                                        placeholder="Tahun Lulus Awal" value="" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-4 mb-12">
+                                    <label for="tahun_lulus_akhir">Tahun Lulus Akhir</label>
+                                    <input type="date" class="form-control" id="tahun_lulus_akhir" name="tahun_lulus_akhir" 
+                                        placeholder="Tahun Lulus Akhir" value="" required>
                                 </div>
                             </div>
 
@@ -46,9 +59,6 @@
                                     <label for="judul_kuesioner">Judul Kuesioner</label>
                                     <input type="text" class="form-control" id="judul_kuesioner" name="judul_kuesioner" 
                                         placeholder="Judul Kuesioner" value="" required>
-                                    {{-- <div class="valid-feedback">
-                                        Looks good!
-                                    </div> --}}
                                 </div>
                             </div>
 
@@ -57,9 +67,6 @@
                                     <label for="deskripsi_kuesioner">Deskripsi Kuesioner</label>
                                     <input type="text" class="form-control" id="deskripsi_kuesioner" name="deskripsi_kuesioner" 
                                         placeholder="Deskripsi Kuesioner" value="" required>
-                                    {{-- <div class="valid-feedback">
-                                        Looks good!
-                                    </div> --}}
                                 </div>
                             </div>
                             <button class="btn btn-primary waves-effect waves-light" type="submit">Simpan</button>

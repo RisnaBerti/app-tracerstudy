@@ -45,6 +45,8 @@ class KuesionerController extends Controller
             'judul_kuesioner' => 'required',
             'deskripsi_kuesioner' => 'required',
             'tgl_kuesioner' => 'required',
+            'tahun_lulus_awal' => 'required',
+            'tahun_lulus_akhir' => 'required',
         ]);
 
         Kuesioner::create($request->all());
@@ -55,14 +57,9 @@ class KuesionerController extends Controller
     //fungsi show
     public function show($id)
     {
-        // $kuesioner = Kuesioner::find($id);
-        // $pertanyaan = Pertanyaan::where('id_kuesioner', $id)->with('jawaban')->get();
         $kuesioner = Kuesioner::with(['pertanyaan.opsiJawaban'])->findOrFail($id);
         //get data alumni
         $alumni = Alumni::find(Auth::user()->username);
-
-        // var_dump($alumni);
-        // die();
 
         return view('bkk.kuesioner.show', compact('kuesioner', 
         'alumni'), ['title' => 'Data Kuesioner']);
