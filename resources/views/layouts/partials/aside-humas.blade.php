@@ -27,10 +27,10 @@
                     <a href="{{ url('alumni-humas') }}" class="waves-effect"><i class="mdi mdi-school"></i>
                         <span>Data Alumni</span></a>
                 </li>
-                <li>
+                {{-- <li>
                     <a href="{{ url('jurusan-humas') }}" class="waves-effect"><i class="mdi mdi-book-open"></i>
                         <span>Data Lulusan</span></a>
-                </li>
+                </li> --}}
                 <li>
                     <a href="{{ url('pegawai') }}" class="waves-effect"><i class="mdi mdi-account-group"></i>
                         <span>Data Pegawai</span></a>

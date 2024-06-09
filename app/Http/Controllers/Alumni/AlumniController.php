@@ -265,9 +265,6 @@ class AlumniController extends Controller
         return redirect()->route('kuesioner-alumni')->with('success', 'Data berhasil disimpan');
     }
 
-
-
-
     //fungsi history view
     public function historyKuesioner()
     {
@@ -313,4 +310,13 @@ class AlumniController extends Controller
 
         return view('alumni.kuesioner.history-detail', compact('kuesioner', 'alumni'), ['title' => 'Detail Kuesioner']);
     }
+
+    //fungsi lupa password
+    public function lupaPassword()
+    {
+        return view('auth.lupa-password', ['title' => 'Lupa Password']);
+    }
+
+
+
 }

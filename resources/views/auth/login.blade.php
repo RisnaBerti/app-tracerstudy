@@ -40,7 +40,7 @@
                                             {{-- <img src="{{ url('') }}/assets/images/logo-sma.png" alt="logo" height="100"> --}}
                                         </div>
                                         <h1 class="h5 mb-1">Selamat Datang!</h1>
-                                        <p class="text-muted mb-4">Sistem Tracer Study SMK YPE KROYA.</p>
+                                        <p class="text-muted mb-4">SISTEM ATRACDY SMK YPE KROYA</p>
                                         <form action="{{ route('action-login') }}" method="POST" class="user" >
                                             @csrf
                                             <div class="form-group">
@@ -56,10 +56,10 @@
                                                 <label class="form-check-label" for="showPassword">Tampilkan Password</label>
                                             </div>
                                             <button class="btn btn-primary waves-effect waves-light" type="submit">Log In</button>
-                                            {{-- <div class="text-center mt-4">
-                                                <a href="forgot-password.html" class="text-muted
+                                            <div class="text-center mt-4">
+                                                <a href="{{ url('lupa-password') }}" class="text-muted
                                                     font-size-13">Lupa Password?</a>
-                                            </div> --}}
+                                            </div>
                                         </form>
 
                                     </div> <!-- end .padding-5 -->

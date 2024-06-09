@@ -3,16 +3,14 @@
 
 <head>
     <meta charset="utf-8" />
-    <title> {{ $title }}</title>
+    <title> Xeloro - Admin & Dashboard Template</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="MyraStudio" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- App favicon -->
-    {{-- <link rel="shortcut icon" href="assets/images/favicon.ico"> --}}
-    
-    <link rel="shortcut icon" href="{{ url('') }}/assets/images/logo-sma.png">
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
 
     <!-- App css -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -41,18 +39,33 @@
                                         </div>
                                         {{-- <h1 class="h5 mb-1">Lupa Password!</h1>
                                         <p class="text-muted mb-4">SISTEM ATRACDY SMK YPE KROYA</p> --}}
-                                        <p class="text-muted mb-4">Masukkan alamat email Anda dan kami akan mengirimkan
+                                        {{-- <p class="text-muted mb-4">Masukkan alamat email Anda dan kami akan mengirimkan
                                             email kepada Anda
-                                            dengan instruksi untuk mengatur ulang kata sandi Anda.</p>
-                                        <form action="{{ route('action-lupa-password') }}" method="POST" class="user">
+                                            dengan instruksi untuk mengatur ulang kata sandi Anda.</p> --}}
+                                        <form action="{{ route('action-reset-password', ['token' => $token]) }}" method="POST" class="user">
                                             @csrf
+                                            <input type="hidden" name="token" value="{{ $token }}">
                                             <div class="form-group">
                                                 <label for="email">Email Address</label>
                                                 <input type="email" class="form-control form-control-user"
-                                                    id="email" placeholder="Email Address" name="email">
+                                                    id="email" name="email" placeholder="Email Address">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="password">Password Baru</label>
+                                                <input type="password" class="form-control form-control-user"
+                                                    id="password" name="password" placeholder="Password Baru">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="password_confirmation">Konfirmasi Password</label>
+                                                <input type="password" class="form-control form-control-user"
+                                                    id="password_confirmation" name="password_confirmation" placeholder="Konfirmasi Password Baru">
                                             </div>
                                             
-                                            <button class="btn btn-primary waves-effect waves-light" type="submit">Send Reset Link</button>
+                                            <button class="btn btn-primary waves-effect waves-light" type="submit">Submit</button>
+                                            {{-- <a href="{{ }}"
+                                                class="btn btn-success btn-block waves-effect waves-light">Submit</a> --}}
 
                                         </form>
 

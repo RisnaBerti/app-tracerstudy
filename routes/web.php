@@ -38,6 +38,12 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('/', [AuthController::class, 'index'])->name('login');
 Route::post('/action-login', [AuthController::class, 'actionLogin'])->name('action-login');
+Route::get('/lupa-password', [AuthController::class, 'lupaPassword'])->name('lupa-password');
+Route::post('/action-lupa-password', [AuthController::class, 'actionLupaPassword'])->name('action-lupa-password');
+Route::get('/reset-password/{token}', [AuthController::class, 'showResetForm'])->name('reset-password');
+Route::post('/action-reset-password/{token}', [AuthController::class, 'actionResetPassword'])->name('action-reset-password');
+
+
 
 
 //Route Admin
