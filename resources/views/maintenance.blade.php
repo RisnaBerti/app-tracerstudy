@@ -10,7 +10,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ url('') }}/assets/images/favicon.ico">
+    {{-- <link rel="shortcut icon" href="{{ url('') }}/assets/images/favicon.ico"> --}}    
+    <link rel="shortcut icon" href="{{ url('') }}/assets/images/logo-sma.png">
 
     <!-- App css -->
     <link href="{{ url('') }}/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -27,29 +28,22 @@
                 <div class="col-12">
                     <div class="d-flex align-items-center min-vh-100">
                         <div class="w-100 d-block bg-white shadow-lg rounded my-5">
-                            <div class="row">
-                                <div class="col-lg-5 d-none d-lg-block bg-login rounded-left"></div>
-                                <div class="col-lg-7">
+                            <div class="row">   
+                                {{-- <div class="col-lg-5 d-none d-lg-block bg-login rounded-left"></div> --}}
+                                <div class="col-lg-12">
                                     <div class="p-5">
                                         <div class="text-center mb-5">
                                             <a href="index.html" class="text-dark font-size-22 font-family-secondary">
-                                                <i class="mdi mdi-alpha-x-circle"></i> <b>TRACER STUDY</b>
+                                                 <b>TRACER STUDY</b>
                                             </a>
                                         </div>
 
                                         <div class="text-center">
                                             <img src="{{ url('') }}/assets/images/maintenance.svg" alt="error" height="180">
-                                            <h1 class="h4 mb-3 mt-4">Site is Under Maintenance</h1>
-                                            <p class="text-muted mb-4 w-75 m-auto">We're making the system more awesome.
-                                                We'll be back shortly.</p>
+                                            <h1 class="h4 mb-3 mt-4">Anda tidak mempunyai hak akses untuk halaman ini!</h1>
+                                            {{-- tombol kembali kehalaman sebelumnya --}}
+                                            <a href="javascript:history.back()" class="btn btn-primary">Kembali</a>
                                         </div>
-
-                                        {{-- <div class="row mt-4">
-                                            <div class="col-12 text-center">
-                                                <a href="" class="btn btn-success"><i
-                                                        class="mdi mdi-email mr-2"></i>Contact Us</a>
-                                            </div> <!-- end col -->
-                                        </div> --}}
                                         <!-- end row -->
                                     </div> <!-- end .padding-5 -->
                                 </div> <!-- end col -->

@@ -31,17 +31,17 @@ class AlumniController extends Controller
         // Menghitung total alumni
         $total_alumni = Alumni::count();
 
-         //alumni count id_kategori "Bekerja"
-         $alumni_bekerja = $alumni_counts->where('id_kategori', 1)->sum('total');
+        //alumni count id_kategori "Bekerja"
+        $alumni_bekerja = $alumni_counts->where('id_kategori', 1)->sum('total');
 
-         //alumni count id_kategori "Belum Bekerja"
-         $alumni_belum_bekerja = $alumni_counts->where('id_kategori', 2)->sum('total');
- 
-         //alumni count id_kategori "Wirausaha"
-         $alumni_wirausaha = $alumni_counts->where('id_kategori', 4)->sum('total');
- 
-         //alumni count id_kategori "Kuliah"
-         $alumni_kuliah = $alumni_counts->where('id_kategori', 3)->sum('total');
+        //alumni count id_kategori "Belum Bekerja"
+        $alumni_belum_bekerja = $alumni_counts->where('id_kategori', 2)->sum('total');
+
+        //alumni count id_kategori "Wirausaha"
+        $alumni_wirausaha = $alumni_counts->where('id_kategori', 4)->sum('total');
+
+        //alumni count id_kategori "Kuliah"
+        $alumni_kuliah = $alumni_counts->where('id_kategori', 3)->sum('total');
 
         // Menghitung jumlah alumni per kategori
         // $alumni_per_kategori = $alumni_counts->groupBy('id_kategori');
@@ -92,7 +92,7 @@ class AlumniController extends Controller
             'nisn' => [
                 'required',
                 'numeric',
-                Rule::unique('users', 'username')->ignore($alumni->user_id, 'id_user')
+                Rule::unique('users', 'username')->ignore($alumni->id_user, 'id_user')
             ],
             'nama_alumni' => 'required',
             'jenis_kelamin' => 'required',
@@ -185,14 +185,14 @@ class AlumniController extends Controller
     //fungsi viewKuesioner
     public function viewKuesioner()
     {
-        
+
         //ambil tahun lulus alumni dari tabel alumni yang berelasi dengan tabel user, dengan kondisi data user sedang login
         $tahun_lulus = Alumni::where('nisn', Auth::user()->username)->first()->tahun_lulus->tahun_lulus;
 
         //get data kuesioner berdasarkan tahun lulus rentang 5tahun sekali
         $kuesioner = Kuesioner::where('tahun_lulus_awal', '<=', $tahun_lulus)
-        ->where('tahun_lulus_akhir', '>=', $tahun_lulus)
-        ->get();
+            ->where('tahun_lulus_akhir', '>=', $tahun_lulus)
+            ->get();
 
         return view('alumni.kuesioner.view', [
             'title' => 'Data Kuesioner',
@@ -295,7 +295,7 @@ class AlumniController extends Controller
     {
         $nisn = Auth::user()->username;
         $alumni = Alumni::with(['jurusan', 'tahun_lulus', 'kategori'])->find($nisn);
-        
+
         // var_dump($alumni->id_kategori);
         // die();
 
@@ -316,7 +316,4 @@ class AlumniController extends Controller
     {
         return view('auth.lupa-password', ['title' => 'Lupa Password']);
     }
-
-
-
 }

@@ -73,7 +73,7 @@ class PegawaiController extends Controller
             'email_pegawai' => $request->email_pegawai,
             'foto_pegawai' => $filename, // Simpan nama file foto
             'jabatan' => '-',
-            'id_user' =>  $user->id_user, // Ambil user_id dari user yang baru saja dibuat
+            'id_user' =>  $user->id_user, // Ambil id_user dari user yang baru saja dibuat
         ]);
 
         return redirect()->route('pegawai')->with('success', 'Data Pegawai Berhasil Ditambahkan');
@@ -144,7 +144,7 @@ class PegawaiController extends Controller
         }
 
         // Hapus data user yang berelasi
-        $user = User::find($pegawai->user_id);
+        $user = User::find($pegawai->id_user);
         if ($user) {
             $user->delete();
         }

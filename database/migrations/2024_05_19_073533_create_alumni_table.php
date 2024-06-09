@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('alamat_alumni');
             $table->string('email_alumni')->unique();
             $table->string('foto_alumni');
-            $table->unsignedBigInteger('user_id'); // asumsikan tipe data id_user adalah bigInteger
-            $table->foreign('user_id')->references('id_user')->on('users');
+            $table->unsignedBigInteger('id_user'); // asumsikan tipe data id_user adalah bigInteger
+            $table->foreign('id_user')->references('id_user')->on('users');
             $table->timestamps();
         });
     }

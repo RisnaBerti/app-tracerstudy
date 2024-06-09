@@ -119,7 +119,7 @@ class AlumniController extends Controller
             'alamat_alumni' => $request->alamat_alumni,
             'email_alumni' => $request->email_alumni,
             'foto_alumni' => $filename, // Simpan nama file foto
-            'user_id' =>  $user->id_user, // Ambil user_id dari user yang baru saja dibuat
+            'id_user' =>  $user->id_user, // Ambil id_user dari user yang baru saja dibuat
             'id_tahun_lulus' =>  $request->id_tahun_lulus,
             'id_jurusan' => $request->id_jurusan,
             'id_kategori' => '5',
@@ -154,7 +154,7 @@ class AlumniController extends Controller
             'nisn' => [
                 'required',
                 'numeric',
-                Rule::unique('users', 'username')->ignore($alumni->user_id, 'id_user')
+                Rule::unique('users', 'username')->ignore($alumni->id_user, 'id_user')
             ],
             'nama_alumni' => 'required',
             'jenis_kelamin' => 'required',
@@ -201,14 +201,14 @@ class AlumniController extends Controller
             unlink(public_path('uploads/alumni/' . $alumni->foto_alumni));
         }
 
-        // Simpan user_id sebelum menghapus data alumni
-        $user_id = $alumni->user_id;
+        // Simpan id_user sebelum menghapus data alumni
+        $id_user = $alumni->id_user;
 
         // Hapus data alumni
         $alumni->delete();
 
         // Hapus data user yang berelasi
-        $user = User::find($user_id);
+        $user = User::find($id_user);
         if ($user) {
             $user->delete();
         }

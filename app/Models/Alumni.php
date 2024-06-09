@@ -22,7 +22,7 @@ class Alumni extends Model
         'id_jurusan',
         'id_kategori',
         'id_tahun_lulus',
-        'user_id'
+        'id_user'
     ];
 
     //relasi dengan jurusan
@@ -46,7 +46,7 @@ class Alumni extends Model
     // Hubungan dengan model User
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id_user');
+        return $this->belongsTo(User::class, 'id_user', 'id_user');
     }
 
     //relasi dengan jawaban

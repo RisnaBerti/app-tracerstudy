@@ -71,10 +71,18 @@ class AuthController extends Controller
     }
 
     //fungsi logout
-    public function logout()
+    // public function logout()
+    // {
+    //     Auth::logout();
+    //     return redirect('/')->with('success', 'Anda berhasil logout!');;
+    // }
+
+    public function logout(Request $request)
     {
         Auth::logout();
-        return redirect('/')->with('success', 'Anda berhasil logout!');;
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
     }
 
     //funsi ganti password
@@ -97,24 +105,6 @@ class AuthController extends Controller
         //mengirimkan pesan sukses
         return redirect('/')->with('success', 'Password berhasil diubah');
     }
-
-    //fungsi reset password
-    // public function resetPassword()
-    // {
-    //     return view('auth.reset-password');
-    // }
-
-    //fungsi action reset password
-    // public function actionResetPassword(Request $request)
-    // {
-    //     //validasi form reset password
-    //     $request->validate([
-    //         'email' => 'required|email'
-    //     ]);
-
-    //     //mengirimkan email reset password
-    //     return redirect('/')->with('success', 'Email reset password telah dikirim');
-    // }
 
     //fungsi lupa password
     public function lupaPassword()
@@ -191,7 +181,7 @@ class AuthController extends Controller
             return back()->withErrors(['email' => 'Kami tidak dapat menemukan pengguna dengan alamat email tersebut.']);
         }
 
-        // Dapatkan user_id dari tabel alumni atau pegawai
+        // Dapatkan id_user dari tabel alumni atau pegawai
         $userId = $alumni ? $alumni->id_user : $pegawai->id_user;
 
         // Update password di tabel users
