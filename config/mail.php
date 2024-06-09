@@ -99,15 +99,15 @@ return [
     |
     */
 
-    // 'from' => [
-    //     'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-    //     'name' => env('MAIL_FROM_NAME', 'Example'),
-    // ],
-
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'risnaberti8@gmail.com'),
-        'name' => env('MAIL_FROM_NAME', 'App Name'),
+        'address' => env('MAIL_FROM_ADDRESS', 'pinkyandelaaa@gmail.com'),
+        'name' => env('MAIL_FROM_NAME', 'TRACER STUDY SMK YPE KROYA'),
     ],
+
+    // 'from' => [
+    //     'address' => env('MAIL_FROM_ADDRESS', 'risnaberti8@gmail.com'),
+    //     'name' => env('MAIL_FROM_NAME', 'App Name'),
+    // ],
 
     /*
     |--------------------------------------------------------------------------
