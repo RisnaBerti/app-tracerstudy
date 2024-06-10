@@ -1,4 +1,4 @@
-@extends('layouts.index-bkk')
+@extends('layouts.index-disnaker')
 @section('content')
     <div class="container-fluid">
         <!-- start page title -->
@@ -24,23 +24,23 @@
             <div class="col-12">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview-bkk', ['id' => $id]) }}" class="nav-link active">Grafik
+                        <a href="{{ route('hasil-preview-disnaker', ['id' => $id]) }}" class="nav-link active">Grafik
                             Pengisian</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview2-bkk', ['id' => $id]) }}" class="nav-link">Grafik Alumni</a>
+                        <a href="{{ route('hasil-preview2-disnaker', ['id' => $id]) }}" class="nav-link">Grafik Alumni</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview3-bkk', ['id' => $id]) }}" class="nav-link">Bekerja</a>
+                        <a href="{{ route('hasil-preview3-disnaker', ['id' => $id]) }}" class="nav-link">Bekerja</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview4-bkk', ['id' => $id]) }}" class="nav-link">Kuliah</a>
+                        <a href="{{ route('hasil-preview4-disnaker', ['id' => $id]) }}" class="nav-link">Kuliah</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview5-bkk', ['id' => $id]) }}" class="nav-link">Wirausaha</a>
+                        <a href="{{ route('hasil-preview5-disnaker', ['id' => $id]) }}" class="nav-link">Wirausaha</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview6-bkk', ['id' => $id]) }}" class="nav-link">Belum Bekerja</a>
+                        <a href="{{ route('hasil-preview6-disnaker', ['id' => $id]) }}" class="nav-link">Belum Bekerja</a>
                     </li>
                 </ul>
             </div>
@@ -50,9 +50,9 @@
                         {{-- tombol print nav Grafik Pengisian --}}
                         <div class="d-print-none mb-2">
                             <div class="text-end">
-                                <a href="{{ route('preview-print-bkk', ['id' => $id]) }}" class="btn btn-primary" id="printButton" target="_blank">
+                                <a href="{{ route('preview-print-disnaker', ['id' => $id]) }}" class="btn btn-primary" id="printButton" target="_blank">
                                     <i class="uil uil-print me-2"></i>Print
-                                </a>                                
+                                </a>  
                             </div>
                         </div>
                         <h4 class="card-title">{{ $title }}</h4>

@@ -63,14 +63,14 @@ Route::middleware(['auth', 'role:1'])->group(function () {
         Route::get('/hasil-kuesioner-bkk', 'hasil')->name('hasil-kuesioner-bkk');
         Route::get('/hasil-preview-bkk/{id}', 'preview')->name('hasil-preview-bkk');
         Route::get('/preview-print-bkk/{id}', 'previewPrint')->name('preview-print-bkk');
-        Route::get('/hasil-preview2/{id}', 'preview2')->name('hasil-preview2');
-        Route::get('/hasil-preview3/{id}', 'preview3')->name('hasil-preview3');
-        Route::get('/hasil-preview4/{id}', 'preview4')->name('hasil-preview4');
-        Route::get('/hasil-preview5/{id}', 'preview5')->name('hasil-preview5');
-        Route::get('/hasil-preview6/{id}', 'preview6')->name('hasil-preview6');
+        Route::get('/hasil-preview2-bkk/{id}', 'preview2')->name('hasil-preview2-bkk');
+        Route::get('/hasil-preview3-bkk/{id}', 'preview3')->name('hasil-preview3-bkk');
+        Route::get('/hasil-preview4-bkk/{id}', 'preview4')->name('hasil-preview4-bkk');
+        Route::get('/hasil-preview5-bkk/{id}', 'preview5')->name('hasil-preview5-bkk');
+        Route::get('/hasil-preview6-bkk/{id}', 'preview6')->name('hasil-preview6-bkk');
 
 
-        Route::get('/notifikasi/{id}', 'kirimNotifikasi')->name('notifikasi');
+        Route::get('/notifikasi-bkk/{id}', 'kirimNotifikasi')->name('notifikasi-bkk');
         Route::get('/statistik-bkk', 'statistik')->name('statistik-bkk');
         Route::get('/statistik-bkk-print', 'statistikPrint')->name('statistik-bkk-print');
     });
@@ -180,14 +180,14 @@ Route::middleware(['auth', 'role:2'])->group(function () {
         Route::get('/hasil-kuesioner-humas', 'hasil')->name('hasil-kuesioner-humas');
         Route::get('/hasil-preview-humas/{id}', 'preview')->name('hasil-preview-humas');
         Route::get('/preview-print-humas', 'previewPrint')->name('preview-print-humas');
-        Route::get('/hasil-preview2/{id}', 'preview2')->name('hasil-preview2');
-        Route::get('/hasil-preview3/{id}', 'preview3')->name('hasil-preview3');
-        Route::get('/hasil-preview4/{id}', 'preview4')->name('hasil-preview4');
-        Route::get('/hasil-preview5/{id}', 'preview5')->name('hasil-preview5');
-        Route::get('/hasil-preview6/{id}', 'preview6')->name('hasil-preview6');
+        Route::get('/hasil-preview2-humas/{id}', 'preview2')->name('hasil-preview2-humas');
+        Route::get('/hasil-preview3-humas/{id}', 'preview3')->name('hasil-preview3-humas');
+        Route::get('/hasil-preview4-humas/{id}', 'preview4')->name('hasil-preview4-humas');
+        Route::get('/hasil-preview5-humas/{id}', 'preview5')->name('hasil-preview5-humas');
+        Route::get('/hasil-preview6-humas/{id}', 'preview6')->name('hasil-preview6-humas');
 
 
-        Route::get('/notifikasi/{id}', 'kirimNotifikasi')->name('notifikasi');
+        Route::get('/notifikasi-humas/{id}', 'kirimNotifikasi')->name('notifikasi-humas');
         Route::get('/statistik-humas', 'statistik')->name('statistik-humas');
         Route::get('/statistik-humas-print', 'statistikPrint')->name('statistik-humas-print');
 
@@ -215,9 +215,22 @@ Route::middleware(['auth', 'role:3'])->group(function () {
         Route::get('/disnaker', 'index')->name('disnaker');
         Route::get('/hasil-kuesioner-disnaker', 'index')->name('hasil-kuesioner-disnaker');
 
-
         Route::get('/jurusan-disnaker', 'jurusan')->name('jurusan-disnaker');
         Route::get('/alumni-disnaker', 'alumni')->name('alumni-disnaker');
+
+        Route::get('/hasil-kuesioner-disnaker', 'hasil')->name('hasil-kuesioner-disnaker');
+        Route::get('/hasil-preview-disnaker/{id}', 'preview')->name('hasil-preview-disnaker');
+        Route::get('/preview-print-disnaker', 'previewPrint')->name('preview-print-disnaker');
+        Route::get('/hasil-preview2-disnaker/{id}', 'preview2')->name('hasil-preview2-disnaker');
+        Route::get('/hasil-preview3-disnaker/{id}', 'preview3')->name('hasil-preview3-disnaker');
+        Route::get('/hasil-preview4-disnaker/{id}', 'preview4')->name('hasil-preview4-disnaker');
+        Route::get('/hasil-preview5-disnaker/{id}', 'preview5')->name('hasil-preview5-disnaker');
+        Route::get('/hasil-preview6-disnaker/{id}', 'preview6')->name('hasil-preview6-disnaker');
+
+
+        Route::get('/notifikasi-disnaker/{id}', 'kirimNotifikasi')->name('notifikasi-disnaker');
+        Route::get('/statistik-disnaker', 'statistik')->name('statistik-disnaker');
+        Route::get('/statistik-disnaker-print', 'statistikPrint')->name('statistik-disnaker-print');
     });
 });
 

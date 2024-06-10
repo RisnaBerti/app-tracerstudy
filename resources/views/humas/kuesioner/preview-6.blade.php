@@ -27,19 +27,19 @@
                         <a href="{{ route('hasil-preview-humas', ['id' => $id]) }}" class="nav-link ">Grafik Pengisian</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview2', ['id' => $id]) }}" class="nav-link ">Grafik Alumni</a>
+                        <a href="{{ route('hasil-preview2-humas', ['id' => $id]) }}" class="nav-link ">Grafik Alumni</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview3', ['id' => $id]) }}" class="nav-link">Bekerja</a>
+                        <a href="{{ route('hasil-preview3-humas', ['id' => $id]) }}" class="nav-link">Bekerja</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview4', ['id' => $id]) }}" class="nav-link">Kuliah</a>
+                        <a href="{{ route('hasil-preview4-humas', ['id' => $id]) }}" class="nav-link">Kuliah</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview5', ['id' => $id]) }}" class="nav-link ">Wirausaha</a>
+                        <a href="{{ route('hasil-preview5-humas', ['id' => $id]) }}" class="nav-link ">Wirausaha</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview6', ['id' => $id]) }}" class="nav-link active">Belum Bekerja</a>
+                        <a href="{{ route('hasil-preview6-humas', ['id' => $id]) }}" class="nav-link active">Belum Bekerja</a>
                     </li>
                 </ul>
             </div>
@@ -63,7 +63,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $nama_alumni }}</td>
-                                        <td>{{ $jawaban['Dimana anda sekarang bekerja?'] ?? 'N/A' }}</td>
+                                        <td>{{ $jawaban['Dimana anda sekarang bekerja?'] ?? '-' }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

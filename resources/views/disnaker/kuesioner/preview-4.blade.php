@@ -1,4 +1,4 @@
-@extends('layouts.index-bkk')
+@extends('layouts.index-disnaker')
 @section('content')
     <div class="container-fluid">
         <!-- start page title -->
@@ -24,22 +24,22 @@
             <div class="col-12">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview-bkk', ['id' => $id]) }}" class="nav-link ">Grafik Pengisian</a>
+                        <a href="{{ route('hasil-preview-disnaker', ['id' => $id]) }}" class="nav-link ">Grafik Pengisian</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview2-bkk', ['id' => $id]) }}" class="nav-link ">Grafik Alumni</a>
+                        <a href="{{ route('hasil-preview2-disnaker', ['id' => $id]) }}" class="nav-link ">Grafik Alumni</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview3-bkk', ['id' => $id]) }}" class="nav-link active">Bekerja</a>
+                        <a href="{{ route('hasil-preview3-disnaker', ['id' => $id]) }}" class="nav-link">Bekerja</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview4-bkk', ['id' => $id]) }}" class="nav-link">Kuliah</a>
+                        <a href="{{ route('hasil-preview4-disnaker', ['id' => $id]) }}" class="nav-link active">Kuliah</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview5-bkk', ['id' => $id]) }}" class="nav-link">Wirausaha</a>
+                        <a href="{{ route('hasil-preview5-disnaker', ['id' => $id]) }}" class="nav-link">Wirausaha</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview6-bkk', ['id' => $id]) }}" class="nav-link">Belum Bekerja</a>
+                        <a href="{{ route('hasil-preview6-disnaker', ['id' => $id]) }}" class="nav-link">Belum Bekerja</a>
                     </li>
                 </ul>
             </div>
@@ -47,16 +47,16 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title
-                        ">Preview Bekerja</h4>
-                        {{-- <p class="card-title-desc">Preview Bekerja</p> --}}
+                        ">Preview Kuliah</h4>
+                        {{-- <p class="card-title-desc">Preview Kuliah</p> --}}
                         
                         <table id="basic-datatable" class="table dt-responsive nowrap">
                             <thead>
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
-                                    <th>Perusahaan</th>
-                                    <th>Posisi</th>
+                                    <th>Perguruan Tinggi</th>
+                                    <th>Jurusan</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -64,8 +64,8 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $nama_alumni }}</td>
-                                        <td>{{ $jawaban['Nama perusahaan/kantor tempat anda bekerja saat ini?'] ?? 'N/A' }}</td>
-                                        <td>{{ $jawaban['Dalam jabatan atau posisi apa anda saat ini bekerja?'] ?? 'N/A' }}</td>
+                                        <td>{{ $jawaban['Di perguruan tinggi mana anda melanjutkan pendidikan?'] ?? 'N/A' }}</td>
+                                        <td>{{ $jawaban['Jurusan apa yang anda ambil di perguruan tinggi tersebut?'] ?? 'N/A' }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

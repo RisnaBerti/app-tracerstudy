@@ -34,6 +34,12 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">{{ $title }}</h4>
+                        {{-- tombol tambah  --}}
+                        <div class="d-flex justify-content-end mb-2">
+                            <a href="{{ route('kuesioner-create') }}" class="btn btn-primary">
+                                <i class="mdi mdi-plus mr-2"></i> Tambah Data
+                            </a>
+                        </div>
 
                         <table id="basic-datatable" class="table dt-responsive nowrap">
                             <thead>
@@ -42,8 +48,6 @@
                                     <th>Tanggal Kuesioner</th>
                                     <th>Judul Kuesioner</th>
                                     <th>Deskripsi Kuesioner</th>
-                                    {{-- <th>Sudah Mengisi</th> --}}
-                                    <th>Preview</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -54,19 +58,18 @@
                                         <td>{{ $item->tgl_kuesioner }}</td>
                                         <td>{{ $item->judul_kuesioner }}</td>
                                         <td>{{ $item->deskripsi_kuesioner }}</td>
-                                        {{-- <td>{{ $jumlahMengisi[$item->id_kuesioner] }}</td> --}}
                                         <td>
-                                            <a href="{{ route('hasil-preview-bkk', $item->id_kuesioner) }}"
-                                                class="btn btn-primary">
-                                                <i class="mdi mdi-file-document-box-search-outline mdi-18px"> Preview</i>
-                                            </a>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('notifikasi-bkk', $item->id_kuesioner) }}"
+                                            <a href="{{ route('kuesioner-show-bkk', $item->id_kuesioner) }}"
                                                 class="btn btn-success">
-                                                <i class="mdi mdi-comment-text-multiple mdi-18px"> Kirim Pesan</i>
+                                                <i class="mdi mdi-eye"></i>
                                             </a>
+                                            <a href="{{ route('kuesioner-show-bkk', $item->id_kuesioner) }}"
+                                                class="btn btn-warning">
+                                                <i class="mdi mdi-pencil"></i>
+                                            </a>
+                                            <a href="{{ route('kuesioner-delete', $item->id_kuesioner) }}"
+                                                id="deletebutton" class="btn btn-danger delete-button">
+                                                <i class="mdi mdi-delete"></i>
                                             </a>
                                         </td>
                                     </tr>

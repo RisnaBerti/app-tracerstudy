@@ -55,7 +55,7 @@ class AuthController extends Controller
                 } elseif ($user->id_role == 2) {
                     return redirect()->route('humas')->with('success', 'Anda berhasil login!');
                 } elseif ($user->id_role == 3) {
-                    return redirect()->route('pegawai')->with('success', 'Anda berhasil login!');
+                    return redirect()->route('disnaker')->with('success', 'Anda berhasil login!');
                 } else {
                     // Jika bukan admin maka di-redirect ke route default
                     return redirect()->route('alumni')->with('success', 'Anda berhasil login!'); // Assuming a default dashboard route named 'dashboard'

@@ -23,7 +23,7 @@
                         <span>Data Alumni</span></a>
                 </li> --}}
                 <li>
-                    <a href="{{ url('statistik-disnaker') }}" class="waves-effect"><i
+                    <a href="{{ url('hasil-kuesioner-disnaker') }}" class="waves-effect"><i
                             class="mdi mdi-checkbox-multiple-marked-outline"></i>
                         <span>Hasil Kuesioner</span></a>
                 </li>

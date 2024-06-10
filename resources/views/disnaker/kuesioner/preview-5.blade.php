@@ -1,4 +1,4 @@
-@extends('layouts.index-bkk')
+@extends('layouts.index-disnaker')
 @section('content')
     <div class="container-fluid">
         <!-- start page title -->
@@ -24,39 +24,38 @@
             <div class="col-12">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview-bkk', ['id' => $id]) }}" class="nav-link ">Grafik Pengisian</a>
+                        <a href="{{ route('hasil-preview-disnaker', ['id' => $id]) }}" class="nav-link ">Grafik Pengisian</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview2-bkk', ['id' => $id]) }}" class="nav-link ">Grafik Alumni</a>
+                        <a href="{{ route('hasil-preview2-disnaker', ['id' => $id]) }}" class="nav-link ">Grafik Alumni</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview3-bkk', ['id' => $id]) }}" class="nav-link active">Bekerja</a>
+                        <a href="{{ route('hasil-preview3-disnaker', ['id' => $id]) }}" class="nav-link">Bekerja</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview4-bkk', ['id' => $id]) }}" class="nav-link">Kuliah</a>
+                        <a href="{{ route('hasil-preview4-disnaker', ['id' => $id]) }}" class="nav-link">Kuliah</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview5-bkk', ['id' => $id]) }}" class="nav-link">Wirausaha</a>
+                        <a href="{{ route('hasil-preview5-disnaker', ['id' => $id]) }}" class="nav-link active">Wirausaha</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview6-bkk', ['id' => $id]) }}" class="nav-link">Belum Bekerja</a>
+                        <a href="{{ route('hasil-preview6-disnaker', ['id' => $id]) }}" class="nav-link">Belum Bekerja</a>
                     </li>
                 </ul>
             </div>
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title
-                        ">Preview Bekerja</h4>
-                        {{-- <p class="card-title-desc">Preview Bekerja</p> --}}
+                        <h4 class="card-title">Preview Wirausaha</h4>
+                        {{-- <p class="card-title-desc">Preview Wirausaha</p> --}}
                         
                         <table id="basic-datatable" class="table dt-responsive nowrap">
                             <thead>
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
-                                    <th>Perusahaan</th>
-                                    <th>Posisi</th>
+                                    <th>Jenis Usaha</th>
+                                    <th>Nama Usaha</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -64,8 +63,8 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $nama_alumni }}</td>
-                                        <td>{{ $jawaban['Nama perusahaan/kantor tempat anda bekerja saat ini?'] ?? 'N/A' }}</td>
-                                        <td>{{ $jawaban['Dalam jabatan atau posisi apa anda saat ini bekerja?'] ?? 'N/A' }}</td>
+                                        <td>{{ $jawaban['Wirausaha bidang apa yang sedang anda jalankan saat ini?'] ?? 'N/A' }}</td>
+                                        <td>{{ $jawaban['Apa nama usaha yang anda jalankan?'] ?? 'N/A' }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -73,18 +72,7 @@
 
                     </div> <!-- end card body-->
                 </div> <!-- end card -->
-            </div>
-            {{-- <div class="col-sm-12 col-md-6">
-            <div class="dt-buttons btn-group"> 
-                <button class="btn btn-secondary buttons-copy buttons-html5"
-                    tabindex="0" aria-controls="datatable-buttons" type="button"><span>Copy</span></button> <button
-                    class="btn btn-secondary buttons-print" tabindex="0" aria-controls="datatable-buttons"
-                    type="button"><span>Print</span></button> <button
-                    class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0" aria-controls="datatable-buttons"
-                    type="button"><span>PDF</span></button> 
-            </div>
-        </div> --}}
-          
+            </div>          
         </div>
         <!-- end row-->
 

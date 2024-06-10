@@ -28,19 +28,19 @@
                             Pengisian</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview2', ['id' => $id]) }}" class="nav-link">Grafik Alumni</a>
+                        <a href="{{ route('hasil-preview2-humas', ['id' => $id]) }}" class="nav-link">Grafik Alumni</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview3', ['id' => $id]) }}" class="nav-link">Bekerja</a>
+                        <a href="{{ route('hasil-preview3-humas', ['id' => $id]) }}" class="nav-link">Bekerja</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview4', ['id' => $id]) }}" class="nav-link">Kuliah</a>
+                        <a href="{{ route('hasil-preview4-humas', ['id' => $id]) }}" class="nav-link">Kuliah</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview5', ['id' => $id]) }}" class="nav-link">Wirausaha</a>
+                        <a href="{{ route('hasil-preview5-humas', ['id' => $id]) }}" class="nav-link">Wirausaha</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview6', ['id' => $id]) }}" class="nav-link">Belum Bekerja</a>
+                        <a href="{{ route('hasil-preview6-humas', ['id' => $id]) }}" class="nav-link">Belum Bekerja</a>
                     </li>
                 </ul>
             </div>
@@ -50,7 +50,7 @@
                         {{-- tombol print nav Grafik Pengisian --}}
                         <div class="d-print-none mb-2">
                             <div class="text-end">
-                                <a href="{{ route('preview-print-bkk', ['id' => $id]) }}" class="btn btn-primary" id="printButton" target="_blank">
+                                <a href="{{ route('preview-print-humas', ['id' => $id]) }}" class="btn btn-primary" id="printButton" target="_blank">
                                     <i class="uil uil-print me-2"></i>Print
                                 </a>  
                             </div>

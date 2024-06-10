@@ -27,19 +27,19 @@
                         <a href="{{ route('hasil-preview-bkk', ['id' => $id]) }}" class="nav-link ">Grafik Pengisian</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview2', ['id' => $id]) }}" class="nav-link ">Grafik Alumni</a>
+                        <a href="{{ route('hasil-preview2-bkk', ['id' => $id]) }}" class="nav-link ">Grafik Alumni</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview3', ['id' => $id]) }}" class="nav-link">Bekerja</a>
+                        <a href="{{ route('hasil-preview3-bkk', ['id' => $id]) }}" class="nav-link">Bekerja</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview4', ['id' => $id]) }}" class="nav-link active">Kuliah</a>
+                        <a href="{{ route('hasil-preview4-bkk', ['id' => $id]) }}" class="nav-link active">Kuliah</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview5', ['id' => $id]) }}" class="nav-link">Wirausaha</a>
+                        <a href="{{ route('hasil-preview5-bkk', ['id' => $id]) }}" class="nav-link">Wirausaha</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('hasil-preview6', ['id' => $id]) }}" class="nav-link">Belum Bekerja</a>
+                        <a href="{{ route('hasil-preview6-bkk', ['id' => $id]) }}" class="nav-link">Belum Bekerja</a>
                     </li>
                 </ul>
             </div>
