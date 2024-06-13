@@ -230,8 +230,7 @@ class AlumniController extends Controller
             'id_kategori' => 'numeric',
             'respons' => 'array',
             'respons.*.id_pertanyaan' => 'numeric',
-            
-            // 'respons.*.jawaban' => 'required' // Menghapus nullable
+
         ]);
 
         // Jika validasi gagal, kembali ke halaman sebelumnya dengan error
@@ -266,6 +265,83 @@ class AlumniController extends Controller
         // Redirect ke route 'kuesioner-alumni' dengan pesan sukses
         return redirect()->route('kuesioner-alumni')->with('success', 'Data berhasil disimpan');
     }
+
+    //fungsi edit kuesioner jawaban
+    public function editKuesioner($id)
+    {
+        $kuesioner = Kuesioner::with(['pertanyaan.opsiJawaban'])->findOrFail($id);
+
+        // Get data alumni
+        $alumni = Alumni::with(['jurusan', 'tahun_lulus', 'kategori'])->find(Auth::user()->username);
+
+        // Get all categories
+        $categories = Kategori::all();
+        $groupedQuestions = $kuesioner->pertanyaan->groupBy('id_kategori'); // Assuming each question has a 'id_kategori' field
+
+        return view(
+            'alumni.kuesioner.edit',
+            compact('kuesioner', 'alumni', 'categories', 'groupedQuestions'),
+            ['title' => 'Edit Kuesioner']
+        );
+    }
+
+    public function updateKuesioner(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'nisn' => 'numeric',
+            'id_kategori' => 'numeric',
+            'respons' => 'array',
+            'respons.*.id_pertanyaan' => 'numeric',
+        ]);
+
+        // Jika validasi gagal, kembali ke halaman sebelumnya dengan error
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        try {
+            DB::beginTransaction();
+
+            // Hapus jawaban lama terkait pertanyaan yang akan diubah
+            $pertanyaanIds = collect($request->respons)->pluck('id_pertanyaan')->toArray();
+            Jawaban::where('nisn', $request->nisn)
+                ->whereIn('id_pertanyaan', $pertanyaanIds)
+                ->delete();
+
+            // Loop melalui setiap respons yang diberikan
+            if ($request->has('respons')) {
+                foreach ($request->respons as $response) {
+                    // Pastikan 'jawaban' memiliki nilai sebelum menyimpannya ke dalam database
+                    if (!empty($response['jawaban'])) {
+                        Jawaban::create([
+                            'nisn' => $request->nisn,
+                            'id_pertanyaan' => $response['id_pertanyaan'],
+                            'id_tahun_lulus' => $request->id_tahun_lulus,
+                            'id_kategori' => $request->id_kategori,
+                            'id_kuesioner' => $request->id_kuesioner,
+                            'jawaban' => $response['jawaban'],
+                        ]);
+                    }
+                }
+            }
+
+            // Update kolom id_kategori pada data alumni
+            $alumni = Alumni::find($request->nisn);
+            $alumni->update(['id_kategori' => $request->id_kategori]);
+
+            DB::commit();
+
+            // Redirect ke route 'kuesioner-alumni' dengan pesan sukses
+            return redirect()->route('kuesioner-alumni')->with('success', 'Data berhasil disimpan');
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            // Redirect dengan pesan error jika terjadi kesalahan
+            return redirect()->back()->withErrors([$e->getMessage()]);
+        }
+    }
+
+
 
     //fungsi history view
     public function historyKuesioner()

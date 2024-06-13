@@ -249,6 +249,8 @@ Route::middleware(['auth', 'role:4'])->group(function () {
         Route::get('/kuesioner-alumni', 'viewKuesioner')->name('kuesioner-alumni');
         Route::get('/kuesioner-alumni-show/{id}', 'showKuesioner')->name('kuesioner-alumni-show');
         Route::post('/kuesioner-alumni-save', 'saveKuesioner')->name('kuesioner-alumni-save');
+        Route::get('/kuesioner-alumni-edit/{id}', 'editKuesioner')->name('kuesioner-alumni-edit');
+        Route::post('/kuesioner-alumni-update', 'updateKuesioner')->name('kuesioner-alumni-update');
 
         Route::get('/kuesioner-history-alumni', 'historyKuesioner')->name('kuesioner-history-alumni');
         Route::get('/kuesioner-history-detail-alumni/{id}', 'historyDetailKuesioner')->name('kuesioner-history-detail-alumni');

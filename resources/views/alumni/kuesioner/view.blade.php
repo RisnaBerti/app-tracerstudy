@@ -47,11 +47,11 @@
                                                 class="btn btn-success">
                                                 <i class="mdi mdi-pencil"></i>
                                             </a>
-                                            {{-- <a href="{{ route('kuesioner-show-bkk', $item->id_kuesioner) }}"
+                                            <a href="{{ route('kuesioner-alumni-edit', $item->id_kuesioner) }}"
                                                 class="btn btn-warning">
                                                 <i class="mdi mdi-pencil"></i>
                                             </a>
-                                            <a href="{{ route('kuesioner-delete', $item->id_kuesioner) }}"
+                                            {{-- <a href="{{ route('kuesioner-delete', $item->id_kuesioner) }}"
                                                 id="deletebutton" class="btn btn-danger delete-button">
                                                 <i class="mdi mdi-delete"></i>
                                             </a> --}}
