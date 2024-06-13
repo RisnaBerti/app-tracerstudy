@@ -30,14 +30,13 @@
                         {{-- <p class="card-subtitle mb-4">Custom feedback styles apply custom colors, borders, focus styles, and background icons to better communicate feedback. Background icons for <code>&lt;select&gt;</code>s are only available with <code>.custom-select</code>, and not <code>.form-control</code>.</p> --}}
                         <form action="{{ route('kuesioner-update') }}" method="POST" class="needs-validation" novalidate>
                             @csrf
+
+                            <input type="hidden" name="id_kuesioner" value="{{ $kuesioner->id_kuesioner }}">
                             <div class="form-group">
                                 <div class="col-md-4 mb-12">
                                     <label for="tgl_kuesioner">Tanggal Kuesioner</label>
                                     <input type="text" class="form-control" id="tgl_kuesioner" name="tgl_kuesioner"
                                         placeholder="Tanggal Kuesioner" value="{{ $kuesioner->tgl_kuesioner }}" required>
-                                    {{-- <div class="valid-feedback">
-                                        Looks good!
-                                    </div> --}}
                                 </div>
                             </div>
 
@@ -46,11 +45,37 @@
                                     <label for="judul_kuesioner">Nama Kuesioner</label>
                                     <input type="text" class="form-control" id="judul_kuesioner" name="judul_kuesioner"
                                         placeholder="Nama Kuesioner" value="{{ $kuesioner->judul_kuesioner }}" required>
-                                    {{-- <div class="valid-feedback">
-                                        Looks good!
-                                    </div> --}}
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <div class="col-md-4 mb-12">
+                                    <label for="tahun_lulus_awal">Tahun Lulus Awal</label>
+                                    <select class="form-control" id="tahun_lulus_awal" name="tahun_lulus_awal" required>
+                                        <option value="">Pilih Tahun Lulus Awal</option>
+                                        @for ($year = 1900; $year <= date('Y'); $year++)
+                                            <option value="{{ $year }}" {{ (old('tahun_lulus_awal', $kuesioner->tahun_lulus_awal) == $year) ? 'selected' : '' }}>
+                                                {{ $year }}
+                                            </option>
+                                        @endfor
+                                    </select>
+                                </div>
+                            </div>
+                    
+                            <div class="form-group">
+                                <div class="col-md-4 mb-12">
+                                    <label for="tahun_lulus_akhir">Tahun Lulus Akhir</label>
+                                    <select class="form-control" id="tahun_lulus_akhir" name="tahun_lulus_akhir" required>
+                                        <option value="">Pilih Tahun Lulus Akhir</option>
+                                        @for ($year = 1900; $year <= date('Y'); $year++)
+                                            <option value="{{ $year }}" {{ (old('tahun_lulus_akhir', $kuesioner->tahun_lulus_akhir) == $year) ? 'selected' : '' }}>
+                                                {{ $year }}
+                                            </option>
+                                        @endfor
+                                    </select>
+                                </div>
+                            </div>
+                            
 
                             <div class="form-group">
                                 <div class="col-md-4 mb-12">
@@ -58,9 +83,6 @@
                                     <input type="text" class="form-control" id="deskripsi_kuesioner"
                                         name="deskripsi_kuesioner" placeholder="Deskripsi Kuesioner" value="{{ $kuesioner->deskripsi_kuesioner }}"
                                         required>
-                                    {{-- <div class="valid-feedback">
-                                        Looks good!
-                                    </div> --}}
                                 </div>
                             </div>
                             <button class="btn btn-primary waves-effect waves-light" type="submit">Simpan</button>

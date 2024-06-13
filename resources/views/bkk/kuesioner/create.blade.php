@@ -41,18 +41,28 @@
                             <div class="form-group">
                                 <div class="col-md-4 mb-12">
                                     <label for="tahun_lulus_awal">Tahun Lulus Awal</label>
-                                    <input type="date" class="form-control" id="tahun_lulus_awal" name="tahun_lulus_awal" 
-                                        placeholder="Tahun Lulus Awal" value="" required>
+                                    <select class="form-control" id="tahun_lulus_awal" name="tahun_lulus_awal" required>
+                                        <option value="">Pilih Tahun Lulus Awal</option>
+                                        @for ($year = 1900; $year <= date('Y'); $year++)
+                                            <option value="{{ $year }}">{{ $year }}</option>
+                                        @endfor
+                                    </select>
                                 </div>
                             </div>
-
+                            
                             <div class="form-group">
                                 <div class="col-md-4 mb-12">
                                     <label for="tahun_lulus_akhir">Tahun Lulus Akhir</label>
-                                    <input type="date" class="form-control" id="tahun_lulus_akhir" name="tahun_lulus_akhir" 
-                                        placeholder="Tahun Lulus Akhir" value="" required>
+                                    <select class="form-control" id="tahun_lulus_akhir" name="tahun_lulus_akhir" required>
+                                        <option value="">Pilih Tahun Lulus Akhir</option>
+                                        @for ($year = 1900; $year <= date('Y'); $year++)
+                                            <option value="{{ $year }}">{{ $year }}</option>
+                                        @endfor
+                                    </select>
                                 </div>
                             </div>
+                            
+                            
 
                             <div class="form-group">
                                 <div class="col-md-4 mb-12">

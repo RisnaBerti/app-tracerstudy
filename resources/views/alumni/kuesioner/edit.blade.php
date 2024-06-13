@@ -30,6 +30,7 @@
                         {{-- <p class="card-subtitle mb-4">Custom feedback styles apply custom colors, borders, focus styles, and background icons to better communicate feedback. Background icons for <code>&lt;select&gt;</code>s are only available with <code>.custom-select</code>, and not <code>.form-control</code>.</p> --}}
                         <form action="{{ route('kuesioner-update') }}" method="POST" class="needs-validation" novalidate>
                             @csrf
+                            
                             <div class="form-group">
                                 <div class="col-md-4 mb-12">
                                     <label for="tgl_kuesioner">Tanggal Kuesioner</label>

@@ -19,7 +19,68 @@
         </div>
         <!-- end page title -->
 
+        {{-- tampilkan tulisan selamat datang (nama mahasiswa) di sistem TRACERSTUDY SMK YPE KROYA CILACAP card nya warna biru --}}
+
         <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title
+                        d-inline-block">Selamat Datang Dashboard Siswa, {{ Auth::user()->nama_alumni }}</h1>
+                        <p class="card-text">di Sistem Tracer Study SMK YPE Kroya Cilacap</p>
+                    </div>
+                    <!--end card body-->
+                </div>
+                <!--end card-->
+            </div>
+            <!--end col-->
+        </div>
+
+
+        {{-- tampilkan kuesioner terbaru berdasarkan rentang tahun kuesionernya --}}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="card-title
+                        d-inline-block">Kuesioner Terbaru</h4>
+
+                        {{-- more info lalu link ke menu kuesioner-alumni --}}
+                        {{-- card lalu ada tulisan TRACER STUDY lalu ada <p>Silahkan Cek Pengisian Kuesioner Terbaru</p> lalu di bawahnya ada tombol untuk link ke menu kuesioner cardnya warna biru--}}
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title
+                                d-inline-block">TRACER STUDY</h4>
+                                <p>Silahkan Cek Pengisian Kuesioner Terbaru</p>
+
+                                {{-- Tombol untuk melanjutkan ke menu kuesioner-alumni DENGAN TOMBOL KLIK SELANJUTNYA DENGAN ICON PANAH LALU TOMBOL BERWARNA BIRU DI TENGAH MEMANJANG --}}
+                                <a href="{{ route('kuesioner-alumni') }}" class="btn btn-primary btn-sm float-right">Klik untuk pengisian <i class="mdi mdi-arrow-right"></i></a>
+                            </div>
+                        </div>
+
+
+
+
+                        {{-- <a href="{{ route('kuesioner-alumni') }}" class="btn btn-primary btn-sm float-right">Lihat
+                            Semua</a> --}}
+
+
+
+
+                       
+                    </div>
+                    <!--end card body-->
+                </div>
+                <!--end card-->
+            </div>
+            <!--end col-->
+        </div>
+        <!--end row-->
+
+
+        {{-- <div class="row">
             <div class="col-md-6 col-xl-3">
                 <div class="card">
                     <div class="card-body">
@@ -34,7 +95,6 @@
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                {{-- <span class="text-muted">12.5% <i class="mdi mdi-arrow-up text-success"></i></span> --}}
                             </div>
                         </div>
 
@@ -61,7 +121,6 @@
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                {{-- <span class="text-muted">18.71% <i class="mdi mdi-arrow-down text-danger"></i></span> --}}
                             </div>
                         </div>
 
@@ -88,7 +147,6 @@
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                {{-- <span class="text-muted">57% <i class="mdi mdi-arrow-up text-success"></i></span> --}}
                             </div>
                         </div>
 
@@ -116,7 +174,6 @@
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                {{-- <span class="text-muted">17.8% <i class="mdi mdi-arrow-down text-danger"></i></span> --}}
                             </div>
                         </div>
 
@@ -127,7 +184,7 @@
                     <!--end card body-->
                 </div><!-- end card-->
             </div> <!-- end col-->
-        </div>
+        </div> --}}
         <!-- end row-->
 
         <div class="row">
@@ -139,8 +196,6 @@
                         <div id="grafik-alumni">
                             <div id="responsive-chart"></div>
                         </div>
-
-                        {{-- <div id="morris-line-example" class="morris-chart" style="height: 290px;"></div> --}}
 
                         <div class="row text-center mt-4">
                             <div class="col-6">

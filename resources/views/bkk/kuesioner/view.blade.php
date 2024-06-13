@@ -47,6 +47,8 @@
                                     <th>No</th>
                                     <th>Tanggal Kuesioner</th>
                                     <th>Judul Kuesioner</th>
+                                    <th>Tahun Lulus Awal</th>
+                                    <th>Tahun Lulus Akhir</th>
                                     <th>Deskripsi Kuesioner</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -57,13 +59,19 @@
                                         <td>{{ $index + 1 }}</td>
                                         <td>{{ $item->tgl_kuesioner }}</td>
                                         <td>{{ $item->judul_kuesioner }}</td>
+                                        {{-- tahun awal lulus --}}
+                                        <td>{{ $item->tahun_lulus_awal }}</td>
+                                        {{-- tahun akhir lulus --}}
+                                        <td>{{ $item->tahun_lulus_akhir }}</td>
+                                        {{-- deskripsi kuesioner --}}
                                         <td>{{ $item->deskripsi_kuesioner }}</td>
+
                                         <td>
                                             <a href="{{ route('kuesioner-show-bkk', $item->id_kuesioner) }}"
                                                 class="btn btn-success">
                                                 <i class="mdi mdi-eye"></i>
                                             </a>
-                                            <a href="{{ route('kuesioner-show-bkk', $item->id_kuesioner) }}"
+                                            <a href="{{ route('kuesioner-edit', $item->id_kuesioner) }}"
                                                 class="btn btn-warning">
                                                 <i class="mdi mdi-pencil"></i>
                                             </a>

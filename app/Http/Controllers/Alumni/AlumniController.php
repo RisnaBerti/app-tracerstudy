@@ -230,6 +230,7 @@ class AlumniController extends Controller
             'id_kategori' => 'numeric',
             'respons' => 'array',
             'respons.*.id_pertanyaan' => 'numeric',
+            
             // 'respons.*.jawaban' => 'required' // Menghapus nullable
         ]);
 
@@ -248,6 +249,7 @@ class AlumniController extends Controller
                         'id_pertanyaan' => $response['id_pertanyaan'],
                         'id_tahun_lulus' => $request->id_tahun_lulus,
                         'id_kategori' => $request->id_kategori,
+                        'id_kuesioner' => $request->id_kuesioner,
                         'jawaban' => $response['jawaban']
                     ];
 

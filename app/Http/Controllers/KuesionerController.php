@@ -85,6 +85,8 @@ class KuesionerController extends Controller
             'judul_kuesioner' => 'required',
             'deskripsi_kuesioner' => 'required',
             'tgl_kuesioner' => 'required',
+            'tahun_lulus_awal' => 'required',
+            'tahun_lulus_akhir' => 'required',
         ]);
 
         Kuesioner::find($request->id_kuesioner)->update($request->all());

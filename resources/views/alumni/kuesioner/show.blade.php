@@ -27,6 +27,8 @@
                     <h4 class="text-dark font-italic text-underline">{{ $kuesioner->judul_kuesioner }}</h4>
                 </div>
                 <hr>
+                {{-- id_kuesioner --}}
+                <input type="hidden" name="id_kuesioner" value="{{ $kuesioner->id_kuesioner }}">
                 <div class="row">
                     <div class="col-md-12">
                         <table class="table table-bordered text-dark text-center">
@@ -37,7 +39,7 @@
                             <tr>
                                 <td>{{ \Carbon\Carbon::parse($kuesioner->tgl_kuesioner)->translatedFormat('d F Y') }}
                                 </td>
-                                <td>{{ \Carbon\Carbon::parse($kuesioner->awal)->translatedFormat('d F Y') . ' - ' . \Carbon\Carbon::parse($kuesioner->akhir)->translatedFormat('d F Y') }}
+                                <td>{{ $kuesioner->tahun_lulus_awal. ' - ' .$kuesioner->tahun_lulus_akhir }}
                                 </td>
                             </tr>
                         </table>

@@ -50,6 +50,9 @@ class JawabanController extends Controller
             'nisn' => 'required|exists:alumni,nisn',
             'id_tahun_lulus' => 'required|exists:tahun_lulus,id_tahun_lulus',
             'id_kategori' => 'required|exists:kategori,id_kategori',
+            'id_kuesioner' => 'required|exists:kuesioner,id_kuesioner',
+            // id_kuesioner
+
         ]);
 
         $idPertanyaan = $request->input('id_pertanyaan');
@@ -57,6 +60,7 @@ class JawabanController extends Controller
         $nisn = $request->input('nisn');
         $idTahunLulus = $request->input('id_tahun_lulus');
         $idKategori = $request->input('id_kategori');
+        $idKuesioner = $request->input('id_kuesioner');
 
         foreach ($idPertanyaan as $index => $idPertanyaanValue) {
             Jawaban::create([
@@ -65,6 +69,7 @@ class JawabanController extends Controller
                 'id_tahun_lulus' => $idTahunLulus,
                 'id_kategori' => $idKategori,
                 'jawaban' => $jawabanList[$index],
+                'id_kuesioner' => $idKuesioner
             ]);
         }
 
