@@ -12,7 +12,8 @@ class PegawaiController extends Controller
 {
     public function index()
     {
-        $pegawai = Pegawai::all();
+        // Ambil data pegawai beserta user dan role
+        $pegawai = Pegawai::with(['user.role'])->get();
 
         $title = 'Hapus Data!';
         $text = "Apakah Anda yakin ingin menghapus nya?";
@@ -23,6 +24,7 @@ class PegawaiController extends Controller
             'pegawai' => $pegawai
         ]);
     }
+
 
     //fungsi create
     public function create()
@@ -93,15 +95,58 @@ class PegawaiController extends Controller
     }
 
     //fungsi update
+    // public function update(Request $request)
+    // {
+    //     $id = $request->nip;
+    //     $pegawai = Pegawai::findOrFail($id);
+    //     $request->validate([
+    //         'nip' => [
+    //             'required',
+    //             'numeric',
+    //             Rule::unique('users', 'username')->ignore($pegawai->id_user, 'id_user')
+    //         ],
+    //         'nama_pegawai' => 'required',
+    //         'jenis_kelamin' => 'required',
+    //         'no_hp_pegawai' => 'required|numeric',
+    //         'alamat_pegawai' => 'required',
+    //         'email_pegawai' => 'required|email',
+    //         'foto_pegawai' => 'image|mimes:jpeg,png,jpg|max:2048', // tidak required untuk update
+    //     ]);
+
+    //     $pegawai = Pegawai::findOrFail($id);
+
+    //     $data = $request->only(['nip', 'nama_pegawai', 'jenis_kelamin', 'no_hp_pegawai', 'alamat_pegawai', 'email_pegawai']);
+
+    //     if ($request->hasFile('foto_pegawai')) {
+    //         // Hapus foto lama jika ada
+    //         if ($pegawai->foto_pegawai && file_exists(public_path('uploads/pegawai/' . $pegawai->foto_pegawai))) {
+    //             unlink(public_path('uploads/pegawai/' . $pegawai->foto_pegawai));
+    //         }
+
+    //         // Simpan foto baru
+    //         $file = $request->file('foto_pegawai');
+    //         $filename = time() . '.' . $file->getClientOriginalExtension();
+    //         $file->move(public_path('uploads/pegawai'), $filename);
+
+    //         $data['foto_pegawai'] = $filename;
+    //     }
+
+    //     $pegawai->update($data);
+
+    //     return redirect()->route('pegawai')->with('success', 'Data Pegawai Berhasil Diubah');
+    // }
+
     public function update(Request $request)
     {
         $id = $request->nip;
-        $pegawai = Pegawai::findOrFail($id);
+        $pegawai = Pegawai::with('user')->findOrFail($id);
+
+        // Validasi request
         $request->validate([
             'nip' => [
                 'required',
                 'numeric',
-                Rule::unique('users', 'username')->ignore($pegawai->id_user, 'id_user')
+                Rule::unique('users', 'username')->ignore($pegawai->user->id_user, 'id_user') // Pastikan username unik kecuali untuk pegawai yang sedang diedit
             ],
             'nama_pegawai' => 'required',
             'jenis_kelamin' => 'required',
@@ -109,12 +154,13 @@ class PegawaiController extends Controller
             'alamat_pegawai' => 'required',
             'email_pegawai' => 'required|email',
             'foto_pegawai' => 'image|mimes:jpeg,png,jpg|max:2048', // tidak required untuk update
+            'id_role' => 'required|numeric'
         ]);
 
-        $pegawai = Pegawai::findOrFail($id);
-
+        // Ambil data dari request
         $data = $request->only(['nip', 'nama_pegawai', 'jenis_kelamin', 'no_hp_pegawai', 'alamat_pegawai', 'email_pegawai']);
 
+        // Update foto pegawai jika ada perubahan
         if ($request->hasFile('foto_pegawai')) {
             // Hapus foto lama jika ada
             if ($pegawai->foto_pegawai && file_exists(public_path('uploads/pegawai/' . $pegawai->foto_pegawai))) {
@@ -129,10 +175,19 @@ class PegawaiController extends Controller
             $data['foto_pegawai'] = $filename;
         }
 
+        // Update data pegawai
         $pegawai->update($data);
+
+        // Update data user terkait
+        $user = $pegawai->user;
+        $user->username = $request->nip; // Update username sesuai dengan nip baru
+        $user->id_role = $request->id_role; // Update id_role sesuai dengan pilihan di form
+        $user->save();
 
         return redirect()->route('pegawai')->with('success', 'Data Pegawai Berhasil Diubah');
     }
+
+
 
     public function destroy($id)
     {

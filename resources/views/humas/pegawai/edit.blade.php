@@ -76,8 +76,8 @@
                                 <div class="col-md-6 mb-6 ">
                                     <label for="id_role">Jabatan</label>
                                     <select class="form-control" id="id_role" name="id_role" required>
-                                        <option value="1" {{ $pegawai->id_role == '1' ? 'selected' : '' }}>BKK</option>
-                                        <option value="3" {{ $pegawai->id_role == '3' ? 'selected' : '' }}>Disnaker</option>
+                                        <option value="1" {{ $pegawai->user->id_role == '1' ? 'selected' : '' }}>BKK</option>
+                                        <option value="3" {{ $pegawai->user->id_role == '3' ? 'selected' : '' }}>Disnaker</option>
                                     </select>
                                 </div>
                             </div>

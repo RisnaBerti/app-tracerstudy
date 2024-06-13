@@ -50,7 +50,7 @@
                                     <th>Alamat</th>
                                     <th>No HP</th>
                                     <th>Email</th>
-                                    {{-- <th>Jabatan</th> --}}
+                                    <th>Jabatan</th>
                                     <th>Foto</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -68,7 +68,7 @@
                                         <td>{{ $item->alamat_pegawai }}</td>
                                         <td>{{ $item->no_hp_pegawai }}</td>
                                         <td>{{ $item->email_pegawai }}</td>
-                                        {{-- <td>{{ $item->id_role }}</td> --}}
+                                        <td>{{ strtoupper($item->user->role->name) }}</td>
                                         <td>
                                             <img src="{{ asset('uploads/pegawai/' . $item->foto_pegawai) }}" alt="foto"
                                                 width="60">
