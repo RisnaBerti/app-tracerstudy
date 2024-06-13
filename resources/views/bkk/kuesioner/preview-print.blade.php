@@ -116,7 +116,7 @@
                     <br>
                     <br>
                     <br>
-                    <p>Risna Berti S.Tr., M.Eng</p>            
+                    <p>(...........................)</p>            
                 </div>
                 <div>
                     <p>  </p>
@@ -125,7 +125,7 @@
                     <br>
                     <br>
                     <br>
-                    <p>Risna Berti S.Tr., M.Eng</p>   
+                    <p>(...........................)</p>   
                 </div>
             </div>
 

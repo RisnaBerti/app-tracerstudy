@@ -41,6 +41,8 @@
                                 </div>
                             </div>
                             <button class="btn btn-primary waves-effect waves-light" type="submit">Simpan</button>
+                            {{-- batal --}}
+                            <a href="{{ route('tahun-lulus') }}" class="btn btn-light waves-effect waves-light">Batal</a>
                         </form>
 
                     </div> <!-- end card-body-->

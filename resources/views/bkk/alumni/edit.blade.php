@@ -122,6 +122,7 @@
                                 </div>
                             </div>
                             <button class="btn btn-primary waves-effect waves-light" type="submit">Simpan</button>
+                            <a href="{{ route('alumni') }}" class="btn btn-danger waves-effect waves-light">Batal</a>
                         </form>
 
                     </div> <!-- end card-body-->

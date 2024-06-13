@@ -112,10 +112,20 @@
                 <div>
                     <p>Diketahui,</p>
                     <p>Kepala Sekolah</p>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <p>(...........................)</p>  
                 </div>
                 <div>
                     <p>Diketahui,</p>
                     <p>Waka Disnaker</p>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <p>(...........................)</p>  
                 </div>
             </div>
 

@@ -461,6 +461,7 @@ class BkkController extends Controller
             $data[$row->nama_kategori][$row->pertanyaan]['tipe'] = $row->tipe_pertanyaan;
         }
 
+        
         return view('bkk.kuesioner.preview-print', ['title' => 'Preview Hasil Kuesioner', 'id' => $id, 'data' => $data]);
     }
 

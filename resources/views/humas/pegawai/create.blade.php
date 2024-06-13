@@ -95,6 +95,8 @@
                                 </div>
                             </div>
                             <button class="btn btn-primary waves-effect waves-light" type="submit">Simpan</button>
+                            {{-- batal --}}
+                            <a href="{{ route('pegawai') }}" class="btn btn-light waves-effect waves-light">Batal</a>
                         </form>
 
 

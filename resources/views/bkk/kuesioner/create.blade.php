@@ -70,6 +70,8 @@
                                 </div>
                             </div>
                             <button class="btn btn-primary waves-effect waves-light" type="submit">Simpan</button>
+                            {{-- tombol batal --}}
+                            <a href="{{ route('kuesioner') }}" class="btn btn-secondary waves-effect waves-light">Batal</a>
                         </form>
 
                     </div> <!-- end card-body-->

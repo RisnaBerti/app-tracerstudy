@@ -76,8 +76,8 @@
                                 <div class="col-md-6 mb-6 ">
                                     <label for="id_role">Jabatan</label>
                                     <select class="form-control" id="id_role" name="id_role" required>
-                                        <option value="1" {{ $pegawai->id_role == 'BKK' ? 'selected' : '' }}>BKK</option>
-                                        <option value="3" {{ $pegawai->id_role == 'Disnaker' ? 'selected' : '' }}>Disnaker</option>
+                                        <option value="1" {{ $pegawai->id_role == '1' ? 'selected' : '' }}>BKK</option>
+                                        <option value="3" {{ $pegawai->id_role == '3' ? 'selected' : '' }}>Disnaker</option>
                                     </select>
                                 </div>
                             </div>
@@ -91,6 +91,8 @@
                                 </div>
                             </div>
                             <button class="btn btn-primary waves-effect waves-light" type="submit">Simpan</button>
+                            {{-- batal --}}
+                            <a href="{{ route('pegawai') }}" class="btn btn-light waves-effect waves-light">Batal</a>
                         </form>
 
                     </div> <!-- end card-body-->
