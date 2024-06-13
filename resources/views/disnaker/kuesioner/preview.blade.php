@@ -27,7 +27,7 @@
                         <a href="{{ route('hasil-preview-disnaker', ['id' => $id]) }}" class="nav-link active">Grafik
                             Pengisian</a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="{{ route('hasil-preview2-disnaker', ['id' => $id]) }}" class="nav-link">Grafik Alumni</a>
                     </li>
                     <li class="nav-item">
@@ -41,20 +41,20 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('hasil-preview6-disnaker', ['id' => $id]) }}" class="nav-link">Belum Bekerja</a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         {{-- tombol print nav Grafik Pengisian --}}
-                        <div class="d-print-none mb-2">
+                        {{-- <div class="d-print-none mb-2">
                             <div class="text-end">
                                 <a href="{{ route('preview-print-disnaker', ['id' => $id]) }}" class="btn btn-primary" id="printButton" target="_blank">
                                     <i class="uil uil-print me-2"></i>Print
                                 </a>  
                             </div>
-                        </div>
+                        </div> --}}
                         <h4 class="card-title">{{ $title }}</h4>
                         {{-- <p class="card-title-desc">Grafik Pengisian</p> --}}
                         @foreach ($data as $kategori => $pertanyaan)

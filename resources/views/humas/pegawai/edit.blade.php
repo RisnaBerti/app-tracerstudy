@@ -35,7 +35,7 @@
                                 <input type="hidden" name="id" value="{{ $pegawai->nip }}">
                                 <div class="col-md-6 mb-6">
                                     <label for="nip">NIP</label>
-                                    <input type="text" class="form-control" id="nip" name="nip" value="{{ $pegawai->nip }}" placeholder="Nomor Induk Siswa Nasional" required>
+                                    <input type="text" class="form-control" id="nip" name="nip" value="{{ $pegawai->nip }}" placeholder="Nomor Induk Siswa Nasional" readonly>
                                 </div>
                             </div>
                             <div class="form-row">
