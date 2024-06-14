@@ -1,11 +1,3 @@
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-<style>
-    .text-underline {
-        text-decoration: underline;
-    }
-</style>
-
 @extends('layouts.index-alumni')
 @section('content')
     <div class="container mt-4">
@@ -28,6 +20,7 @@
                 </div>
                 <hr>
                 {{-- id_kuesioner --}}
+                <input type="hidden" name="id_kuesioner" value="{{ $kuesioner->id_kuesioner }}">
                 <div class="row">
                     <div class="col-md-12">
                         <table class="table table-bordered text-dark text-center">
@@ -36,10 +29,8 @@
                                 <th>Periode</th>
                             </tr>
                             <tr>
-                                <td>{{ \Carbon\Carbon::parse($kuesioner->tgl_kuesioner)->translatedFormat('d F Y') }}
-                                </td>
-                                <td>{{ $kuesioner->tahun_lulus_awal. ' - ' .$kuesioner->tahun_lulus_akhir }}
-                                </td>
+                                <td>{{ \Carbon\Carbon::parse($kuesioner->tgl_kuesioner)->translatedFormat('d F Y') }}</td>
+                                <td>{{ $kuesioner->tahun_lulus_awal . ' - ' . $kuesioner->tahun_lulus_akhir }}</td>
                             </tr>
                         </table>
                     </div>
@@ -55,10 +46,8 @@
                                     <th>Status</th>
                                 </tr>
                                 <tr>
-                                    <td>{{ $alumni->nama_alumni }}
-                                    </td>
-                                    <td>{{ $alumni->jurusan->nama_jurusan }}
-                                    </td>
+                                    <td>{{ $alumni->nama_alumni }}</td>
+                                    <td>{{ $alumni->jurusan->nama_jurusan }}</td>
                                     <td>
                                         <span class="badge badge-success">{{ $alumni->tahun_lulus->tahun_lulus }}</span>
                                     </td>
@@ -75,11 +64,12 @@
         <form action="{{ route('kuesioner-alumni-update') }}" method="POST" id="kuesioner-form">
             @csrf
             @php $counter = 0; @endphp
-        
-            <input type="hidden" name="nisn" value="{{ Auth::user()->username }}">
+
+            <input type="text" name="nisn" value="{{ Auth::user()->username }}">
             <input type="hidden" name="id_tahun_lulus" value="{{ $alumni->id_tahun_lulus }}">
-            <input type="text" name="id_kuesioner" id="id_kuesioner" value="{{ $kuesioner->id_kuesioner }}">
-        
+            <input type="hidden" name="id_alumni" value="{{ $alumni->id_alumni }}">
+            <input type="text" name="id_kuesioner" value="{{ $kuesioner->id_kuesioner }}">
+
             <div class="card shadow mb-4">
                 <div class="card-body">
                     <label for="id_kategori">Kegiatan anda sekarang?</label>
@@ -94,7 +84,7 @@
                     </select>
                 </div>
             </div>
-        
+
             <div id="question-section">
                 @foreach ($groupedQuestions as $categoryId => $questions)
                     <div class="category-questions" id="category-{{ $categoryId }}" style="display: none;">
@@ -107,17 +97,20 @@
                                     </h6>
                                 </div>
                                 <div class="card-body">
+                                    @php 
+                                        $counter++;
+                                        $jawaban = optional($kuesioner->jawaban->where('id_pertanyaan', $pertanyaan->id_pertanyaan)->first())->jawaban;
+                                    @endphp
                                     @if ($pertanyaan->tipe_pertanyaan === 'Pilihan')
-                                        @php $counter++ @endphp
                                         <ul class="list-group text-dark">
-                                            @foreach ($pertanyaan->opsiJawaban as $jawaban)
-                                                <label for="jawaban-{{ $jawaban->id_opsi }}">
+                                            @foreach ($pertanyaan->opsiJawaban as $jawabanOpsi)
+                                                <label for="jawaban-{{ $jawabanOpsi->id_opsi }}">
                                                     <li class="list-group-item">
-                                                        <input type="radio"
-                                                            name="respons[{{ $counter }}][jawaban]"
-                                                            id="jawaban-{{ $jawaban->id_opsi }}"
-                                                            value="{{ $jawaban->opsi }}" class="mr-2">
-                                                        {{ $jawaban->opsi }}
+                                                        <input type="radio" name="respons[{{ $counter }}][jawaban]"
+                                                            id="jawaban-{{ $jawabanOpsi->id_opsi }}"
+                                                            value="{{ $jawabanOpsi->opsi }}" class="mr-2"
+                                                            @if ($jawaban == $jawabanOpsi->opsi) checked @endif>
+                                                        {{ $jawabanOpsi->opsi }}
                                                         <input type="hidden" name="respons[{{ $counter }}][id_pertanyaan]" value="{{ $pertanyaan->id_pertanyaan }}">
                                                         <input type="hidden" name="respons[{{ $counter }}][id_kategori]" value="{{ $categoryId }}">
                                                     </li>
@@ -125,14 +118,12 @@
                                             @endforeach
                                         </ul>
                                     @elseif($pertanyaan->tipe_pertanyaan === 'Textarea')
-                                        @php $counter++ @endphp
                                         <textarea class="form-control" id="jawaban" placeholder="Jawaban anda..."
-                                            name="respons[{{ $counter }}][jawaban]" rows="3"></textarea>
+                                            name="respons[{{ $counter }}][jawaban]" rows="3">{{ $jawaban }}</textarea>
                                         <input type="hidden" name="respons[{{ $counter }}][id_pertanyaan]" value="{{ $pertanyaan->id_pertanyaan }}">
                                         <input type="hidden" name="respons[{{ $counter }}][id_kategori]" value="{{ $categoryId }}">
                                     @elseif($pertanyaan->tipe_pertanyaan === 'Text')
-                                        @php $counter++ @endphp
-                                        <input type="text" name="respons[{{ $counter }}][jawaban]" placeholder="Jawaban anda..." class="form-control">
+                                        <input type="text" name="respons[{{ $counter }}][jawaban]" placeholder="Jawaban anda..." class="form-control" value="{{ $jawaban }}">
                                         <input type="hidden" name="respons[{{ $counter }}][id_pertanyaan]" value="{{ $pertanyaan->id_pertanyaan }}">
                                         <input type="hidden" name="respons[{{ $counter }}][id_kategori]" value="{{ $categoryId }}">
                                     @endif
@@ -142,7 +133,7 @@
                     </div>
                 @endforeach
             </div>
-        
+
             <div class="d-flex mb-3">
                 <div class="mr-auto p-2">
                     <div class="list-group list-group-horizontal" id="list-tab" role="tablist">
@@ -175,14 +166,14 @@
                 @endif
             </div>
         </form>
-        
+
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('DOMContentLoaded', function() {
                 const selectKategori = document.getElementById('id_kategori');
-        
-                selectKategori.addEventListener('change', function () {
+
+                selectKategori.addEventListener('change', function() {
                     const selectedCategory = this.value;
-                    document.querySelectorAll('.category-questions').forEach(function (category) {
+                    document.querySelectorAll('.category-questions').forEach(function(category) {
                         category.style.display = 'none';
                     });
                     if (selectedCategory) {
@@ -190,14 +181,14 @@
                         selectedCategoryElement.style.display = 'block';
                     }
                 });
-        
+
                 // Trigger change event to show the initial selected category if any
                 selectKategori.dispatchEvent(new Event('change'));
             });
         </script>
-        
+
     </div>
-    
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
