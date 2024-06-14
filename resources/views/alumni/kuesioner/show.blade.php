@@ -28,7 +28,6 @@
                 </div>
                 <hr>
                 {{-- id_kuesioner --}}
-                <input type="hidden" name="id_kuesioner" value="{{ $kuesioner->id_kuesioner }}">
                 <div class="row">
                     <div class="col-md-12">
                         <table class="table table-bordered text-dark text-center">
@@ -79,6 +78,7 @@
         
             <input type="hidden" name="nisn" value="{{ Auth::user()->username }}">
             <input type="hidden" name="id_tahun_lulus" value="{{ $alumni->id_tahun_lulus }}">
+            <input type="text" name="id_kuesioner" id="id_kuesioner" value="{{ $kuesioner->id_kuesioner }}">
         
             <div class="card shadow mb-4">
                 <div class="card-body">

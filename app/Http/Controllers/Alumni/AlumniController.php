@@ -183,22 +183,67 @@ class AlumniController extends Controller
     }
 
     //fungsi viewKuesioner
+    // public function viewKuesioner()
+    // {
+
+    //     //ambil tahun lulus alumni dari tabel alumni yang berelasi dengan tabel user, dengan kondisi data user sedang login
+    //     $tahun_lulus = Alumni::where('nisn', Auth::user()->username)->first()->tahun_lulus->tahun_lulus;
+
+    //     //get data kuesioner berdasarkan tahun lulus rentang 5tahun sekali
+    //     $kuesioner = Kuesioner::where('tahun_lulus_awal', '<=', $tahun_lulus)
+    //         ->where('tahun_lulus_akhir', '>=', $tahun_lulus)
+    //         ->get();
+
+    //     // Get user ID
+    //     $userId = Auth::user()->username;
+    //     // Add submission status to each kuesioner item
+    //     foreach ($kuesioner as $item) {
+    //         $item->isSubmitted = Jawaban::where('nisn', $userId)
+    //                                        ->where('id_kuesioner', $item->id_kuesioner)
+    //                                        ->exists();
+    //     }
+
+    //     return view('alumni.kuesioner.view', [
+    //         'title' => 'Data Kuesioner',
+    //         'kuesioner' => $kuesioner
+    //     ]);
+    // }
     public function viewKuesioner()
     {
-
-        //ambil tahun lulus alumni dari tabel alumni yang berelasi dengan tabel user, dengan kondisi data user sedang login
+        // Get the alumni data for the logged-in user
         $tahun_lulus = Alumni::where('nisn', Auth::user()->username)->first()->tahun_lulus->tahun_lulus;
 
-        //get data kuesioner berdasarkan tahun lulus rentang 5tahun sekali
+        // if (!$alumni) {
+        //     // Handle the case where the alumni data is not found
+        //     return redirect()->back()->with('error', 'Alumni data not found.');
+        // }
+
+        // $tahun_lulus = $alumni->tahun_lulus;
+
+        // Get questionnaires based on the graduation year within a 5-year range
         $kuesioner = Kuesioner::where('tahun_lulus_awal', '<=', $tahun_lulus)
             ->where('tahun_lulus_akhir', '>=', $tahun_lulus)
             ->get();
+
+        // Get user ID
+        $userId = Auth::user()->username;
+
+        // Add submission status to each kuesioner item
+        foreach ($kuesioner as $item) {
+            $item->isSubmitted = Jawaban::where('nisn', $userId)
+                ->where('id_kuesioner', $item->id_kuesioner)
+                ->exists();
+
+            // Debug: Log or print the isSubmitted status
+            logger("Kuesioner ID: {$item->id_kuesioner}, isSubmitted: " . ($item->isSubmitted ? 'true' : 'false'));
+        }
 
         return view('alumni.kuesioner.view', [
             'title' => 'Data Kuesioner',
             'kuesioner' => $kuesioner
         ]);
     }
+
 
     //fungsi showKuesioner
     public function showKuesioner($id)
@@ -226,7 +271,7 @@ class AlumniController extends Controller
         // Validasi input
         $validator = Validator::make($request->all(), [
             'nisn' => 'numeric',
-            // 'id_tahun_lulus' => 'required',
+            'id_kuesioner' => 'required',
             'id_kategori' => 'numeric',
             'respons' => 'array',
             'respons.*.id_pertanyaan' => 'numeric',
@@ -237,7 +282,7 @@ class AlumniController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
+        
         // Loop melalui setiap respons yang diberikan
         if ($request->has('respons')) {
             foreach ($request->respons as $response) {
@@ -245,10 +290,10 @@ class AlumniController extends Controller
                 if (!empty($response['jawaban'])) {
                     $data = [
                         'nisn' => $request->nisn,
+                        'id_kuesioner' => $request->id_kuesioner,
                         'id_pertanyaan' => $response['id_pertanyaan'],
                         'id_tahun_lulus' => $request->id_tahun_lulus,
                         'id_kategori' => $request->id_kategori,
-                        'id_kuesioner' => $request->id_kuesioner,
                         'jawaban' => $response['jawaban']
                     ];
 

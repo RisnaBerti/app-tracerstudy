@@ -43,22 +43,27 @@
                                         <td>{{ $item->judul_kuesioner }}</td>
                                         <td>{{ $item->deskripsi_kuesioner }}</td>
                                         <td>
-                                            <a href="{{ route('kuesioner-alumni-show', $item->id_kuesioner) }}"
-                                                class="btn btn-success">
-                                                <i class="mdi mdi-pencil"></i>
-                                            </a>
-                                            <a href="{{ route('kuesioner-alumni-edit', $item->id_kuesioner) }}"
-                                                class="btn btn-warning">
-                                                <i class="mdi mdi-pencil"></i>
-                                            </a>
-                                            {{-- <a href="{{ route('kuesioner-delete', $item->id_kuesioner) }}"
-                                                id="deletebutton" class="btn btn-danger delete-button">
-                                                <i class="mdi mdi-delete"></i>
-                                            </a> --}}
+                                            {{-- Debug: Output the isSubmitted status --}}
+                                            <span
+                                                style="display:none;">{{ $item->isSubmitted ? 'Submitted' : 'Not Submitted' }}</span>
+
+                                            @if ($item->isSubmitted)
+                                                <a href="{{ route('kuesioner-alumni-edit', $item->id_kuesioner) }}"
+                                                    class="btn btn-warning">
+                                                    Edit <i class="mdi mdi-pencil"></i>
+                                                </a>
+                                            @else
+                                                <a href="{{ route('kuesioner-alumni-show', $item->id_kuesioner) }}"
+                                                    class="btn btn-success">
+                                                    Isi Kuesioner <i class="mdi mdi-pencil"></i>
+                                                </a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
+
+
                         </table>
 
                     </div> <!-- end card body-->
