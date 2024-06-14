@@ -29,7 +29,10 @@
                     <div class="d-flex align-items-center min-vh-100">
                         <div class="w-100 d-block bg-white shadow-lg rounded my-5">
                             <div class="row">
-                                <div class="col-lg-5 d-none d-lg-block bg-login rounded-left"></div>
+                                {{-- <div class="col-lg-5 d-none d-lg-block bg-login rounded-left"></div> --}}
+                                <div class="col-lg-5 d-none d-lg-block rounded-left">
+                                    <img src="{{ url('/assets/images/logo-sma.png') }}" alt="bg" class="img-fluid" width="634" height="951">
+                                </div>
                                 <div class="col-lg-7">
                                     <div class="p-5">
                                         <div class="text-center mb-5">
@@ -37,8 +40,8 @@
                                                 <i class="mdi mdi-alpha-x-circle"></i> <b>XELORO</b>
                                             </a> --}}
                                         </div>
-                                        {{-- <h1 class="h5 mb-1">Lupa Password!</h1>
-                                        <p class="text-muted mb-4">SISTEM ATRACDY SMK YPE KROYA</p> --}}
+                                        <h1 class="h5 mb-1">RESET PASSWORD!</h1>
+                                        <p class="text-muted mb-4">SISTEM ATRACDY SMK YPE KROYA</p>
                                         {{-- <p class="text-muted mb-4">Masukkan alamat email Anda dan kami akan mengirimkan
                                             email kepada Anda
                                             dengan instruksi untuk mengatur ulang kata sandi Anda.</p> --}}
