@@ -72,7 +72,7 @@ Route::middleware(['auth', 'role:1'])->group(function () {
 
         Route::get('/notifikasi-bkk/{id}', 'kirimNotifikasi')->name('notifikasi-bkk');
         Route::get('/statistik-bkk', 'dataJawaban')->name('statistik-bkk');
-        Route::get('/statistik-bkk-print', 'statistikPrint')->name('statistik-bkk-print');
+        Route::get('/statistik-bkk-print', 'dataJawabanPrintExcel')->name('statistik-bkk-print-excel');
     });
 
     //Route Jurusan

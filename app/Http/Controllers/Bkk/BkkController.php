@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Bkk;
 
 use App\Models\User;
-
 use App\Models\Alumni;
+
 use App\Models\Jawaban;
 use App\Models\Pegawai;
 use App\Models\Kuesioner;
 use App\Models\Pertanyaan;
 use Illuminate\Http\Request;
+use App\Exports\JawabanExport;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -17,6 +18,9 @@ use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithMapping;
 use Illuminate\Support\Facades\Validator;
 
 class BkkController extends Controller
@@ -689,19 +693,70 @@ class BkkController extends Controller
 
     //fungsi data dari tabel jawaban
 
-    public function dataJawaban1(Request $request)
+    // public function dataJawaban(Request $request)
+    // {
+    //     try {
+    //         $tahun = $request->input('tahun');
+
+    //         if ($request->ajax()) {
+    //             $pertanyaan_array = DB::table('pertanyaan')->pluck('pertanyaan')->toArray();
+
+    //             $query = "
+    //             SELECT 
+    //                 alumni.nama_alumni, 
+    //                 alumni.nisn, 
+    //                 jurusan.nama_jurusan, 
+    //                 tahun_lulus.tahun_lulus, 
+    //                 kuesioner.judul_kuesioner,
+    //                 kategori.nama_kategori,
+    //                 GROUP_CONCAT(CONCAT(pertanyaan.pertanyaan, ': ', jawaban.jawaban) ORDER BY pertanyaan.id_pertanyaan SEPARATOR '; ') AS jawaban_pertanyaan
+    //             FROM jawaban
+    //             JOIN alumni ON jawaban.nisn = alumni.nisn
+    //             JOIN jurusan ON alumni.id_jurusan = jurusan.id_jurusan
+    //             JOIN tahun_lulus ON alumni.id_tahun_lulus = tahun_lulus.id_tahun_lulus
+    //             JOIN kategori ON jawaban.id_kategori = kategori.id_kategori
+    //             JOIN pertanyaan ON jawaban.id_pertanyaan = pertanyaan.id_pertanyaan
+    //             JOIN kuesioner ON pertanyaan.id_kuesioner = kuesioner.id_kuesioner
+    //             GROUP BY alumni.nisn, alumni.nama_alumni, jurusan.nama_jurusan, tahun_lulus.tahun_lulus, kuesioner.judul_kuesioner, kategori.nama_kategori
+    //             ORDER BY alumni.nama_alumni";
+
+    //             $data = DB::select($query);
+
+    //             // Tambahkan kolom 'no' secara manual
+    //             foreach ($data as $index => $item) {
+    //                 $item->no = $index + 1;
+    //             }
+
+
+    //             return response()->json(['data' => $data, 'pertanyaan' => $pertanyaan_array]);
+    //         }
+
+    //         return view('bkk.kuesioner.statistik', [
+    //             'title' => 'STATISTIK ALUMNI',
+    //             'tahun' => $tahun
+    //         ]);
+    //     } catch (\Exception $e) {
+    //         Log::error('Error fetching data: ' . $e->getMessage());
+    //         return response()->json(['error' => 'Terjadi kesalahan dalam mengambil data. Silakan coba lagi nanti.'], 500);
+    //     }
+    // }
+
+    public function dataJawaban(Request $request)
     {
         try {
             $tahun = $request->input('tahun');
 
             if ($request->ajax()) {
-                $query = "SELECT 
+                $pertanyaan_array = DB::table('pertanyaan')->pluck('pertanyaan')->toArray();
+
+                $query = "
+            SELECT 
                 alumni.nama_alumni, 
                 alumni.nisn, 
                 jurusan.nama_jurusan, 
                 tahun_lulus.tahun_lulus, 
-                kategori.nama_kategori,
                 kuesioner.judul_kuesioner,
+                kategori.nama_kategori,
                 GROUP_CONCAT(CONCAT(pertanyaan.pertanyaan, ': ', jawaban.jawaban) ORDER BY pertanyaan.id_pertanyaan SEPARATOR '; ') AS jawaban_pertanyaan
             FROM jawaban
             JOIN alumni ON jawaban.nisn = alumni.nisn
@@ -713,15 +768,39 @@ class BkkController extends Controller
             GROUP BY alumni.nisn, alumni.nama_alumni, jurusan.nama_jurusan, tahun_lulus.tahun_lulus, kuesioner.judul_kuesioner, kategori.nama_kategori
             ORDER BY alumni.nama_alumni";
 
-
                 $data = DB::select($query);
 
-                return datatables()->of($data)
-                    ->addColumn('no', function ($row) {
-                        static $no = 1;
-                        return $no++;
-                    })
-                    ->make(true);
+                // Inisialisasi array untuk data yang akan diekspor
+                $dataExport = [];
+
+                foreach ($data as $index => $item) {
+                    $row = [
+                        'no' => $index + 1,
+                        'nama_alumni' => $item->nama_alumni,
+                        'nisn' => $item->nisn,
+                        'nama_jurusan' => $item->nama_jurusan,
+                        'tahun_lulus' => $item->tahun_lulus,
+                        'judul_kuesioner' => $item->judul_kuesioner,
+                        'nama_kategori' => $item->nama_kategori,
+                    ];
+
+                    // Pisahkan jawaban pertanyaan menjadi array asosiatif
+                    $jawabanPertanyaan = [];
+                    $jawabanPairs = explode('; ', $item->jawaban_pertanyaan);
+                    foreach ($jawabanPairs as $pair) {
+                        list($pertanyaan, $jawaban) = explode(': ', $pair);
+                        $jawabanPertanyaan[$pertanyaan] = $jawaban;
+                    }
+
+                    // Gabungkan ke dalam data yang akan diekspor dengan urutan yang benar
+                    foreach ($pertanyaan_array as $pertanyaan) {
+                        $row[$pertanyaan] = $jawabanPertanyaan[$pertanyaan] ?? '-';
+                    }
+
+                    $dataExport[] = $row;
+                }
+
+                return response()->json(['data' => $dataExport, 'pertanyaan' => $pertanyaan_array]);
             }
 
             return view('bkk.kuesioner.statistik', [
@@ -729,23 +808,23 @@ class BkkController extends Controller
                 'tahun' => $tahun
             ]);
         } catch (\Exception $e) {
-            // Tangkap pengecualian dan log pesan kesalahan
             Log::error('Error fetching data: ' . $e->getMessage());
-
-            // Berikan respons JSON yang jelas jika ada kesalahan
             return response()->json(['error' => 'Terjadi kesalahan dalam mengambil data. Silakan coba lagi nanti.'], 500);
         }
     }
 
-    public function dataJawaban(Request $request)
+
+
+    //fungsi data dari tabel jawaban print excel
+    public function dataJawabanPrintExcel(Request $request)
     {
         try {
             $tahun = $request->input('tahun');
 
-            if ($request->ajax()) {
-                $pertanyaan_array = DB::table('pertanyaan')->pluck('pertanyaan')->toArray();
+            // Ambil daftar pertanyaan dari database
+            $pertanyaan_array = DB::table('pertanyaan')->pluck('pertanyaan')->toArray();
 
-                $query = "
+            $query = "
                 SELECT 
                     alumni.nama_alumni, 
                     alumni.nisn, 
@@ -764,20 +843,38 @@ class BkkController extends Controller
                 GROUP BY alumni.nisn, alumni.nama_alumni, jurusan.nama_jurusan, tahun_lulus.tahun_lulus, kuesioner.judul_kuesioner, kategori.nama_kategori
                 ORDER BY alumni.nama_alumni";
 
-                $data = DB::select($query);
+            $data = DB::select($query);
 
-                // Tambahkan kolom 'no' secara manual
-                foreach ($data as $index => $item) {
-                    $item->no = $index + 1;
+            // Inisialisasi array untuk data yang akan diekspor
+            $dataExport = [];
+
+            foreach ($data as $index => $item) {
+                $row = [
+                    'no' => $index + 1,
+                    'nama_alumni' => $item->nama_alumni,
+                    'nisn' => $item->nisn,
+                    'nama_jurusan' => $item->nama_jurusan,
+                    'tahun_lulus' => $item->tahun_lulus,
+                    'judul_kuesioner' => $item->judul_kuesioner,
+                    'nama_kategori' => $item->nama_kategori,
+                ];
+
+                // Pisahkan jawaban pertanyaan menjadi array asosiatif
+                $jawabanPertanyaan = [];
+                $jawabanPairs = explode('; ', $item->jawaban_pertanyaan);
+                foreach ($jawabanPairs as $pair) {
+                    list($pertanyaan, $jawaban) = explode(': ', $pair);
+                    $jawabanPertanyaan[$pertanyaan] = $jawaban;
                 }
 
-                return response()->json(['data' => $data, 'pertanyaan' => $pertanyaan_array]);
+                // Gabungkan ke dalam data yang akan diekspor
+                $row = array_merge($row, $jawabanPertanyaan);
+
+                $dataExport[] = $row;
             }
 
-            return view('bkk.kuesioner.statistik', [
-                'title' => 'STATISTIK ALUMNI',
-                'tahun' => $tahun
-            ]);
+            // Panggil class JawabanExport untuk meng-generate file Excel
+            return Excel::download(new JawabanExport($dataExport, $pertanyaan_array), 'jawaban.xlsx');
         } catch (\Exception $e) {
             Log::error('Error fetching data: ' . $e->getMessage());
             return response()->json(['error' => 'Terjadi kesalahan dalam mengambil data. Silakan coba lagi nanti.'], 500);
