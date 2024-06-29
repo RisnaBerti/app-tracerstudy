@@ -83,6 +83,7 @@
                                     <label for="id_role">Jabatan</label>
                                     <select class="form-control" id="id_role" name="id_role" required>
                                         <option value="1">BKK</option>
+                                        <option value="2">WAKA HUMAS</option>
                                         <option value="3">DINAKER</option>
                                     </select>
                                 </div>
