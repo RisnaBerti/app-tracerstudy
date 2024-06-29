@@ -814,7 +814,6 @@ class BkkController extends Controller
     }
 
 
-
     //fungsi data dari tabel jawaban print excel
     public function dataJawabanPrintExcel(Request $request)
     {
@@ -880,4 +879,6 @@ class BkkController extends Controller
             return response()->json(['error' => 'Terjadi kesalahan dalam mengambil data. Silakan coba lagi nanti.'], 500);
         }
     }
+
+    
 }

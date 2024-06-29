@@ -188,8 +188,12 @@ Route::middleware(['auth', 'role:2'])->group(function () {
 
 
         Route::get('/notifikasi-humas/{id}', 'kirimNotifikasi')->name('notifikasi-humas');
-        Route::get('/statistik-humas', 'statistik')->name('statistik-humas');
-        Route::get('/statistik-humas-print', 'statistikPrint')->name('statistik-humas-print');
+        Route::get('/statistik-humas', 'dataJawaban')->name('statistik-humas');
+        Route::get('/statistik-humas-print', 'dataJawabanPrintExcel')->name('statistik-humas-print-excel');
+
+
+        // Route::get('/statistik-humas', 'statistik')->name('statistik-humas');
+        // Route::get('/statistik-humas-print', 'statistikPrint')->name('statistik-humas-print');
 
         // Route::get('/hasil-kuesioner-humas', 'hasil')->name('hasil-kuesioner-humas');
         // Route::get('/statistik-humas', 'statistik')->name('statistik-humas');
