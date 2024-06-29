@@ -10,7 +10,8 @@
             font-family: Arial, sans-serif;
         }
 
-        h2, h4 {
+        h2,
+        h4 {
             margin: 0;
         }
 
@@ -20,11 +21,14 @@
             margin: 20px 0;
         }
 
-        table, th, td {
+        table,
+        th,
+        td {
             border: 1px solid black;
         }
 
-        th, td {
+        th,
+        td {
             padding: 8px;
             text-align: center;
         }
@@ -41,7 +45,8 @@
 
         .tanda-tangan div {
             text-align: center;
-            width: 45%; /* Lebar 45% untuk setiap tanda tangan */
+            width: 45%;
+            /* Lebar 45% untuk setiap tanda tangan */
         }
     </style>
 </head>
@@ -116,16 +121,15 @@
                     <br>
                     <br>
                     <br>
-                    <p>(...........................)</p>  
+                    <p>(...........................)</p>
                 </div>
                 <div>
-                    <p>Diketahui,</p>
                     <p>Waka Humas</p>
                     <br>
                     <br>
                     <br>
                     <br>
-                    <p>(...........................)</p>  
+                    <p>(...........................)</p>
                 </div>
             </div>
 
